@@ -16,17 +16,27 @@
 <div class="container mb-5">
     <nav class="navbar navbar-expand bg-light navbar-light fixed-top">
         <a href="#" class="navbar-brand ml-5">Bus Arrival</a>
-
-        <div class="form-inline ml-auto mt-2 mb-2 mr-5 dropdown ">
-            <select id="selectBus" class="btn btn-outline-primary dropdown-toggle">
-                <option value="0">Select Bus Stop</option>
-                <option th:each="bus : ${busStops}"
-                        th:text="${bus.busStopCode}+' '+${bus.description}+' , '+${bus.roadName}">
-
+    </nav>
+</div>
+<div class="container mt-5">
+    <div class="row form mx-auto dropdown mt-5 pt-5 text-center">
+        <div class="col-xs-12 col-lg-6 mt-3 w-100 text-center">
+            <select id="selectBusService" class="btn btn-outline-primary dropdown-toggle w-100">
+                <option value="0">Select Bus Services</option>
+                <option th:each="busService : ${busServices}"
+                        th:text="${busService.serviceNo}+' '+${busService.operator}">
                 </option>
             </select>
         </div>
-    </nav>
+        <div class="col-xs-12 col-lg-6 mt-3 w-100 h-100 ">
+            <select id="selectBusStop" class="btn btn-outline-primary dropdown-toggle w-100">
+                <option value="0">Select Bus Stop</option>
+                <option th:each="busStop : ${busStops}"
+                        th:text="${busStop.description}+' , '+${busStop.roadName}+' , '+${busStop.busStopCode}">
+                </option>
+            </select>
+        </div>
+    </div>
 </div>
 <div class="container-fluid footer text-center">
     <small>

@@ -4,20 +4,27 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+import java.util.Comparator;
+
 /**
  * Created by Jiang Wensi on 8/7/2020
  */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BusStop {
+public class BusStop implements Comparator<BusStop> {
     @JsonProperty("BusStopCode")
-    String busStopCode;
+    private String busStopCode;
     @JsonProperty("RoadName")
-    String roadName;
+    private String roadName;
     @JsonProperty("Description")
-    String description;
+    private String description;
     @JsonProperty("Latitude")
-    String latitude;
+    private String latitude;
     @JsonProperty("Longitude")
-    String longitude;
+    private String longitude;
+
+    @Override
+    public int compare(BusStop o1, BusStop o2) {
+        return o1.getDescription().compareTo(o2.getDescription());
+    }
 }

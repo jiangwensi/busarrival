@@ -26,7 +26,7 @@ public class HttpUtils {
         return response;
     }
 
-    public Object getResponse(String url, String apiKey, Class T) throws JsonProcessingException {
+    public ResponseEntity<String> getResponse(String url, String apiKey) throws JsonProcessingException {
         log.info("getResponse()");
         RestTemplate rt = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -38,8 +38,6 @@ public class HttpUtils {
         ResponseEntity<String> response = rt.exchange(url, HttpMethod.GET,entity,String.class);
 
         log.info(response.getBody());
-
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(response.getBody(), T);
+        return response;
     }
 }
