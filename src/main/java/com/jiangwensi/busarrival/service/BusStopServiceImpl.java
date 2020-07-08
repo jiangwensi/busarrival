@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jiangwensi.busarrival.domain.BusStop;
 import com.jiangwensi.busarrival.domain.BusStopResponse;
+import com.jiangwensi.busarrival.util.HttpUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -31,24 +32,8 @@ public class BusStopServiceImpl implements BusStopService {
     @Override
     public List<BusStop> listAllBusStops() throws JsonProcessingException {
         log.info("listAllBusStops start");
-        RestTemplate rt = new RestTemplate();
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("AccountKey",apiKey);
-        headers.set("accept","application/json");
-        HttpEntity entity = new HttpEntity("body",headers);
-        ResponseEntity<String> response = rt.exchange(url, HttpMethod.GET,entity,String.class);
-        log.info(response.getBody());
-
-
-
-        ObjectMapper mapper = new ObjectMapper();
-        BusStopResponse busStopResponse = mapper.readValue(response.getBody(),
+        BusStopResponse busStopResponse = (BusStopResponse) new HttpUtils().getResponse(url,apiKey,
                 BusStopResponse.class);
-
-
-        log.info("busStopResponse.getOdataMetadata()="+busStopResponse.getOdataMetadata());
-        log.info("busStopResponse.getValue()="+busStopResponse.getValue());
-        log.info("listAllBusStops end");
         return busStopResponse.getValue();
     }
 }
