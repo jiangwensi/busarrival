@@ -29,10 +29,11 @@ public class BusServiceServiceImpl implements BusServiceService {
     public List<BusServiceItem> listAllBusServices() throws JsonProcessingException {
         log.info("listAllBusServices() start");
         ResponseEntity<String> response = new HttpUtils().getResponse(url,apiKey);
-        log.info(response.getBody());
         ObjectMapper mapper = new ObjectMapper();
         BusServiceItemResponse busServiceItemResponse = (BusServiceItemResponse) mapper.readValue(response.getBody(),
                 BusServiceItemResponse.class);
-        return busServiceItemResponse.getValue();
+        List<BusServiceItem> busServices = busServiceItemResponse.getValue();
+        log.info("number of bus services:",busServices.size());
+        return busServices;
     }
 }

@@ -40,6 +40,8 @@ public class BusRouteServiceImpl implements BusRouteService {
         ObjectMapper mapper = new ObjectMapper();
         BusRouteResponse busRouteResponse = (BusRouteResponse) mapper.readValue(response.getBody(),
                 BusRouteResponse.class);
+        List<BusRoute> busRoutes = busRouteResponse.getValue();
+        log.info("bus routes size: {}",busRoutes.size());
         return busRouteResponse.getValue();
     }
 
@@ -60,7 +62,7 @@ public class BusRouteServiceImpl implements BusRouteService {
             size = busRoutes.size();
             log.info("bus routes size: {}",size);
 
-            busRouteRepository.saveAll(busRoutes);
+            //busRouteRepository.saveAll(busRoutes);
         }
     }
 }
