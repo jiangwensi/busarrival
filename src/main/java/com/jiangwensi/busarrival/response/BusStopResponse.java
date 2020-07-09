@@ -1,7 +1,8 @@
-package com.jiangwensi.busarrival.domain;
+package com.jiangwensi.busarrival.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.jiangwensi.busarrival.entity.BusStop;
 import lombok.Data;
 
 import java.util.List;

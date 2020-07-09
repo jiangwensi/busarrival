@@ -1,8 +1,8 @@
 package com.jiangwensi.busarrival.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.jiangwensi.busarrival.domain.BusRoute;
-import com.jiangwensi.busarrival.domain.BusStop;
+import com.jiangwensi.busarrival.dto.BusRouteDto;
+import com.jiangwensi.busarrival.entity.BusRoute;
 import com.jiangwensi.busarrival.service.BusRouteService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -29,17 +29,7 @@ public class RouteController {
     @GetMapping("/route/{serviceNo}")
     public String showRoute(@PathVariable String serviceNo, Model model){
         log.info("showRoute() serviceNo="+serviceNo);
-        List<BusRoute> busRoutes = new ArrayList<>();
-        try {
-            busRoutes = busRouteService.listAllBusRoutes();
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            //TODO error handling
-        }
 
-        BusRoute busRoute =
-                busRoutes.stream().filter(br->br.getServiceNo().equals(serviceNo)).collect(Collectors.toList()).get(0);
-        model.addAttribute("busRoute",busRoute);
         return "showRoute";
     }
 }

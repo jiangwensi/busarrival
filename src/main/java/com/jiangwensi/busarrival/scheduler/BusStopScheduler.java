@@ -1,8 +1,6 @@
 package com.jiangwensi.busarrival.scheduler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.jiangwensi.busarrival.domain.BusStop;
-import com.jiangwensi.busarrival.service.BusServiceService;
 import com.jiangwensi.busarrival.service.BusStopService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;

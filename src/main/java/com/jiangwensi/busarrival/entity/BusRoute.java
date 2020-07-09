@@ -1,4 +1,4 @@
-package com.jiangwensi.busarrival.domain;
+package com.jiangwensi.busarrival.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -15,7 +15,7 @@ import javax.persistence.Id;
 @Entity
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BusServiceItem {
+public class BusRoute {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -26,21 +26,22 @@ public class BusServiceItem {
     private String operator;
     @JsonProperty("Direction")
     private String direction;
-    @JsonProperty("Category")
-    private String category;
-    @JsonProperty("OrignCode")
-    private String orignCode;
-    @JsonProperty("DestinationCode")
-    private String destinationCode;
-    @JsonProperty("AM_Peak_Freq")
-    private String amPeakFreq;
-    @JsonProperty("AM_Offpeak_Freq")
-    private String amOffPeakFreq;
-    @JsonProperty("PM_Peak_Freq")
-    private String pmPeakFreq;
-    @JsonProperty("PM_Offpeak_Freq")
-    private String pmOffPeakFreq;
-    @JsonProperty("LoopDesc")
-    private String loopDesc;
-
+    @JsonProperty("StopSequence")
+    private String stopSequence;
+    @JsonProperty("BusStopCode")
+    private String busStopCode;
+    @JsonProperty("Distance")
+    private String distance;
+    @JsonProperty("WD_FirstBus")
+    private String wdFirstBus;
+    @JsonProperty("WD_LastBus")
+    private String wdLastBus;
+    @JsonProperty("SAT_FirstBus")
+    private String satFirstBus;
+    @JsonProperty("SAT_LastBus")
+    private String satLastBus;
+    @JsonProperty("SUN_FirstBus")
+    private String sunFirstBus;
+    @JsonProperty("SUN_LastBus")
+    private String sunLastBus;
 }

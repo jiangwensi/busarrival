@@ -1,9 +1,11 @@
 package com.jiangwensi.busarrival.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.jiangwensi.busarrival.domain.BusRoute;
-import com.jiangwensi.busarrival.domain.BusServiceItem;
-import com.jiangwensi.busarrival.domain.BusStop;
+import com.jiangwensi.busarrival.dto.BusServiceItemDto;
+import com.jiangwensi.busarrival.dto.BusStopDto;
+import com.jiangwensi.busarrival.entity.BusRoute;
+import com.jiangwensi.busarrival.entity.BusServiceItem;
+import com.jiangwensi.busarrival.entity.BusStop;
 import com.jiangwensi.busarrival.service.BusRouteService;
 import com.jiangwensi.busarrival.service.BusServiceService;
 import com.jiangwensi.busarrival.service.BusStopService;
@@ -45,33 +47,33 @@ public class IndexController {
 //        }
 //        //testing
 
-        List<BusStop> busStops = new ArrayList<>();
-        List<BusServiceItem> busServiceItems = new ArrayList<>();
+        List<BusStopDto> busStopDtos = new ArrayList<>();
+        List<BusServiceItemDto> busServiceDtos = new ArrayList<>();
         List<BusRoute> busRoutes = new ArrayList<>();
         try {
-            busStops = busStopService.listAllBusStops();
-            busServiceItems = busServiceService.listAllBusServices();
+            busStopDtos= busStopService.listAllBusStops();
+            busServiceDtos = busServiceService.listAllBusServices();
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             //TODO error handling
         }
 
-        Collections.sort(busStops, new Comparator<BusStop>() {
+        Collections.sort(busStopDtos, new Comparator<BusStopDto>() {
             @Override
-            public int compare(BusStop o1, BusStop o2) {
+            public int compare(BusStopDto o1, BusStopDto o2) {
                return o1.getDescription().compareTo(o2.getDescription());
             }
         });
 
-        Collections.sort(busServiceItems, new Comparator<BusServiceItem>() {
+        Collections.sort(busServiceDtos, new Comparator<BusServiceItemDto>() {
             @Override
-            public int compare(BusServiceItem o1, BusServiceItem o2) {
+            public int compare(BusServiceItemDto o1, BusServiceItemDto o2) {
                 return o1.getServiceNo().compareTo(o2.getServiceNo());
             }
         });
 
-        model.addAttribute("busStops", busStops);
-        model.addAttribute("busServices", busServiceItems);
+        model.addAttribute("busStops", busStopDtos);
+        model.addAttribute("busServices", busServiceDtos);
         return "index";
     }
 }

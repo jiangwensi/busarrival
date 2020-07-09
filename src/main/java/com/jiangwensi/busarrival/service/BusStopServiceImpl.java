@@ -2,8 +2,10 @@ package com.jiangwensi.busarrival.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jiangwensi.busarrival.domain.BusStop;
-import com.jiangwensi.busarrival.domain.BusStopResponse;
+import com.jiangwensi.busarrival.dto.BusStopDto;
+import com.jiangwensi.busarrival.entity.BusStop;
+import com.jiangwensi.busarrival.mapper.BusStopMapper;
+import com.jiangwensi.busarrival.response.BusStopResponse;
 import com.jiangwensi.busarrival.repository.BusStopRepository;
 import com.jiangwensi.busarrival.util.HttpUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -12,12 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
-import static java.util.Comparator.comparingInt;
-import static java.util.stream.Collectors.collectingAndThen;
-import static java.util.stream.Collectors.toCollection;
 
 /**
  * Created by Jiang Wensi on 8/7/2020
@@ -39,9 +35,12 @@ public class BusStopServiceImpl implements BusStopService {
     }
 
     @Override
-    public List<BusStop> listAllBusStops() throws JsonProcessingException {
+    public List<BusStopDto> listAllBusStops() throws JsonProcessingException {
         log.info("listAllBusStops start");
-        return (List<BusStop>) busStopRepository.findAll();
+        List<BusStop> busStops = (List<BusStop>) busStopRepository.findAll();
+        List<BusStopDto> dtos = new ArrayList<>();
+        busStops.forEach(e->dtos.add(BusStopMapper.INSTANCE.toBusStopDto(e)));
+        return dtos;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.jiangwensi.busarrival.repository;
 
-import com.jiangwensi.busarrival.domain.BusRoute;
+import com.jiangwensi.busarrival.entity.BusRoute;
 import org.springframework.data.repository.CrudRepository;
 
 /**

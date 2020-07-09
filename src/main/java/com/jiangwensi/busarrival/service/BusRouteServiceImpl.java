@@ -2,8 +2,10 @@ package com.jiangwensi.busarrival.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jiangwensi.busarrival.domain.BusRoute;
-import com.jiangwensi.busarrival.domain.BusRouteResponse;
+import com.jiangwensi.busarrival.dto.BusRouteDto;
+import com.jiangwensi.busarrival.entity.BusRoute;
+import com.jiangwensi.busarrival.mapper.BusRouteMapper;
+import com.jiangwensi.busarrival.response.BusRouteResponse;
 import com.jiangwensi.busarrival.repository.BusRouteRepository;
 import com.jiangwensi.busarrival.util.HttpUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -34,9 +36,12 @@ public class BusRouteServiceImpl implements BusRouteService {
     }
 
     @Override
-    public List<BusRoute> listAllBusRoutes() throws JsonProcessingException {
+    public List<BusRouteDto> listAllBusRoutes() throws JsonProcessingException {
         log.info("listAllBusRoutes() start");
-        return (List<BusRoute>) busRouteRepository.findAll();
+        List<BusRoute> busRoutes = (List<BusRoute>) busRouteRepository.findAll();
+        List<BusRouteDto> dtos = new ArrayList<>();
+        busRoutes.forEach(e->dtos.add(BusRouteMapper.INSTANCE.toBusRouteDto(e)));
+        return dtos;
     }
 
     @Override

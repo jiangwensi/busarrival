@@ -2,8 +2,10 @@ package com.jiangwensi.busarrival.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jiangwensi.busarrival.domain.BusServiceItem;
-import com.jiangwensi.busarrival.domain.BusServiceItemResponse;
+import com.jiangwensi.busarrival.dto.BusServiceItemDto;
+import com.jiangwensi.busarrival.entity.BusServiceItem;
+import com.jiangwensi.busarrival.mapper.BusServiceItemMapper;
+import com.jiangwensi.busarrival.response.BusServiceItemResponse;
 import com.jiangwensi.busarrival.repository.BusServiceRepository;
 import com.jiangwensi.busarrival.util.HttpUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.function.Function;
@@ -38,9 +39,12 @@ public class BusServiceServiceImpl implements BusServiceService {
     }
 
     @Override
-    public List<BusServiceItem> listAllBusServices() throws JsonProcessingException {
+    public List<BusServiceItemDto> listAllBusServices() throws JsonProcessingException {
         log.info("listAllBusServices() start");
-        return (List<BusServiceItem>) busServiceRepository.findAll();
+        List<BusServiceItem> busServiceItems =  (List<BusServiceItem>)busServiceRepository.findAll();
+        List<BusServiceItemDto> dtos = new ArrayList<>();
+        busServiceItems.forEach(e -> dtos.add(BusServiceItemMapper.INSTANCE.toBusServiceItemDto(e)));
+        return dtos;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.jiangwensi.busarrival.domain;
+package com.jiangwensi.busarrival.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

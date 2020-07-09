@@ -1,12 +1,12 @@
 package com.jiangwensi.busarrival.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.jiangwensi.busarrival.domain.BusServiceItem;
+import com.jiangwensi.busarrival.dto.BusServiceItemDto;
 
 import java.util.List;
 
 public interface BusServiceService {
-    List<BusServiceItem> listAllBusServices() throws JsonProcessingException;
+    List<BusServiceItemDto> listAllBusServices() throws JsonProcessingException;
 
     void syncBusServices() throws JsonProcessingException;
 }
