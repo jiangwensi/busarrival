@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface BusServiceService {
     List<BusServiceItem> listAllBusServices() throws JsonProcessingException;
+
+    void syncBusServices() throws JsonProcessingException;
 }

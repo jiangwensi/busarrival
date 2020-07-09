@@ -8,5 +8,6 @@ import java.util.List;
 public interface BusRouteService {
     List<BusRoute> listAllBusRoutes() throws JsonProcessingException;
 
-    void updateAllBusRoutes() throws JsonProcessingException;
+    List<BusRoute> syncBusRoutes() throws JsonProcessingException;
+
 }

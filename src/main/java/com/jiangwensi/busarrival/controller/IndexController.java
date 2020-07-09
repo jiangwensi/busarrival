@@ -23,15 +23,18 @@ public class IndexController {
 
     private BusStopService busStopService;
     private BusServiceService busServiceService;
+    private BusRouteService busRouteService;
 
-    public IndexController(BusStopService busStopService, BusServiceService busServiceService) {
+    public IndexController(BusStopService busStopService, BusServiceService busServiceService, BusRouteService busRouteService) {
         this.busStopService = busStopService;
         this.busServiceService = busServiceService;
+        this.busRouteService = busRouteService;
     }
 
     @GetMapping({"","/","/index"})
     public String index(Model model){
         log.info("index()");
+
         List<BusStop> busStops = new ArrayList<>();
         List<BusServiceItem> busServiceItems = new ArrayList<>();
         List<BusRoute> busRoutes = new ArrayList<>();

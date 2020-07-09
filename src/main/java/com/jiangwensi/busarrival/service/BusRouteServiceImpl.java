@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,10 +47,11 @@ public class BusRouteServiceImpl implements BusRouteService {
     }
 
     @Override
-    public void updateAllBusRoutes() throws JsonProcessingException {
-        log.info("updateAllBusRoutes()");
+    public List<BusRoute> syncBusRoutes() throws JsonProcessingException {
+        log.info("syncBusRoutes()");
         int size = 500;
         int i = 0;
+        List<BusRoute> busRoutes = new ArrayList<>();
         while (size == 500) {
             ResponseEntity<String> response = new HttpUtils().getResponse(url + "?$skip=" + i * 500, apiKey);
             log.info("counter i: {}",i);
@@ -57,12 +59,13 @@ public class BusRouteServiceImpl implements BusRouteService {
 
             ObjectMapper mapper = new ObjectMapper();
             BusRouteResponse busRouteResponse = (BusRouteResponse) mapper.readValue(response.getBody(), BusRouteResponse.class);
-            List<BusRoute> busRoutes = busRouteResponse.getValue();
-            busRoutes.forEach(br -> log.info("updating {} to database", br.getServiceNo()));
-            size = busRoutes.size();
-            log.info("bus routes size: {}",size);
-
-            //busRouteRepository.saveAll(busRoutes);
+            busRoutes.addAll(busRouteResponse.getValue());
+            size = busRouteResponse.getValue().size();
+            log.info("retrieved bus route size: {}",size);
         }
+
+        log.info("going to update {} bus routes in database",busRoutes.size());
+        busRouteRepository.saveAll(busRoutes);
+        return busRoutes;
     }
 }
