@@ -4,14 +4,23 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Comparator;
 
 /**
  * Created by Jiang Wensi on 8/7/2020
  */
+@Entity
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BusStop implements Comparator<BusStop> {
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long id;
     @JsonProperty("BusStopCode")
     private String busStopCode;
     @JsonProperty("RoadName")

@@ -1,8 +1,10 @@
 package com.jiangwensi.busarrival.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.jiangwensi.busarrival.domain.BusRoute;
 import com.jiangwensi.busarrival.domain.BusServiceItem;
 import com.jiangwensi.busarrival.domain.BusStop;
+import com.jiangwensi.busarrival.service.BusRouteService;
 import com.jiangwensi.busarrival.service.BusServiceService;
 import com.jiangwensi.busarrival.service.BusStopService;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +34,7 @@ public class IndexController {
         log.info("index()");
         List<BusStop> busStops = new ArrayList<>();
         List<BusServiceItem> busServiceItems = new ArrayList<>();
+        List<BusRoute> busRoutes = new ArrayList<>();
         try {
             busStops = busStopService.listAllBusStops();
             busServiceItems = busServiceService.listAllBusServices();

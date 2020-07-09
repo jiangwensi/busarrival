@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bus Arrival App</title>
+    <!--    <link rel="shortcut icon" type="images/png"-->
+    <!--          href="https://image.flaticon.com/icons/png/512/2760/2760147.png"/>-->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <link rel="icon" type="image/png" href="images/electric-bus.png"/>
+    <link href="css/layout.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mb-5">
+    <nav class="navbar navbar-expand bg-light navbar-light fixed-top">
+        <a href="#" class="navbar-brand ml-5">Bus Arrival</a>
+    </nav>
+</div>
+<div class="container mt-5 pt-5 text-center">
+    <div class="row text-center">
+        <div class="offset-lg-2 col-lg-8 offset-md-1 col-md-10 col-xs-12 text-center w-100">
+            <table class="table table-hover table-striped px-auto mx-auto">
+
+                <tr>
+                    <th>Service No</th>
+                    <td th:text="${busRoute.serviceNo}"></td>
+                </tr>
+                <tr>
+                    <th>Operator</th>
+                    <td th:text="${busRoute.operator}"></td>
+                </tr>
+                <tr>
+                    <th>Direction</th>
+                    <td th:text="${busRoute.direction}"></td>
+                </tr>
+                <tr>
+                    <th>Stop Sequence</th>
+                    <td th:text="${busRoute.stopSequence}"></td>
+                </tr>
+                <tr>
+                    <th>Bus Stop Code</th>
+                    <td th:text="${busRoute.busStopCode}"></td>
+                </tr>
+                <tr>
+                    <th>Distance</th>
+                    <td th:text="${busRoute.distance}"></td>
+                </tr>
+                <tr>
+                    <th>Week Day First Bus</th>
+                    <td th:text="${busRoute.wdFirstBus}"></td>
+                </tr>
+                <tr>
+                    <th>Week Day Last Bus</th>
+                    <td th:text="${busRoute.wdLastBus}"></td>
+                </tr>
+                <tr>
+                    <th>Sat. First Bus</th>
+                    <td th:text="${busRoute.satFirstBus}"></td>
+                </tr>
+                <tr>
+                    <th>Sat. Last Bus</th>
+                    <td th:text="${busRoute.satLastBus}"></td>
+                </tr>
+                <tr>
+                    <th>Sun. First Bus</th>
+                    <td th:text="${busRoute.sunFirstBus}"></td>
+                </tr>
+                <tr>
+                    <th>Sun. Last Bus</th>
+                    <td th:text="${busRoute.sunLastBus}"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</div>
+<div class="container-fluid footer text-center">
+    <small>
+        Bus Arrival App
+        | Developer: Jiang Wensi
+        | Favicon made by
+        <a href="https://www.flaticon.com/authors/icongeek26" title="Icongeek26">Icongeek26</a> from
+        <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+    </small>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script>
+    // Initialize and add the map
+
+</script>
+</body>
+</html>

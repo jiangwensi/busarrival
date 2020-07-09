@@ -1,12 +1,9 @@
 package com.jiangwensi.busarrival.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jiangwensi.busarrival.domain.BusServiceItem;
 import com.jiangwensi.busarrival.domain.BusServiceItemResponse;
-import com.jiangwensi.busarrival.domain.BusStop;
-import com.jiangwensi.busarrival.domain.BusStopResponse;
 import com.jiangwensi.busarrival.util.HttpUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,7 +27,7 @@ public class BusServiceServiceImpl implements BusServiceService {
 
     @Override
     public List<BusServiceItem> listAllBusServices() throws JsonProcessingException {
-        log.info("listAllBusServices()");
+        log.info("listAllBusServices() start");
         ResponseEntity<String> response = new HttpUtils().getResponse(url,apiKey);
         log.info(response.getBody());
         ObjectMapper mapper = new ObjectMapper();
