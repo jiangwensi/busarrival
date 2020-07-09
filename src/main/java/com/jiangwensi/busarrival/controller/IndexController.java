@@ -37,7 +37,7 @@ public class IndexController {
     public String index(Model model){
         log.info("index()");
 
-//        //testing
+        //testing
 //        try {
 //            busStopService.syncBusStops();
 //            busRouteService.syncBusRoutes();
@@ -45,7 +45,7 @@ public class IndexController {
 //        } catch (JsonProcessingException e) {
 //            e.printStackTrace();
 //        }
-//        //testing
+        //testing
 
         List<BusStopDto> busStopDtos = new ArrayList<>();
         List<BusServiceItemDto> busServiceDtos = new ArrayList<>();

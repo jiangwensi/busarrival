@@ -66,4 +66,13 @@ public class BusStopServiceImpl implements BusStopService {
         busStopRepository.deleteAll();
         busStopRepository.saveAll(busStops);
     }
+
+    @Override
+    public String translateBusStopCodeToName(String code) {
+        BusStop busStop = busStopRepository.findByBusStopCode(code);
+        if(busStop==null) {
+            return "";
+        }
+        return busStop.getDescription() + ", " + busStop.getRoadName();
+    }
 }

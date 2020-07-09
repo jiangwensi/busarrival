@@ -24,7 +24,7 @@
             <select id="selectBusService" class="btn btn-outline-primary dropdown-toggle w-100">
                 <option value="0">Select Bus Services</option>
                 <option th:each="busService : ${busServices}"
-                        th:text="${busService.serviceNo}+' '+${busService.operator}">
+                        th:text="${busService.serviceNo}+', '+${busService.originName}+' -> '+${busService.destinationName}">
                 </option>
             </select>
         </div>

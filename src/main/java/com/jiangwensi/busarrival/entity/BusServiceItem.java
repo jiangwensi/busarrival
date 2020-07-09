@@ -28,8 +28,8 @@ public class BusServiceItem {
     private String direction;
     @JsonProperty("Category")
     private String category;
-    @JsonProperty("OrignCode")
-    private String orignCode;
+    @JsonProperty("OriginCode")
+    private String originCode;
     @JsonProperty("DestinationCode")
     private String destinationCode;
     @JsonProperty("AM_Peak_Freq")

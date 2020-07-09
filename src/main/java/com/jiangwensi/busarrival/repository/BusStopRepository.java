@@ -7,4 +7,5 @@ import org.springframework.data.repository.CrudRepository;
  * Created by Jiang Wensi on 9/7/2020
  */
 public interface BusStopRepository extends CrudRepository<BusStop,Long> {
+    BusStop findByBusStopCode(String code);
 }

@@ -9,4 +9,6 @@ public interface BusStopService {
     List<BusStopDto> listAllBusStops() throws JsonProcessingException;
 
     void syncBusStops() throws JsonProcessingException;
+
+    String translateBusStopCodeToName(String code);
 }

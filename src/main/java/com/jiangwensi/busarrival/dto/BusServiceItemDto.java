@@ -18,11 +18,14 @@ public class BusServiceItemDto {
     private String operator;
     private String direction;
     private String category;
-    private String orignCode;
+    private String originCode;
     private String destinationCode;
     private String amPeakFreq;
     private String amOffPeakFreq;
     private String pmPeakFreq;
     private String pmOffPeakFreq;
     private String loopDesc;
+
+    private String originName;
+    private String destinationName;
 }

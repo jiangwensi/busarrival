@@ -9,6 +9,8 @@ import com.jiangwensi.busarrival.response.BusServiceItemResponse;
 import com.jiangwensi.busarrival.repository.BusServiceRepository;
 import com.jiangwensi.busarrival.util.HttpUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.mapstruct.factory.Mappers;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -34,8 +36,12 @@ public class BusServiceServiceImpl implements BusServiceService {
 
     private BusServiceRepository busServiceRepository;
 
+    @Autowired
+    private final BusServiceItemMapper busServiceItemMapper;
+
     public BusServiceServiceImpl(BusServiceRepository busServiceRepository) {
         this.busServiceRepository = busServiceRepository;
+        this.busServiceItemMapper = Mappers.getMapper(BusServiceItemMapper.class);
     }
 
     @Override
@@ -43,7 +49,7 @@ public class BusServiceServiceImpl implements BusServiceService {
         log.info("listAllBusServices() start");
         List<BusServiceItem> busServiceItems =  (List<BusServiceItem>)busServiceRepository.findAll();
         List<BusServiceItemDto> dtos = new ArrayList<>();
-        busServiceItems.forEach(e -> dtos.add(BusServiceItemMapper.INSTANCE.toBusServiceItemDto(e)));
+        busServiceItems.forEach(busServiceItem -> dtos.add(busServiceItemMapper.toBusServiceItemDto(busServiceItem)));
         return dtos;
     }
 

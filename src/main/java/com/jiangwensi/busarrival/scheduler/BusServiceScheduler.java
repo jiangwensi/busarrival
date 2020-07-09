@@ -19,7 +19,7 @@ public class BusServiceScheduler {
         this.busServiceService = busServiceService;
     }
 
-    @Scheduled(cron = "0 10 10 * * *", zone="Asia/Singapore")
+    @Scheduled(cron = "0 10 10 1 * ?", zone="Asia/Singapore")
     public void syncBusRoutes() throws JsonProcessingException {
         log.info("syncBusRoutes()");
         busServiceService.syncBusServices();
