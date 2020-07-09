@@ -2,8 +2,6 @@ package com.jiangwensi.busarrival.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jiangwensi.busarrival.domain.BusServiceItem;
-import com.jiangwensi.busarrival.domain.BusServiceItemResponse;
 import com.jiangwensi.busarrival.domain.BusStop;
 import com.jiangwensi.busarrival.domain.BusStopResponse;
 import com.jiangwensi.busarrival.repository.BusStopRepository;
@@ -13,8 +11,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import static java.util.Comparator.comparingInt;
+import static java.util.stream.Collectors.collectingAndThen;
+import static java.util.stream.Collectors.toCollection;
 
 /**
  * Created by Jiang Wensi on 8/7/2020
@@ -38,13 +41,7 @@ public class BusStopServiceImpl implements BusStopService {
     @Override
     public List<BusStop> listAllBusStops() throws JsonProcessingException {
         log.info("listAllBusStops start");
-        ResponseEntity<String> response = new HttpUtils().getResponse(url,apiKey);
-        log.info(response.getBody());
-        ObjectMapper mapper = new ObjectMapper();
-        BusStopResponse busStopResponse = (BusStopResponse) mapper.readValue(response.getBody(),
-                BusStopResponse.class);
-        syncBusStops();
-        return busStopResponse.getValue();
+        return (List<BusStop>) busStopRepository.findAll();
     }
 
     @Override
@@ -67,6 +64,7 @@ public class BusStopServiceImpl implements BusStopService {
         }
 
         log.info("going to update {} bus stop in database",busStops.size());
+        busStopRepository.deleteAll();
         busStopRepository.saveAll(busStops);
     }
 }

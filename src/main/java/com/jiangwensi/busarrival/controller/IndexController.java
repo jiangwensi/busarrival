@@ -35,6 +35,16 @@ public class IndexController {
     public String index(Model model){
         log.info("index()");
 
+//        //testing
+//        try {
+//            busStopService.syncBusStops();
+//            busRouteService.syncBusRoutes();
+//            busServiceService.syncBusServices();
+//        } catch (JsonProcessingException e) {
+//            e.printStackTrace();
+//        }
+//        //testing
+
         List<BusStop> busStops = new ArrayList<>();
         List<BusServiceItem> busServiceItems = new ArrayList<>();
         List<BusRoute> busRoutes = new ArrayList<>();

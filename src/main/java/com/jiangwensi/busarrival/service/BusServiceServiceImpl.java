@@ -2,8 +2,6 @@ package com.jiangwensi.busarrival.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jiangwensi.busarrival.domain.BusRoute;
-import com.jiangwensi.busarrival.domain.BusRouteResponse;
 import com.jiangwensi.busarrival.domain.BusServiceItem;
 import com.jiangwensi.busarrival.domain.BusServiceItemResponse;
 import com.jiangwensi.busarrival.repository.BusServiceRepository;
@@ -14,7 +12,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * Created by Jiang Wensi on 8/7/2020
@@ -38,13 +40,7 @@ public class BusServiceServiceImpl implements BusServiceService {
     @Override
     public List<BusServiceItem> listAllBusServices() throws JsonProcessingException {
         log.info("listAllBusServices() start");
-        ResponseEntity<String> response = new HttpUtils().getResponse(url,apiKey);
-        ObjectMapper mapper = new ObjectMapper();
-        BusServiceItemResponse busServiceItemResponse = (BusServiceItemResponse) mapper.readValue(response.getBody(),
-                BusServiceItemResponse.class);
-        List<BusServiceItem> busServices = busServiceItemResponse.getValue();
-        log.info("number of bus services:{}",busServices.size());
-        return busServices;
+        return (List<BusServiceItem>) busServiceRepository.findAll();
     }
 
     @Override
@@ -66,7 +62,21 @@ public class BusServiceServiceImpl implements BusServiceService {
             log.info("retrieved bus service size: {}",size);
         }
 
-        log.info("going to update {} bus services in database",busServiceItems.size());
-        busServiceRepository.saveAll(busServiceItems);
+        log.info("retrieved {} bus services from API",busServiceItems.size());
+        List<BusServiceItem> distinctBusService = busServiceItems.stream()
+                .collect(
+                        Collectors.collectingAndThen(
+                            Collectors.toMap(
+                                c ->  c.getServiceNo()+"+"+c.getDirection(),
+                                Function.identity(),
+                                (a, b) -> a,
+                                () -> new LinkedHashMap<String, BusServiceItem>()
+                            ),
+                        m -> new ArrayList<>(m.values())));
+
+        log.info("after reducing duplicate services, going to update {} bus services in database",
+                distinctBusService.size());
+        busServiceRepository.deleteAll();
+        busServiceRepository.saveAll(distinctBusService);
     }
 }

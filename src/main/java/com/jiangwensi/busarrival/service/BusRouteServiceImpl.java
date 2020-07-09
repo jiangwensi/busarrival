@@ -36,14 +36,7 @@ public class BusRouteServiceImpl implements BusRouteService {
     @Override
     public List<BusRoute> listAllBusRoutes() throws JsonProcessingException {
         log.info("listAllBusRoutes() start");
-        ResponseEntity<String> response = new HttpUtils().getResponse(url, apiKey);
-        log.info(response.getBody());
-        ObjectMapper mapper = new ObjectMapper();
-        BusRouteResponse busRouteResponse = (BusRouteResponse) mapper.readValue(response.getBody(),
-                BusRouteResponse.class);
-        List<BusRoute> busRoutes = busRouteResponse.getValue();
-        log.info("bus routes size: {}",busRoutes.size());
-        return busRouteResponse.getValue();
+        return (List<BusRoute>) busRouteRepository.findAll();
     }
 
     @Override
@@ -65,6 +58,7 @@ public class BusRouteServiceImpl implements BusRouteService {
         }
 
         log.info("going to update {} bus routes in database",busRoutes.size());
+        busRouteRepository.deleteAll();
         busRouteRepository.saveAll(busRoutes);
         return busRoutes;
     }
