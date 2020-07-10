@@ -15,11 +15,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created by Jiang Wensi on 8/7/2020
@@ -49,7 +48,9 @@ public class BusServiceServiceImpl implements BusServiceService {
         log.info("listAllBusServices() start");
         List<BusServiceItem> busServiceItems =  (List<BusServiceItem>)busServiceRepository.findAll();
         List<BusServiceItemDto> dtos = new ArrayList<>();
-        busServiceItems.forEach(busServiceItem -> dtos.add(busServiceItemMapper.toBusServiceItemDto(busServiceItem)));
+        Set<String> uniqueBusServiceNo = new HashSet<>();
+        Stream<BusServiceItem> uniqueBusServices = busServiceItems.stream().filter(e -> uniqueBusServiceNo.add(e.getServiceNo()));
+        uniqueBusServices.forEach(e -> dtos.add(busServiceItemMapper.toBusServiceItemDto(e)));
         return dtos;
     }
 
