@@ -13,16 +13,22 @@ body {
     bottom: 0;
     width: 100%;
     /* Set the fixed height of the footer here */
-    height: 40px;
-    line-height: 40px; /* Vertically center the text there */
+    height: 45px;
     background-color: rgba(165, 237, 255, 0.11);
+
+}
+@media (min-width: 576px) {
+    .footer{
+        height:40px;
+        line-height: 40px; /* Vertically center the text there */
+    }
 }
 
 .table-bordered tr td{
     border: 1px solid #b8d7ff;
 }
 
-.busStop:hover{
+.busStop:hover,.busService:hover{
     text-decoration: underline;
     text-decoration-color: #005cbf;
     cursor:pointer;

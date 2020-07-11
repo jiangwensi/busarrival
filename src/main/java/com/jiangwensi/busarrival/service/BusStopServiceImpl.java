@@ -87,6 +87,12 @@ public class BusStopServiceImpl implements BusStopService {
                 (List<BusStop>) busStopRepository.findByDescriptionIgnoreCaseContaining(busStop);
         List<BusStopDto> busStopDtos = new ArrayList<>();
         busStops.forEach(e->busStopDtos.add(busStopMapper.toBusStopDto(e)));
+        Collections.sort(busStopDtos, new Comparator<BusStopDto>() {
+            @Override
+            public int compare(BusStopDto o1, BusStopDto o2) {
+                return o1.getDescription().compareTo(o2.getDescription());
+            }
+        });
         return busStopDtos;
     }
 

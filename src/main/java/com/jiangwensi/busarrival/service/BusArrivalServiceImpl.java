@@ -19,10 +19,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Jiang Wensi on 11/7/2020
@@ -74,6 +71,23 @@ public class BusArrivalServiceImpl implements BusArrivalService {
             }
         }
         log.info("retrieved {} busarrivals", busArrivalDtos.size());
+        Collections.sort(busArrivalDtos, new Comparator<BusArrivalDto>() {
+            @Override
+            public int compare(BusArrivalDto o1, BusArrivalDto o2) {
+                Integer o1ServiceNoInt;
+                Integer o2ServiceNoInt;
+                String o1ServiceNoChar;
+                String o2ServiceNoChar;
+                o1ServiceNoInt = Integer.parseInt(o1.getServiceNo().replaceAll("[^0-9]]",""));
+                o2ServiceNoInt = Integer.parseInt(o2.getServiceNo().replaceAll("[^0-9]]",""));
+                o1ServiceNoChar = o1.getServiceNo().replaceAll("[0-9]]","");
+                o2ServiceNoChar = o2.getServiceNo().replaceAll("[0-9]]","");
+                if (o1ServiceNoInt==o2ServiceNoInt) {
+                    return o1ServiceNoChar.compareTo(o2ServiceNoChar);
+                }
+                return o1ServiceNoInt - o2ServiceNoInt;
+            }
+        });
         return busArrivalDtos;
     }
 }

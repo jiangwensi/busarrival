@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title th:text="#{app.title}">Bus Arrival App</title>
 
-    <link rel="stylesheet" href="../static/css/bootstrap/bootstrap.min.css" th:href="@{/css/bootstrap/bootstrap.min.css}">
+    <link rel="stylesheet" href="../static/css/bootstrap/bootstrap.min.css"
+          th:href="@{/css/bootstrap/bootstrap.min.css}">
     <link rel="icon" type="image/png" href="../static/images/electric-bus.png" th:href="@{/images/electric-bus.png}"/>
     <link href="../static/css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet">
 
@@ -19,14 +20,16 @@
 
 <div class="container-fluid footer text-center" th:fragment="footer">
     <small>
-        <span th:text="#{app.footer}">
-        Bus Arrival App
-        | Developer: Jiang Wensi
-        | Favicon made by
+        <span th:text="#{app.footer1}">
+        Bus Arrival App by Jiang Wensi
         </span>
-        <a href="https://www.flaticon.com/authors/icongeek26" title="Icongeek26">Icongeek26</a>
+        <br class="d-inline d-sm-none"><span class="d-none d-sm-inline">	&nbsp; | &nbsp;</span>
+        <span th:text="#{app.footer2}">
+        Favicon made by
+        </span>
+        <a href="https://www.flaticon.com/authors/icongeek26" title="Icongeek26" style="text-display:none;color: black">Icongeek26</a>
         <span th:text="#{app.title.icon.from}">from</span>
-        <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+        <a href="https://www.flaticon.com/" title="Flaticon" style="text-display:none;color: black">www.flaticon.com</a>
     </small>
 </div>
 </body>

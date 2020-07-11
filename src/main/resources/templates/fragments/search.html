@@ -17,26 +17,26 @@
 </head>
 <body>
 
-<div class="container-fluid text-center" th:fragment="searchServiceByServiceNo">
+<div class="container-fluid text-center m-0 m-sm-auto p-0 p-sm-auto" th:fragment="searchServiceByServiceNo">
     <form class="form-inline mr-auto pm-auto" th:action="searchBusService">
-        <div class="row container-fluid mx-auto ">
-            <div class="col col-12 col-sm-8 mt-2 mt-sm-0">
+        <div class="row  container-fluid container-sm m-0 mx-sm-auto p-0 px-sm-auto">
+            <div class="col col-12 offset-sm-1 col-sm-6 mt-2 mt-sm-0">
                 <input class="form-control form-control-lg mr-sm-2 w-100 input-lg border-primary" type="text" name="busNo" placeholder="Enter Bus No." aria-label="Search">
             </div>
             <div class="col col-12 col-sm-4 mt-2 mt-sm-0">
-                <button class="btn btn-outline-primary btn-lg my-0  w-100" type="submit">Search Bus No.</button>
+                <button class="btn btn-primary btn-lg my-0  w-100" type="submit">Search</button>
             </div>
         </div>
     </form>
 </div>
-<div class="container-fluid text-center" th:fragment="searchBusStop">
+<div class="container-fluid text-center m-0 m-sm-auto p-0 p-sm-auto" th:fragment="searchBusStop">
     <form class="form-inline mr-auto pm-auto" th:action="searchBusStopByDescriptionContaining">
-        <div class="row container-fluid mx-auto">
-            <div class="col col-12 col-sm-8 mt-2 mt-sm-0">
+        <div class="row container-fluid container-sm m-0 mx-sm-auto p-0 px-sm-auto">
+            <div class="col col-12 offset-sm-1 col-sm-6 mt-2 mt-sm-0">
                 <input class="form-control form-control-lg mr-sm-2 w-100 border-primary" type="text" name="searchKey" placeholder="Enter Bus Stop " aria-label="Search">
             </div>
             <div class="col col-12 col-sm-4 mt-2 mt-sm-0">
-                <button class="btn btn-outline-primary btn-lg my-0 w-100" type="submit">Search Bus Stop</button>
+                <button class="btn btn-primary btn-lg my-0 w-100" type="submit">Search</button>
             </div>
         </div>
     </form>

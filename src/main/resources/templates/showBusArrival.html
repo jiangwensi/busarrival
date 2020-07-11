@@ -34,7 +34,7 @@
             <td colspan="3">Next Bus</td>
         </tr>
         <tr class="tr  text-center" th:each="busArrival:${busArrivals}">
-            <td class="font-weight-bold" th:text="${busArrival.serviceNo}"></td>
+            <td class="font-weight-bold busService" th:text="${busArrival.serviceNo}"></td>
             <td th:text="${busArrival.nextBus.estimatedArrival}"></td>
             <td th:text="${busArrival.nextBus2.estimatedArrival}"></td>
             <td th:text="${busArrival.nextBus3.estimatedArrival}"></td>
@@ -46,5 +46,16 @@
 <div class="container-fluid footer text-center" th:replace="fragments/footer::footer">
     footer
 </div>
+
+<script>
+    searchBusService = (event) => {
+        if (event.target.classList.contains("busService")) {
+            let busNo = event.target.innerText;
+            window.location.href="/busarrival/searchBusService?busNo="+busNo;
+        }
+    }
+    let table = document.getElementsByClassName("table");
+    table[0].addEventListener('click',searchBusService);
+</script>
 </body>
 </html>
