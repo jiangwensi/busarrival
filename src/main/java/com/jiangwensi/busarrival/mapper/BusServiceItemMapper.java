@@ -2,15 +2,15 @@ package com.jiangwensi.busarrival.mapper;
 
 import com.jiangwensi.busarrival.dto.BusServiceItemDto;
 import com.jiangwensi.busarrival.entity.BusServiceItem;
-import com.jiangwensi.busarrival.mapper.custom.BusStopCodeMapper;
-import com.jiangwensi.busarrival.mapper.custom.BusStopCodeToName;
-import com.jiangwensi.busarrival.mapper.custom.BusStopCodeTranslater;
+import com.jiangwensi.busarrival.mapper.custom.Translator;
+import com.jiangwensi.busarrival.mapper.custom.TranslateBusStopCode;
+import com.jiangwensi.busarrival.mapper.custom.TranslatorType;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(uses = BusStopCodeMapper.class, componentModel = "spring")
+@Mapper(uses = Translator.class, componentModel = "spring")
 public interface BusServiceItemMapper {
 
     BusServiceItemMapper INSTANCE = Mappers.getMapper(BusServiceItemMapper.class);
@@ -20,12 +20,12 @@ public interface BusServiceItemMapper {
     @Mappings({
             @Mapping(source = "originCode", target = "originName",
                     qualifiedBy =
-                            {BusStopCodeTranslater.class,
-                                    BusStopCodeToName.class}),
+                            {TranslatorType.class,
+                                    TranslateBusStopCode.class}),
             @Mapping(source = "destinationCode", target = "destinationName",
                     qualifiedBy =
-                            {BusStopCodeTranslater.class,
-                                    BusStopCodeToName.class})}
+                            {TranslatorType.class,
+                                    TranslateBusStopCode.class})}
     )
     BusServiceItemDto toBusServiceItemDto(BusServiceItem busServiceItem);
 

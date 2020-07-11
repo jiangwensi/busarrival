@@ -9,5 +9,6 @@ import java.util.List;
  * Created by Jiang Wensi on 9/7/2020
  */
 public interface BusServiceRepository  extends CrudRepository<BusServiceItem,Long> {
-    public List<BusServiceItem> findByServiceNo(String serviceNo);
+    List<BusServiceItem> findByServiceNo(String serviceNo);
+
 }

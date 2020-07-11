@@ -36,11 +36,10 @@ public class BusServiceServiceImpl implements BusServiceService {
     private BusServiceRepository busServiceRepository;
 
     @Autowired
-    private final BusServiceItemMapper busServiceItemMapper;
+    private BusServiceItemMapper busServiceItemMapper;
 
     public BusServiceServiceImpl(BusServiceRepository busServiceRepository) {
         this.busServiceRepository = busServiceRepository;
-        this.busServiceItemMapper = Mappers.getMapper(BusServiceItemMapper.class);
     }
 
     @Override
@@ -98,4 +97,6 @@ public class BusServiceServiceImpl implements BusServiceService {
         busServices.forEach(e->busServiceItemDtos.add(busServiceItemMapper.toBusServiceItemDto(e)));
         return busServiceItemDtos;
     }
+
+
 }

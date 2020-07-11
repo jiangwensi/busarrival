@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title th:text="#{app.title}">Bus Arrival App</title>
 
-    <link rel="stylesheet" href="../static/css/bootstrap/bootstrap.min.css" th:href="@{/css/bootstrap/bootstrap.min.css}">
+    <link rel="stylesheet" href="../static/css/bootstrap/bootstrap.min.css"
+          th:href="@{/css/bootstrap/bootstrap.min.css}">
     <link rel="icon" type="image/png" href="../static/images/electric-bus.png" th:href="@{/images/electric-bus.png}"/>
     <link href="../static/css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet">
 
@@ -23,11 +24,16 @@
 </div>
 <div class="container mt-5">
     <div class="row form mx-auto dropdown mt-5 pt-5 text-center">
-        <div th:replace="fragments/search::searchServiceByServiceNo">
-            Search Service By Service No.
+        <div class="container-fluid py-3 py-sm-2 m-0">
+            <div th:replace="fragments/search::searchServiceByServiceNo">
+                Search Service By Service No.
+            </div>
         </div>
-        <div th:replace="fragments/search::searchBusStop">
-            Search Service By Service No.
+        <div class="container-fluid py-3 py-sm-2 m-0">
+
+            <div th:replace="fragments/search::searchBusStop">
+                Search Service By Service No.
+            </div>
         </div>
     </div>
 </div>

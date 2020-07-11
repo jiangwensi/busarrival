@@ -11,5 +11,5 @@ public interface BusRouteService {
 
     List<BusRoute> syncBusRoutes() throws JsonProcessingException;
 
-
+    List<BusRoute> findByBusStopCode(String busStopCode);
 }

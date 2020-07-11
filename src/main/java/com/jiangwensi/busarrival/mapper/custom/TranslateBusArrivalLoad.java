@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 
 
 @Qualifier
-@Target(ElementType.TYPE)
+@Target(ElementType.METHOD)
 @Retention(RetentionPolicy.CLASS)
-public @interface BusStopCodeTranslater {
+public @interface TranslateBusArrivalLoad {
 }

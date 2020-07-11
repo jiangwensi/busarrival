@@ -67,4 +67,9 @@ public class BusRouteServiceImpl implements BusRouteService {
         busRouteRepository.saveAll(busRoutes);
         return busRoutes;
     }
+
+    @Override
+    public List<BusRoute> findByBusStopCode(String busStopCode) {
+        return busRouteRepository.findByBusStopCode(busStopCode);
+    }
 }

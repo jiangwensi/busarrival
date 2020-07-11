@@ -26,11 +26,11 @@ public class HttpUtils {
         HttpEntity entity = new HttpEntity("body",headers);
         ResponseEntity<String> response = rt.exchange(url, HttpMethod.GET,entity,String.class);
 
-        if (response.getBody().length()>100) {
-            log.info(response.getBody().substring(0,100)+"......");
-        } else {
+//        if (response.getBody().length()>100) {
+//            log.info(response.getBody().substring(0,100)+"......");
+//        } else {
             log.info(response.getBody());
-        }
+//        }
         return response;
     }
 }

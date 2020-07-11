@@ -30,6 +30,7 @@ public class RouteController {
     public String showRoute(@PathVariable String serviceNo, Model model){
         log.info("showRoute() serviceNo="+serviceNo);
 
+
         return "showRoute";
     }
 }
