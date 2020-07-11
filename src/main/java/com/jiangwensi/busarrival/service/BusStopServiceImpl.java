@@ -81,12 +81,21 @@ public class BusStopServiceImpl implements BusStopService {
     }
 
     @Override
-    public List<BusStopDto> searchBusStop(String busStop) {
+    public List<BusStopDto> searchBusStopByDescriptionContaining(String busStop) {
         log.info("searchBusStop busStop:{}",busStop);
         List<BusStop> busStops =
                 (List<BusStop>) busStopRepository.findByDescriptionIgnoreCaseContaining(busStop);
         List<BusStopDto> busStopDtos = new ArrayList<>();
         busStops.forEach(e->busStopDtos.add(busStopMapper.toBusStopDto(e)));
         return busStopDtos;
+    }
+
+    @Override
+    public BusStopDto searchBusStopByDescription(String description) {
+        log.info("searchBusStop searchBusStopByDescription:{}",description);
+        List<BusStop> busStops =
+                (List<BusStop>) busStopRepository.findByDescription(description);
+        BusStopDto busStopDto = busStopMapper.toBusStopDto(busStops.get(0));
+        return busStopDto;
     }
 }

@@ -12,6 +12,8 @@ public interface BusStopService {
 
     String translateBusStopCodeToName(String code);
 
-    List<BusStopDto> searchBusStop(String busStop);
+    List<BusStopDto> searchBusStopByDescriptionContaining(String busStop);
+
+    BusStopDto searchBusStopByDescription(String description);
 
 }

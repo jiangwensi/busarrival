@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title th:text="#{app.title}">Bus Arrival App</title>
 
-    <link rel="stylesheet" href="../static/css/bootstrap/bootstrap.min.css" th:href="@{/css/bootstrap/bootstrap.min.css}">
+    <link rel="stylesheet" href="../static/css/bootstrap/bootstrap.min.css"
+          th:href="@{/css/bootstrap/bootstrap.min.css}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
     <link rel="icon" type="image/png" href="../static/images/electric-bus.png" th:href="@{/images/electric-bus.png}"/>
     <link href="../static/css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet">
@@ -22,20 +23,17 @@
 <div class="container mb-5" th:replace="fragments/header::header">
     header
 </div>
-<div class="container mt-5 pt-5">
-    <div class="card ">
-        <div class="card-header text-center container-fluid ">
-            <h5>Searching Bus Stop : <b th:text="' '+${searchKey}"></b></h5>
-        </div>
-        <div class="card-body container-fluid ">
-            <form class="form mt-2" action="showBusArrival" th:each="busStop:${busStops}" >
-                <input type="hidden" name="busStopCode" th:value="${busStop.busStopCode}">
-                <button type="submit" class="container-fluid btn btn-light"
-                       th:text="${busStop.description}+' , '+${busStop.roadName}">
-                </button>
-            </form>
-        </div>
+<div class="container mt-5 pt-4">
+    <div class="container text-center  pb-lg-2 pb-1">
+        <h5>Searching Bus Stop : <b th:text="' '+${searchKey}"></b></h5>
     </div>
+    <form class="form mt-2" action="showBusArrival" th:each="busStop:${busStops}">
+        <input type="hidden" name="busStopCode" th:value="${busStop.busStopCode}">
+        <button type="submit" class="container-fluid btn btn-outline-primary"
+                th:text="${busStop.description}+' , '+${busStop.roadName}">
+        </button>
+    </form>
+</div>
 </div>
 <div class="container-fluid footer text-center" th:replace="fragments/footer::footer">
     footer

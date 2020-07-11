@@ -29,21 +29,28 @@ public class BusStopController {
         return "showBusStop";
     }
 
-    @GetMapping("searchBusStop")
-    public String searchBusStop(@RequestParam String searchKey, Model model, RedirectAttributes redirectAttributes){
-        log.info("searchBusStop busStop:{}",searchKey);
-        List<BusStopDto> busStopDtos = busStopService.searchBusStop(searchKey);
-        if (busStopDtos==null || busStopDtos.size()==0) {
+    @GetMapping("searchBusStopByDescriptionContaining")
+    public String searchBusStopByDescriptionContaining(@RequestParam String searchKey, Model model,RedirectAttributes redirectAttributes) {
+        log.info("searchBusStopByDescriptionContaining busStop:{}", searchKey);
+        List<BusStopDto> busStopDtos = busStopService.searchBusStopByDescriptionContaining(searchKey);
+        if (busStopDtos == null || busStopDtos.size() == 0) {
             return "redirect:/";
         }
 
-        if (busStopDtos.size() ==1) {
-            redirectAttributes.addAttribute("busStopCode",busStopDtos.get(0).getBusStopCode());
+        if (busStopDtos.size() == 1) {
+            redirectAttributes.addAttribute("busStopCode", busStopDtos.get(0).getBusStopCode());
             return "redirect:/showBusArrival";
         }
-        model.addAttribute("busStops",busStopDtos);
+        model.addAttribute("busStops", busStopDtos);
         model.addAttribute("searchKey", searchKey);
         return "searchBusStop";
     }
 
+    @GetMapping("searchBusStopByDescription")
+    public String searchBusStopByDescription(@RequestParam String description, RedirectAttributes redirectAttributes) {
+        log.info("searchBusStop searchBusStopByDescription:{}", description);
+        BusStopDto busStopDto = busStopService.searchBusStopByDescription(description);
+        redirectAttributes.addAttribute("busStopCode", busStopDto.getBusStopCode());
+        return "redirect:/showBusArrival";
+    }
 }

@@ -18,4 +18,5 @@ public interface BusStopRepository extends CrudRepository<BusStop,Long> {
     List<BusStop> findByDescriptionIgnoreCaseContaining(String busStop);
 
 
+    List<BusStop> findByDescription(String description);
 }
