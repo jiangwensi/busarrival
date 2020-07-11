@@ -22,12 +22,15 @@
 <div class="container mb-5" th:replace="fragments/header::header">
     header
 </div>
-<div class="container">
-    <div class="card">
-        <div class="card-body">
-            <form class="form" action="showBusArrival" th:each="busStop:${busStops}" >
+<div class="container mt-5 pt-5">
+    <div class="card ">
+        <div class="card-header text-center container-fluid ">
+            <h5>Searching Bus Stop : <b th:text="' '+${searchKey}"></b></h5>
+        </div>
+        <div class="card-body container-fluid ">
+            <form class="form mt-2" action="showBusArrival" th:each="busStop:${busStops}" >
                 <input type="hidden" name="busStopCode" th:value="${busStop.busStopCode}">
-                <button type="submit" class="btn btn-light"
+                <button type="submit" class="container-fluid btn btn-light"
                        th:text="${busStop.description}+' , '+${busStop.roadName}">
                 </button>
             </form>

@@ -36,6 +36,7 @@ public class BusServiceController {
                 e.getOriginCode(),
                 e.getDestinationCode()));
         model.addAttribute("busServices",busServiceItemsDtos);
+        model.addAttribute("serviceNo",busNo);
         return "showBusService";
     }
 }

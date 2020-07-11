@@ -30,9 +30,9 @@ public class BusStopController {
     }
 
     @GetMapping("searchBusStop")
-    public String searchBusStop(@RequestParam String busStop, Model model, RedirectAttributes redirectAttributes){
-        log.info("searchBusStop busStop:{}",busStop);
-        List<BusStopDto> busStopDtos = busStopService.searchBusStop(busStop);
+    public String searchBusStop(@RequestParam String searchKey, Model model, RedirectAttributes redirectAttributes){
+        log.info("searchBusStop busStop:{}",searchKey);
+        List<BusStopDto> busStopDtos = busStopService.searchBusStop(searchKey);
         if (busStopDtos==null || busStopDtos.size()==0) {
             return "redirect:/";
         }
@@ -42,6 +42,7 @@ public class BusStopController {
             return "redirect:/showBusArrival";
         }
         model.addAttribute("busStops",busStopDtos);
+        model.addAttribute("searchKey", searchKey);
         return "searchBusStop";
     }
 
