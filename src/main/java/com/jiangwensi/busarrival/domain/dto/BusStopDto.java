@@ -1,11 +1,6 @@
-package com.jiangwensi.busarrival.dto;
+package com.jiangwensi.busarrival.domain.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 /**
  * Created by Jiang Wensi on 9/7/2020

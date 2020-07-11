@@ -1,8 +1,7 @@
 package com.jiangwensi.busarrival.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.jiangwensi.busarrival.dto.BusArrivalDto;
-import com.jiangwensi.busarrival.entity.BusArrival;
+import com.jiangwensi.busarrival.domain.dto.BusArrivalDto;
 
 import java.util.List;
 

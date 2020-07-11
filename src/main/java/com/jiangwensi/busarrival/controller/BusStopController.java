@@ -1,6 +1,6 @@
 package com.jiangwensi.busarrival.controller;
 
-import com.jiangwensi.busarrival.dto.BusStopDto;
+import com.jiangwensi.busarrival.domain.dto.BusStopDto;
 import com.jiangwensi.busarrival.service.BusStopService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

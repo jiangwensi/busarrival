@@ -1,7 +1,7 @@
-package com.jiangwensi.busarrival.mapper;
+package com.jiangwensi.busarrival.domain.mapper;
 
-import com.jiangwensi.busarrival.dto.BusStopDto;
-import com.jiangwensi.busarrival.entity.BusStop;
+import com.jiangwensi.busarrival.domain.dto.BusStopDto;
+import com.jiangwensi.busarrival.domain.entity.BusStop;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

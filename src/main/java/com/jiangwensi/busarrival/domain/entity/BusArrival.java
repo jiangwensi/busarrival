@@ -1,10 +1,8 @@
-package com.jiangwensi.busarrival.entity;
+package com.jiangwensi.busarrival.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-
-import javax.persistence.*;
 
 /**
  * Created by Jiang Wensi on 11/7/2020

@@ -2,9 +2,9 @@ package com.jiangwensi.busarrival.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jiangwensi.busarrival.dto.BusStopDto;
-import com.jiangwensi.busarrival.entity.BusStop;
-import com.jiangwensi.busarrival.mapper.BusStopMapper;
+import com.jiangwensi.busarrival.domain.dto.BusStopDto;
+import com.jiangwensi.busarrival.domain.entity.BusStop;
+import com.jiangwensi.busarrival.domain.mapper.BusStopMapper;
 import com.jiangwensi.busarrival.response.BusStopResponse;
 import com.jiangwensi.busarrival.repository.BusStopRepository;
 import com.jiangwensi.busarrival.util.HttpUtils;

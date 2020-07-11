@@ -1,4 +1,4 @@
-package com.jiangwensi.busarrival.mapper.custom;
+package com.jiangwensi.busarrival.domain.mapper.custom;
 
 import org.mapstruct.Qualifier;
 
@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 
 
 @Qualifier
-@Target(ElementType.METHOD)
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.CLASS)
-public @interface TranslateBusStopCode {
+public @interface TranslatorType {
 }

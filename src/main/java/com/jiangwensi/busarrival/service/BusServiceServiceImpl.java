@@ -2,14 +2,13 @@ package com.jiangwensi.busarrival.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jiangwensi.busarrival.dto.BusServiceItemDto;
-import com.jiangwensi.busarrival.entity.BusServiceItem;
-import com.jiangwensi.busarrival.mapper.BusServiceItemMapper;
+import com.jiangwensi.busarrival.domain.dto.BusServiceItemDto;
+import com.jiangwensi.busarrival.domain.entity.BusServiceItem;
+import com.jiangwensi.busarrival.domain.mapper.BusServiceItemMapper;
 import com.jiangwensi.busarrival.response.BusServiceItemResponse;
 import com.jiangwensi.busarrival.repository.BusServiceRepository;
 import com.jiangwensi.busarrival.util.HttpUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;

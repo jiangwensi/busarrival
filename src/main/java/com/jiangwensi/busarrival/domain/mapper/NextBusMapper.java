@@ -1,11 +1,10 @@
-package com.jiangwensi.busarrival.mapper;
+package com.jiangwensi.busarrival.domain.mapper;
 
-import com.jiangwensi.busarrival.dto.NextBusDto;
-import com.jiangwensi.busarrival.entity.NextBus;
-import com.jiangwensi.busarrival.mapper.custom.Translator;
-import com.jiangwensi.busarrival.mapper.custom.TranslateBusStopCode;
-import com.jiangwensi.busarrival.mapper.custom.TranslatorType;
-import lombok.extern.slf4j.Slf4j;
+import com.jiangwensi.busarrival.domain.dto.NextBusDto;
+import com.jiangwensi.busarrival.domain.entity.NextBus;
+import com.jiangwensi.busarrival.domain.mapper.custom.Translator;
+import com.jiangwensi.busarrival.domain.mapper.custom.TranslateBusStopCode;
+import com.jiangwensi.busarrival.domain.mapper.custom.TranslatorType;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;

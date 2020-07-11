@@ -1,6 +1,6 @@
 package com.jiangwensi.busarrival.repository;
 
-import com.jiangwensi.busarrival.entity.BusStop;
+import com.jiangwensi.busarrival.domain.entity.BusStop;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 

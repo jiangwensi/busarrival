@@ -1,7 +1,7 @@
 package com.jiangwensi.busarrival.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.jiangwensi.busarrival.dto.BusArrivalDto;
+import com.jiangwensi.busarrival.domain.dto.BusArrivalDto;
 import com.jiangwensi.busarrival.service.BusArrivalService;
 import com.jiangwensi.busarrival.service.BusStopService;
 import lombok.extern.slf4j.Slf4j;

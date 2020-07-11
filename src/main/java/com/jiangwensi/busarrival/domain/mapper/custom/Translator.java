@@ -1,4 +1,4 @@
-package com.jiangwensi.busarrival.mapper.custom;
+package com.jiangwensi.busarrival.domain.mapper.custom;
 
 import com.jiangwensi.busarrival.service.BusStopService;
 import org.springframework.beans.factory.annotation.Autowired;

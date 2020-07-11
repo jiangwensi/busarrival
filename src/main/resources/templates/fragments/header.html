@@ -18,9 +18,12 @@
 <body>
 <div class="container-fluid mb-5" th:fragment="header">
 
-    <nav class="navbar navbar-expand-sm bg-light bg-primary fixed-top">
+    <nav class="navbar navbar-expand bg-light bg-primary fixed-top">
         <img class="ml-1 ml-sm-5" width="30" height="30" src="../../static/images/electric-bus-512.png" th:src="@{/images/electric-bus-512.png}" alt="">
-        <a href="#" class="navbar-brand ml-2" th:text="#{app.header}">Bus Arrival</a>
+        <a href="/busarrival/" class="navbar-brand ml-2" th:text="#{app.header}">Bus Arrival</a>  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav ml-auto">
+            <a class="nav-item nav-link active" href="/busarrival/">Home <span class="sr-only">(current)</span></a>
+        </div>
     </nav>
 
 </div>

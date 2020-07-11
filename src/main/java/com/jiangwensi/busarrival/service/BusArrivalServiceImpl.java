@@ -2,18 +2,14 @@ package com.jiangwensi.busarrival.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jiangwensi.busarrival.dto.BusArrivalDto;
-import com.jiangwensi.busarrival.dto.NextBusDto;
-import com.jiangwensi.busarrival.entity.BusArrival;
-import com.jiangwensi.busarrival.entity.BusRoute;
-import com.jiangwensi.busarrival.mapper.BusArrivalMapper;
-import com.jiangwensi.busarrival.mapper.BusRouteMapper;
-import com.jiangwensi.busarrival.mapper.NextBusMapper;
+import com.jiangwensi.busarrival.domain.dto.BusArrivalDto;
+import com.jiangwensi.busarrival.domain.entity.BusArrival;
+import com.jiangwensi.busarrival.domain.entity.BusRoute;
+import com.jiangwensi.busarrival.domain.mapper.BusArrivalMapper;
+import com.jiangwensi.busarrival.domain.mapper.NextBusMapper;
 import com.jiangwensi.busarrival.response.BusArrivalResponse;
-import com.jiangwensi.busarrival.response.BusRouteResponse;
 import com.jiangwensi.busarrival.util.HttpUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -78,10 +74,10 @@ public class BusArrivalServiceImpl implements BusArrivalService {
                 Integer o2ServiceNoInt;
                 String o1ServiceNoChar;
                 String o2ServiceNoChar;
-                o1ServiceNoInt = Integer.parseInt(o1.getServiceNo().replaceAll("[^0-9]]",""));
-                o2ServiceNoInt = Integer.parseInt(o2.getServiceNo().replaceAll("[^0-9]]",""));
-                o1ServiceNoChar = o1.getServiceNo().replaceAll("[0-9]]","");
-                o2ServiceNoChar = o2.getServiceNo().replaceAll("[0-9]]","");
+                o1ServiceNoInt = Integer.parseInt(o1.getServiceNo().replaceAll("[^0-9]",""));
+                o2ServiceNoInt = Integer.parseInt(o2.getServiceNo().replaceAll("[^0-9]",""));
+                o1ServiceNoChar = o1.getServiceNo().replaceAll("[0-9]","");
+                o2ServiceNoChar = o2.getServiceNo().replaceAll("[0-9]","");
                 if (o1ServiceNoInt==o2ServiceNoInt) {
                     return o1ServiceNoChar.compareTo(o2ServiceNoChar);
                 }
