@@ -22,18 +22,15 @@
 <div class="container mb-5" th:replace="fragments/header::header">
     header
 </div>
-<div class="container mt-5">
-    <div class="row form mx-auto dropdown mt-5 pt-5 text-center">
-        <div class="container-fluid py-3 py-sm-2 m-0">
-            <div th:replace="fragments/search::searchServiceByServiceNo">
-                Search Service By Service No.
-            </div>
-        </div>
-        <div class="container-fluid py-3 py-sm-2 m-0">
-
-            <div th:replace="fragments/search::searchBusStop">
-                Search Service By Service No.
-            </div>
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <form class="form" action="showBusArrival" th:each="busStop:${busStops}" >
+                <input type="hidden" name="busStopCode" th:value="${busStop.busStopCode}">
+                <button type="submit" class="btn btn-light"
+                       th:text="${busStop.description}+' , '+${busStop.roadName}">
+                </button>
+            </form>
         </div>
     </div>
 </div>

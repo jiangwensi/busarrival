@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title th:text="#{app.title}">Bus Arrival App</title>
 
-    <link rel="stylesheet" href="../static/css/bootstrap/bootstrap.min.css"
-          th:href="@{/css/bootstrap/bootstrap.min.css}">
+    <link rel="stylesheet" href="../static/css/bootstrap/bootstrap.min.css" th:href="@{/css/bootstrap/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
     <link rel="icon" type="image/png" href="../static/images/electric-bus.png" th:href="@{/images/electric-bus.png}"/>
     <link href="../static/css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet">
 
@@ -24,46 +24,29 @@
 </div>
 <div class="container mt-5">
     <div class="row form mx-auto dropdown mt-5 pt-3 text-center">
-        <div class="card" th:each="busArrival:${busArrivals}">
-            <div class="card-header" th:text="${busArrival.serviceNo}">
-
+        <div class="card">
+            <div class="card-header">
+                <h4 th:text="${busStop}"></h4>
             </div>
             <div class="card-body">
-                <table class="table table-hover table-striped table-light">
-                    <tr>
-                        <td class="td" >ETA</td>
-                        <td class="td" th:text="${busArrival.nextBus.estimatedArrival}"></td>
-                        <td class="td" th:text="${busArrival.nextBus2.estimatedArrival}"></td>
-                        <td class="td" th:text="${busArrival.nextBus3.estimatedArrival}"></td>
+
+                <table class="table table-hover table-striped table-light mx-auto">
+                    <tr class="tr">
+                        <td class="font-weight-bold" >Service No.</td>
+                        <td colspan="3">Next Bus</td>
                     </tr>
-                    <tr>
-                        <td class="td">Load</td>
-                        <td class="td" th:text="${busArrival.nextBus.load}"></td>
-                        <td class="td" th:text="${busArrival.nextBus2.load}"></td>
-                        <td class="td" th:text="${busArrival.nextBus3.load}"></td>
-                    </tr>
-                    <tr>
-                        <td class="td">Feature</td>
-                        <td class="td" th:text="${busArrival.nextBus.feature}"></td>
-                        <td class="td" th:text="${busArrival.nextBus2.feature}"></td>
-                        <td class="td" th:text="${busArrival.nextBus3.feature}"></td>
-                    </tr>
-                    <tr>
-                        <td class="td">Type</td>
-                        <td class="td" th:text="${busArrival.nextBus.type}"></td>
-                        <td class="td" th:text="${busArrival.nextBus2.type}"></td>
-                        <td class="td" th:text="${busArrival.nextBus3.type}"></td>
+                    <tr class="tr" th:each="busArrival:${busArrivals}">
+                        <td class="font-weight-bold" th:text="${busArrival.serviceNo}"> </td>
+                        <td th:text="${busArrival.nextBus.estimatedArrival}"> </td>
+                        <td th:text="${busArrival.nextBus2.estimatedArrival}"> </td>
+                        <td th:text="${busArrival.nextBus3.estimatedArrival}"> </td>
                     </tr>
                 </table>
+
             </div>
         </div>
-        <table class="table table-hover table-striped table-bordered col-12 mb-4" th:each="busArrival: ${busArrivals}">
-            <tr>
-                <td>Service No.</td>
-                <td th:text="${busArrival.serviceNo}"></td>
-            </tr>
-        </table>
     </div>
+</div>
 <div class="container-fluid footer text-center" th:replace="fragments/footer::footer">
     footer
 </div>

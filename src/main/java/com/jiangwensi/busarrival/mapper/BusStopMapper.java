@@ -5,7 +5,7 @@ import com.jiangwensi.busarrival.entity.BusStop;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface BusStopMapper {
 
     BusStopMapper INSTANCE = Mappers.getMapper(BusStopMapper.class);

@@ -11,4 +11,7 @@ public interface BusStopService {
     void syncBusStops() throws JsonProcessingException;
 
     String translateBusStopCodeToName(String code);
+
+    List<BusStopDto> searchBusStop(String busStop);
+
 }

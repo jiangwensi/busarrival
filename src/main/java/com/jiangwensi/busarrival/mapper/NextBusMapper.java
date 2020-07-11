@@ -75,14 +75,16 @@ public interface NextBusMapper {
     @Named("translateETA")
     default String translateETA(String eta) throws ParseException {
         if (eta=="") {
-            return eta;
+            return "-";
         }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
         Date etaDate = sdf.parse(eta);
         long seconds = (etaDate.getTime() - new Date().getTime()) / 1000;
-//        String min = String.valueOf((int) seconds / 60);
+        if (seconds<0) {
+            return "-";
+        }
         String min = String.valueOf(seconds / 60);
-        String sec = String.valueOf(seconds % 60);
-        return min + " min " + sec + " sec";
+//        String sec = String.valueOf(seconds % 60);
+        return min + " min";
     }
 }

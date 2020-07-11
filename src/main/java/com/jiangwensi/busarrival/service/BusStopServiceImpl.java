@@ -9,6 +9,7 @@ import com.jiangwensi.busarrival.response.BusStopResponse;
 import com.jiangwensi.busarrival.repository.BusStopRepository;
 import com.jiangwensi.busarrival.util.HttpUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,9 @@ public class BusStopServiceImpl implements BusStopService {
 
     private BusStopRepository busStopRepository;
 
+    @Autowired
+    private BusStopMapper busStopMapper;
+
     public BusStopServiceImpl(BusStopRepository busStopRepository) {
         this.busStopRepository = busStopRepository;
     }
@@ -42,8 +46,6 @@ public class BusStopServiceImpl implements BusStopService {
         busStops.forEach(e->dtos.add(BusStopMapper.INSTANCE.toBusStopDto(e)));
         return dtos;
     }
-
-
 
     @Override
     public void syncBusStops() throws JsonProcessingException {
@@ -76,5 +78,15 @@ public class BusStopServiceImpl implements BusStopService {
             return "";
         }
         return busStop.getDescription() + ", " + busStop.getRoadName();
+    }
+
+    @Override
+    public List<BusStopDto> searchBusStop(String busStop) {
+        log.info("searchBusStop busStop:{}",busStop);
+        List<BusStop> busStops =
+                (List<BusStop>) busStopRepository.findByDescriptionIgnoreCaseContaining(busStop);
+        List<BusStopDto> busStopDtos = new ArrayList<>();
+        busStops.forEach(e->busStopDtos.add(busStopMapper.toBusStopDto(e)));
+        return busStopDtos;
     }
 }
