@@ -90,4 +90,12 @@ public class BusServiceServiceImpl implements BusServiceService {
         busServiceRepository.deleteAll();
         busServiceRepository.saveAll(distinctBusService);
     }
+
+    @Override
+    public List<BusServiceItemDto> searchByServiceNo(String serviceNo) {
+        List<BusServiceItem> busServices = (List<BusServiceItem>) busServiceRepository.findByServiceNo(serviceNo);
+        List<BusServiceItemDto> busServiceItemDtos = new ArrayList<>();
+        busServices.forEach(e->busServiceItemDtos.add(busServiceItemMapper.toBusServiceItemDto(e)));
+        return busServiceItemDtos;
+    }
 }

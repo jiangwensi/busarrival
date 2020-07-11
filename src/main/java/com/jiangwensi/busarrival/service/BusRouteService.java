@@ -11,4 +11,5 @@ public interface BusRouteService {
 
     List<BusRoute> syncBusRoutes() throws JsonProcessingException;
 
+
 }

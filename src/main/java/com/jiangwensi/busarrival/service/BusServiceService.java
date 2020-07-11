@@ -9,4 +9,6 @@ public interface BusServiceService {
     List<BusServiceItemDto> listAllBusServices() throws JsonProcessingException;
 
     void syncBusServices() throws JsonProcessingException;
+
+    List<BusServiceItemDto> searchByServiceNo(String serviceNo);
 }

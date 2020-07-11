@@ -23,21 +23,11 @@
 </div>
 <div class="container mt-5">
     <div class="row form mx-auto dropdown mt-5 pt-5 text-center">
-        <div class="col-xs-12 col-lg-6 mt-3 w-100 text-center">
-            <select id="selectBusService" class="btn btn-outline-primary dropdown-toggle w-100">
-                <option value="0" th:text="#{app.select.bus.service}">Select Bus Service</option>
-                <option th:each="busService : ${busServices}"
-                        th:text="${busService.serviceNo}+', '+${busService.originName}+' -> '+${busService.destinationName}">
-                </option>
-            </select>
+        <div th:replace="fragments/search::searchServiceByServiceNo">
+            Search Service By Service No.
         </div>
-        <div class="col-xs-12 col-lg-6 mt-3 w-100 h-100 ">
-            <select id="selectBusStop" class="btn btn-outline-primary dropdown-toggle w-100">
-                <option value="0" th:text="#{app.select.bus.stop}">Select Bus Stop</option>
-                <option th:each="busStop : ${busStops}"
-                        th:text="${busStop.description}+' , '+${busStop.roadName}+' , '+${busStop.busStopCode}">
-                </option>
-            </select>
+        <div th:replace="fragments/search::searchBusStop">
+            Search Service By Service No.
         </div>
     </div>
 </div>
