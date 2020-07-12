@@ -24,7 +24,11 @@
     <div class="container text-center pb-lg-2 pb-1">
         <h5><span th:text="${serviceNo}"></span> Arrival Time</h5>
     </div>
-    <div class="container"  th:each="entry: ${busRouteDirections}">
+    <div class="container text-center"  th:if="${busRouteDirections.size()==0}">
+        <p> Sorry, this bus service is unavailable.</p>
+    </div>
+
+    <div class="container text-center"  th:each="entry: ${busRouteDirections}">
         <p  class="font-weight-bold"> Direction <span th:text="${entry.key}"></span></p>
         <table class="table table-hover table-striped table-bordered col-12 mb-4">
             <tr class="text-center">
@@ -33,7 +37,7 @@
             </tr>
             <tr class="text-center" th:each="busRoute: ${entry.value}">
                 <td class="busStop " th:text="${busRoute.busStopName}">> </td>
-                <td th:text="${busRoute.nextBusArrival}"></td>
+                <td class="arrivalTime" th:text="${busRoute.nextBusArrival}"></td>
             </tr>
         </table>
     </div>
@@ -99,6 +103,21 @@
     }
     let tables = document.getElementsByClassName("table");
     Array.from(tables).forEach(table => table.addEventListener('click',searchArrivalDetails));
+
+
+    let arrivalTimes = document.getElementsByClassName("arrivalTime");
+    for (let i = 0; i < arrivalTimes.length; i++) {
+        let arrivalTimeEl = arrivalTimes.item(i);
+        let arrivalTime = arrivalTimeEl.innerHTML;
+        console.log(arrivalTime)
+        let time = parseInt(arrivalTime.substring(0,arrivalTime.indexOf(' ')));
+        console.log(time)
+        if(time <=5){
+            arrivalTimeEl.style.backgroundColor= '#ffabab';
+        } else if (time >5 && time<=10){
+            arrivalTimeEl.style.backgroundColor= '#ffffcc';
+        }
+    }
 </script>
 </body>
 </html>

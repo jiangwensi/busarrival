@@ -15,10 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
@@ -62,6 +59,16 @@ public class BusServiceArrivalServiceImpl implements BusServiceArrivalService {
                 busServiceStopArrivalDtos.add(busServiceStopArrivalDto);
             }
         }
+
+        Collections.sort(busServiceStopArrivalDtos, new Comparator<BusServiceStopArrivalDto>() {
+            @Override
+            public int compare(BusServiceStopArrivalDto o1, BusServiceStopArrivalDto o2) {
+                if (o1.getDirection().compareTo(o2.getDirection())==0) {
+                    return o1.getBusStopName().compareTo(o2.getBusStopName());
+                }
+                return o1.getDirection().compareTo(o2.getDirection());
+            }
+        });
 
         Map<String, List<BusServiceStopArrivalDto>> collect = busServiceStopArrivalDtos.stream().collect(Collectors.groupingBy(e -> e.getDirection(), toList()));
 
