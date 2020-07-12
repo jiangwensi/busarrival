@@ -5,6 +5,7 @@ import com.jiangwensi.busarrival.domain.dto.BusRouteDto;
 import com.jiangwensi.busarrival.domain.entity.BusRoute;
 
 import java.util.List;
+import java.util.Map;
 
 public interface BusRouteService {
     List<BusRouteDto> listAllBusRoutes() throws JsonProcessingException;
@@ -12,4 +13,7 @@ public interface BusRouteService {
     List<BusRoute> syncBusRoutes() throws JsonProcessingException;
 
     List<BusRoute> findByBusStopCode(String busStopCode);
+
+    Map<String, List<BusRouteDto>> findByServiceNo(String serviceNo);
+
 }

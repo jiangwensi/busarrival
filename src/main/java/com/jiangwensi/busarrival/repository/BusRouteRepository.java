@@ -13,4 +13,5 @@ import java.util.List;
 public interface BusRouteRepository extends CrudRepository<BusRoute,Long> {
 
     Iterable<BusRoute> findByBusStopCode(String destionationCode);
+    Iterable<BusRoute> findByServiceNo(String serviceNo);
 }

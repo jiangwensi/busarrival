@@ -20,4 +20,6 @@ public class BusRouteDto {
     private String satLastBus;
     private String sunFirstBus;
     private String sunLastBus;
+
+    private String busStopName;
 }
