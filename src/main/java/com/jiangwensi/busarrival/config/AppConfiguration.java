@@ -12,6 +12,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @Configuration
 //@EnableScheduling
 @PropertySource(value = "file:${catalina.home}\\conf\\local.application.properties",ignoreResourceNotFound = false)
-//@PropertySource(value = "file:D:\\MyProjects\\busarrival\\local.application.properties",ignoreResourceNotFound = false)
+//@PropertySource(value = "file:${catalina.home}//conf//local.application.properties",ignoreResourceNotFound = false)
 public class AppConfiguration {
 }

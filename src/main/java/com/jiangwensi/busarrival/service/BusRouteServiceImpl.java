@@ -70,6 +70,9 @@ public class BusRouteServiceImpl implements BusRouteService {
 
     @Override
     public List<BusRoute> findByBusStopCode(String busStopCode) {
-        return busRouteRepository.findByBusStopCode(busStopCode);
+        Iterable<BusRoute> resultIterable = busRouteRepository.findByBusStopCode(busStopCode);
+        List<BusRoute> result = new ArrayList<>();
+        resultIterable.forEach(result::add);
+        return result;
     }
 }

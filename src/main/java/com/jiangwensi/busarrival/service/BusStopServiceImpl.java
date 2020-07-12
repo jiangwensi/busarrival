@@ -73,7 +73,7 @@ public class BusStopServiceImpl implements BusStopService {
 
     @Override
     public String translateBusStopCodeToName(String code) {
-        BusStop busStop = busStopRepository.findByBusStopCode(code);
+        BusStop busStop = busStopRepository.findByBusStopCode(code).orElse(null);
         if(busStop==null) {
             return "";
         }
