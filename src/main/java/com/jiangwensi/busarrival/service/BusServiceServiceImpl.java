@@ -2,9 +2,15 @@ package com.jiangwensi.busarrival.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jiangwensi.busarrival.domain.dto.BusArrivalDto;
 import com.jiangwensi.busarrival.domain.dto.BusServiceItemDto;
+import com.jiangwensi.busarrival.domain.dto.BusServiceStopArrivalDto;
+import com.jiangwensi.busarrival.domain.entity.BusArrival;
+import com.jiangwensi.busarrival.domain.entity.BusRoute;
 import com.jiangwensi.busarrival.domain.entity.BusServiceItem;
 import com.jiangwensi.busarrival.domain.mapper.BusServiceItemMapper;
+import com.jiangwensi.busarrival.domain.mapper.BusStopMapper;
+import com.jiangwensi.busarrival.response.BusArrivalResponse;
 import com.jiangwensi.busarrival.response.BusServiceItemResponse;
 import com.jiangwensi.busarrival.repository.BusServiceRepository;
 import com.jiangwensi.busarrival.util.HttpUtils;
@@ -32,10 +38,14 @@ public class BusServiceServiceImpl implements BusServiceService {
     @Value("${api.url.busservices}")
     private String url;
 
+
     private BusServiceRepository busServiceRepository;
 
     @Autowired
     private BusServiceItemMapper busServiceItemMapper;
+
+    @Autowired
+    private BusStopMapper busStopMapper;
 
     public BusServiceServiceImpl(BusServiceRepository busServiceRepository) {
         this.busServiceRepository = busServiceRepository;
@@ -44,7 +54,7 @@ public class BusServiceServiceImpl implements BusServiceService {
     @Override
     public List<BusServiceItemDto> listAllBusServices() throws JsonProcessingException {
         log.info("listAllBusServices() start");
-        List<BusServiceItem> busServiceItems =  (List<BusServiceItem>)busServiceRepository.findAll();
+        List<BusServiceItem> busServiceItems = (List<BusServiceItem>) busServiceRepository.findAll();
         List<BusServiceItemDto> dtos = new ArrayList<>();
         Set<String> uniqueBusServiceNo = new HashSet<>();
         Stream<BusServiceItem> uniqueBusServices = busServiceItems.stream().filter(e -> uniqueBusServiceNo.add(e.getServiceNo()));
@@ -60,7 +70,7 @@ public class BusServiceServiceImpl implements BusServiceService {
         List<BusServiceItem> busServiceItems = new ArrayList<>();
         while (size == 500) {
             ResponseEntity<String> response = new HttpUtils().getResponse(url + "?$skip=" + i * 500, apiKey);
-            log.info("counter i: {}",i);
+            log.info("counter i: {}", i);
             i++;
 
             ObjectMapper mapper = new ObjectMapper();
@@ -68,20 +78,20 @@ public class BusServiceServiceImpl implements BusServiceService {
                     BusServiceItemResponse.class);
             busServiceItems.addAll(busServiceItemResponse.getValue());
             size = busServiceItemResponse.getValue().size();
-            log.info("retrieved bus service size: {}",size);
+            log.info("retrieved bus service size: {}", size);
         }
 
-        log.info("retrieved {} bus services from API",busServiceItems.size());
+        log.info("retrieved {} bus services from API", busServiceItems.size());
         List<BusServiceItem> distinctBusService = busServiceItems.stream()
                 .collect(
                         Collectors.collectingAndThen(
-                            Collectors.toMap(
-                                c ->  c.getServiceNo()+"+"+c.getDirection(),
-                                Function.identity(),
-                                (a, b) -> a,
-                                () -> new LinkedHashMap<String, BusServiceItem>()
-                            ),
-                        m -> new ArrayList<>(m.values())));
+                                Collectors.toMap(
+                                        c -> c.getServiceNo() + "+" + c.getDirection(),
+                                        Function.identity(),
+                                        (a, b) -> a,
+                                        () -> new LinkedHashMap<String, BusServiceItem>()
+                                ),
+                                m -> new ArrayList<>(m.values())));
 
         log.info("after reducing duplicate services, going to update {} bus services in database",
                 distinctBusService.size());
@@ -93,9 +103,11 @@ public class BusServiceServiceImpl implements BusServiceService {
     public List<BusServiceItemDto> searchByServiceNo(String serviceNo) {
         List<BusServiceItem> busServices = (List<BusServiceItem>) busServiceRepository.findByServiceNo(serviceNo);
         List<BusServiceItemDto> busServiceItemDtos = new ArrayList<>();
-        busServices.forEach(e->busServiceItemDtos.add(busServiceItemMapper.toBusServiceItemDto(e)));
+        busServices.forEach(e -> busServiceItemDtos.add(busServiceItemMapper.toBusServiceItemDto(e)));
         return busServiceItemDtos;
     }
+
+
 
 
 }

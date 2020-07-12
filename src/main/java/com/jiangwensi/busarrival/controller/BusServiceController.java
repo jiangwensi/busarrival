@@ -2,8 +2,10 @@ package com.jiangwensi.busarrival.controller;
 
 import com.jiangwensi.busarrival.domain.dto.BusRouteDto;
 import com.jiangwensi.busarrival.domain.dto.BusServiceItemDto;
+import com.jiangwensi.busarrival.domain.dto.BusServiceStopArrivalDto;
 import com.jiangwensi.busarrival.domain.entity.BusRoute;
 import com.jiangwensi.busarrival.service.BusRouteService;
+import com.jiangwensi.busarrival.service.BusServiceArrivalService;
 import com.jiangwensi.busarrival.service.BusServiceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -23,11 +25,11 @@ public class BusServiceController {
 
     private BusServiceService busServiceService;
 
-    private BusRouteService busRouteService;
+    private BusServiceArrivalService busServiceArrivalService;
 
-    public BusServiceController(BusServiceService busServiceService, BusRouteService busRouteService) {
+    public BusServiceController(BusServiceService busServiceService, BusServiceArrivalService busServiceArrivalService) {
         this.busServiceService = busServiceService;
-        this.busRouteService = busRouteService;
+        this.busServiceArrivalService = busServiceArrivalService;
     }
 
     @GetMapping("/searchBusService")
@@ -40,7 +42,7 @@ public class BusServiceController {
                 e.getOriginCode(),
                 e.getDestinationCode()));
 
-        Map<String, List<BusRouteDto>> busRouteDirections = busRouteService.findByServiceNo(busNo);
+        Map<String, List<BusServiceStopArrivalDto>> busRouteDirections = busServiceArrivalService.getBusServiceStopArrivalDtoByServiceNo(busNo);
 
         model.addAttribute("busServices",busServiceItemsDtos);
         model.addAttribute("serviceNo",busNo);

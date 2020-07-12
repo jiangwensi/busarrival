@@ -16,11 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.toList;
-import static java.util.stream.Collectors.toSet;
 
 /**
  * Created by Jiang Wensi on 8/7/2020
@@ -85,13 +80,22 @@ public class BusRouteServiceImpl implements BusRouteService {
         return result;
     }
 
+//    @Override
+//    public Map<String, List<BusRouteDto>> findByServiceNo(String serviceNo) {
+//        log.debug("findByServiceNo serviceNo:{}",serviceNo);
+//        Iterable<BusRoute> resultIterable = busRouteRepository.findByServiceNo(serviceNo);
+//        List<BusRouteDto> resultDto = new ArrayList<>();
+//        resultIterable.forEach(e-> resultDto.add(busRouteMapper.toBusRouteDto(e)));
+//        Map<String, List<BusRouteDto>> collect = resultDto.stream().collect(Collectors.groupingBy(e -> e.getDirection(), toList()));
+//        return collect;
+//    }
+
     @Override
-    public Map<String, List<BusRouteDto>> findByServiceNo(String serviceNo) {
+    public List<BusRouteDto> findByServiceNo(String serviceNo) {
         log.debug("findByServiceNo serviceNo:{}",serviceNo);
         Iterable<BusRoute> resultIterable = busRouteRepository.findByServiceNo(serviceNo);
         List<BusRouteDto> resultDto = new ArrayList<>();
-        resultIterable.forEach(e-> resultDto.add(busRouteMapper.toBusRouteDto(e)));
-        Map<String, List<BusRouteDto>> collect = resultDto.stream().collect(Collectors.groupingBy(e -> e.getDirection(), toList()));
-        return collect;
+        resultIterable.forEach(e->resultDto.add(busRouteMapper.toBusRouteDto(e)));
+        return resultDto;
     }
 }

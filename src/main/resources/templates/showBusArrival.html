@@ -31,7 +31,7 @@
     <table class="table table-hover table-striped table-bordered mx-auto">
         <tr class="tr text-center">
             <td class="font-weight-bold">Service No.</td>
-            <td colspan="3">Next Bus</td>
+            <td class="font-weight-bold" colspan="3">Next Bus</td>
         </tr>
         <tr class="tr  text-center" th:each="busArrival:${busArrivals}">
             <td class="font-weight-bold busService" th:text="${busArrival.serviceNo}"></td>

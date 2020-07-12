@@ -22,17 +22,25 @@
 </div>
 <div class="container mt-5 pt-4">
     <div class="container text-center pb-lg-2 pb-1">
-        <h5><span th:text="${serviceNo}"></span> Service Details</h5>
+        <h5><span th:text="${serviceNo}"></span> Arrival Time</h5>
     </div>
     <div class="container"  th:each="entry: ${busRouteDirections}">
-        <p> Direction <span th:text="${entry.key}"></span></p>
+        <p  class="font-weight-bold"> Direction <span th:text="${entry.key}"></span></p>
         <table class="table table-hover table-striped table-bordered col-12 mb-4">
+            <tr class="text-center">
+                <td  class="font-weight-bold">Bus Stop</td>
+                <td class="font-weight-bold">Next Bus</td>
+            </tr>
             <tr class="text-center" th:each="busRoute: ${entry.value}">
-                <td th:text="${busRoute.busStopName}"></td>
+                <td class="busStop " th:text="${busRoute.busStopName}">> </td>
+                <td th:text="${busRoute.nextBusArrival}"></td>
             </tr>
         </table>
     </div>
 
+    <div class="container text-center pb-lg-2 pb-1">
+        <h5><span th:text="${serviceNo}"></span> Service Details</h5>
+    </div>
     <table class="table table-hover table-striped table-bordered col-12 mb-4" th:each="busService: ${busServices}">
         <tr class="text-center">
             <td>Service No.</td>
