@@ -41,7 +41,7 @@ public class BusServiceController {
         List<BusServiceItemDto> busServiceItemsDtos = busServiceService.searchByServiceNo(busNo);
 
         if (busServiceItemsDtos==null || busServiceItemsDtos.size()==0) {
-            model.addAttribute("busNoError","Unable to find bus ");
+            model.addAttribute("busNoError","Unable to find bus "+busNo);
             return "index";
         }
 

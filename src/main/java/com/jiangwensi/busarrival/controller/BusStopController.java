@@ -34,7 +34,8 @@ public class BusStopController {
         log.info("searchBusStopByDescriptionContaining busStop:{}", searchKey);
         List<BusStopDto> busStopDtos = busStopService.searchBusStopByDescriptionContaining(searchKey);
         if (busStopDtos == null || busStopDtos.size() == 0) {
-            return "redirect:/";
+            model.addAttribute("busStopError","Unable to find bus stop "+searchKey);
+            return "index";
         }
 
         if (busStopDtos.size() == 1) {
