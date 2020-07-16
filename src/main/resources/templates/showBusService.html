@@ -20,43 +20,44 @@
 <div class="container mb-5" th:replace="fragments/header::header">
     header
 </div>
-<div class="container mt-5 pt-4">
+<div class="container mt-5 pt-4 ">
     <div class="container text-center pb-lg-2 pb-1">
-        <h5><span th:text="${serviceNo}"></span> Arrival Time</h5>
+        <h4><span th:text="${serviceNo}"></span> Arrival Time</h4>
     </div>
-    <div class="container text-center"  th:if="${busRouteDirections.size()==0}">
+    <div class="container text-center" th:if="${busRouteDirections.size()==0}">
         <p> Sorry, this bus service is unavailable.</p>
     </div>
 
-    <div class="container text-center busArrival"  th:each="entry: ${busRouteDirections}">
-        <p  class="font-weight-bold"> Direction <span th:text="${entry.key}"></span></p>
-        <div class="row">
-            <div class="col-8 font-weight-bold">Bus Stop</div>
-            <div class="col-4 font-weight-bold">Next Bus</div>
-        </div>
-        <div class="row shadow-sm" th:each="busRoute: ${entry.value}">
-            <div class="col-8">
-                <div class="div font-weight-bold h5 pt-3 busStop" th:text="${busRoute.busStopName}">
-
-                </div>
-                <div class="div small pb-1" th:text="${busRoute.busStopRoad}">
-
-                </div>
+    <ul class="nav nav-tabs navbar-expand mb-3 mt-2" id="myTab" role="tablist">
+        <li class="nav-item" th:each="entry: ${busRouteDirections}">
+            <a class="nav-link font-weight-bold direction-nav" th:id="'direction-'+${entry.key}+'-nav'"
+               data-toggle="tab" th:href="'#direction-'+${entry.key}+'-tab'" role="tab" th:attr="aria-controls='direction-'+${entry.key}+'-tab'"
+               aria-selected="true">
+                Direction <span th:text="${entry.key}"></span>
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade my-1 direction-nav-content busArrival" th:id="'direction-'+${entry.key}+'-tab'" role="tabpanel"
+             th:attr="aria-labelledby='direction-'+${entry.key}+'-nav'" th:each="entry: ${busRouteDirections}">
+            <div class="row text-center">
+                <div class="col-8 font-weight-bold">Bus Stop</div>
+                <div class="col-4 font-weight-bold">Next Bus</div>
             </div>
-            <div class="col-4 arrivalTime my-auto h5" th:text="${busRoute.nextBusArrival}"></div>
-        </div>
+            <div class="row shadow-sm text-center rounded-lg" th:each="busRoute: ${entry.value}">
+                <div class="col-8">
+                    <div class="div font-weight-bold h5 pt-3 busStop" th:text="${busRoute.busStopName}">
 
-<!--        <table class="table table-hover table-striped table-bordered col-12 mb-4">-->
-<!--            <tr class="text-center">-->
-<!--                <td  class="font-weight-bold">Bus Stop</td>-->
-<!--                <td class="font-weight-bold">Next Bus</td>-->
-<!--            </tr>-->
-<!--            <tr class="text-center" th:each="busRoute: ${entry.value}">-->
-<!--                <td class="busStop " th:text="${busRoute.busStopName}">> </td>-->
-<!--                <td class="arrivalTime" th:text="${busRoute.nextBusArrival}"></td>-->
-<!--            </tr>-->
-<!--        </table>-->
+                    </div>
+                    <div class="div small pb-1" th:text="${busRoute.busStopRoad}">
+
+                    </div>
+                </div>
+                <div class="col-4 arrivalTime my-auto h5" th:text="${busRoute.nextBusArrival}"></div>
+            </div>
+        </div>
     </div>
+
 
     <div class="container text-center pb-lg-2 pb-1">
         <h5><span th:text="${serviceNo}"></span> Service Details</h5>
@@ -72,7 +73,7 @@
         </tr>
         <tr class="text-center">
             <td>Destination</td>
-            <td class="busStop"  th:text="${busService.destinationName}"></td>
+            <td class="busStop" th:text="${busService.destinationName}"></td>
         </tr>
         <tr class="text-center">
             <td>AM Peak Frequency</td>
@@ -111,14 +112,14 @@
     searchArrivalDetails = (event) => {
         if (event.target.classList.contains("busStop")) {
             let name = event.target.innerText;
-            let description = name.substring(0,name.indexOf(','))
-            window.location.href="/busarrival/searchBusStopByDescription?description="+description;
+            let description = name;
+            window.location.href = "/busarrival/searchBusStopByDescription?description=" + description;
         } else {
             console.log("not bus stop");
         }
     }
     let busArrivals = document.getElementsByClassName("busArrival");
-    Array.from(busArrivals).forEach(arrival => arrival.addEventListener('click',searchArrivalDetails));
+    Array.from(busArrivals).forEach(arrival => arrival.addEventListener('click', searchArrivalDetails));
 
 
     let arrivalTimes = document.getElementsByClassName("arrivalTime");
@@ -126,16 +127,20 @@
         let arrivalTimeEl = arrivalTimes.item(i);
         let arrivalTime = arrivalTimeEl.innerHTML;
         console.log(arrivalTime)
-        let time = parseInt(arrivalTime.substring(0,arrivalTime.indexOf(' ')));
+        let time = parseInt(arrivalTime.substring(0, arrivalTime.indexOf(' ')));
         console.log(time)
-        if(time <=5){
+        if (time <= 5) {
             arrivalTimeEl.classList.add('text-success');
             arrivalTimeEl.classList.add('font-weight-bold');
-        } else if (time >5 && time<=10){
+        } else if (time > 5 && time <= 10) {
             arrivalTimeEl.classList.add('text-primary');
             arrivalTimeEl.classList.add('font-weight-bold');
         }
     }
+
+    document.getElementsByClassName('direction-nav').item(0).classList.add('active');
+    document.getElementsByClassName('direction-nav-content').item(0).classList.add('active');
+    document.getElementsByClassName('direction-nav-content').item(0).classList.add('show');
 </script>
 </body>
 </html>

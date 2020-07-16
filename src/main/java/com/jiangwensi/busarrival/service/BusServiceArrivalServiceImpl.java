@@ -60,15 +60,15 @@ public class BusServiceArrivalServiceImpl implements BusServiceArrivalService {
             }
         }
 
-        Collections.sort(busServiceStopArrivalDtos, new Comparator<BusServiceStopArrivalDto>() {
-            @Override
-            public int compare(BusServiceStopArrivalDto o1, BusServiceStopArrivalDto o2) {
-                if (o1.getDirection().compareTo(o2.getDirection())==0) {
-                    return o1.getBusStopName().compareTo(o2.getBusStopName());
-                }
-                return o1.getDirection().compareTo(o2.getDirection());
-            }
-        });
+//        Collections.sort(busServiceStopArrivalDtos, new Comparator<BusServiceStopArrivalDto>() {
+//            @Override
+//            public int compare(BusServiceStopArrivalDto o1, BusServiceStopArrivalDto o2) {
+//                if (o1.getDirection().compareTo(o2.getDirection())==0) {
+//                    return o1.getBusStopName().compareTo(o2.getBusStopName());
+//                }
+//                return o1.getDirection().compareTo(o2.getDirection());
+//            }
+//        });
 
         Map<String, List<BusServiceStopArrivalDto>> collect = busServiceStopArrivalDtos.stream().collect(Collectors.groupingBy(e -> e.getDirection(), toList()));
 
