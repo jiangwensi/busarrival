@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title th:text="#{app.title}">Bus Arrival App</title>
 
-    <link rel="stylesheet" href="../static/css/bootstrap/bootstrap.min.css" th:href="@{/css/bootstrap/bootstrap.min.css}">
+    <link rel="stylesheet" href="../static/css/bootstrap/bootstrap.min.css"
+          th:href="@{/css/bootstrap/bootstrap.min.css}">
     <link rel="icon" type="image/png" href="../static/images/electric-bus.png" th:href="@{/images/electric-bus.png}"/>
     <link href="../static/css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet">
 
@@ -18,11 +19,24 @@
 <body>
 <div class="container-fluid mb-5" th:fragment="header">
 
-    <nav class="navbar navbar-expand bg-light bg-primary fixed-top">
-        <img class="ml-1 ml-sm-5" width="30" height="30" src="../../static/images/electric-bus-512.png" th:src="@{/images/electric-bus-512.png}" alt="">
-        <a href="/busarrival/" class="navbar-brand ml-2" th:text="#{app.header}">Bus Arrival</a>  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav ml-auto">
-            <a class="nav-item nav-link active" href="/busarrival/">Home <span class="sr-only">(current)</span></a>
+    <nav class="navbar navbar-expand-sm bg-light bg-primary fixed-top">
+        <img class="ml-1 ml-sm-5" width="30" height="30" src="../../static/images/electric-bus-512.png"
+             th:src="@{/images/electric-bus-512.png}" alt="">
+        <a href="/busarrival/" class="navbar-brand ml-2 text-dark font-weight-bold" th:text="#{app.header}">Bus Arrival</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon">
+                <i class="fa fa-bars" style="font-size:30px"></i>
+            </span>
+        </button>
+        <div class="collapse navbar-collapse text-center" id="navbarNavAltMarkup">
+            <div class="navbar-nav ml-auto">
+                <div>
+                    <a class="nav-item nav-link active text-dark font-weight-bold " href="/busarrival/">Home</a>
+                </div>
+                <div>
+                    <a class="nav-item nav-link active text-dark font-weight-bold " href="/busarrival/icons">Icons</a>
+                </div>
+            </div>
         </div>
     </nav>
 
