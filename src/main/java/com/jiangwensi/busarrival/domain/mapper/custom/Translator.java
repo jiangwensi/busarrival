@@ -20,4 +20,9 @@ public class Translator {
     public String toBusName(String originCode) {
         return busStopService.translateBusStopCodeToName(originCode);
     }
+
+    @TranslateBusStopRoad
+    public String toBusStopRoad(String originCode) {
+        return busStopService.translateBusStopCodeToRoad(originCode);
+    }
 }

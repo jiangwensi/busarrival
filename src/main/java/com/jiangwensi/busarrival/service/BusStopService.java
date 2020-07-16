@@ -16,4 +16,5 @@ public interface BusStopService {
 
     BusStopDto searchBusStopByDescription(String description);
 
+    String translateBusStopCodeToRoad(String originCode);
 }

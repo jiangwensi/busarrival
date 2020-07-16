@@ -28,18 +28,34 @@
         <p> Sorry, this bus service is unavailable.</p>
     </div>
 
-    <div class="container text-center"  th:each="entry: ${busRouteDirections}">
+    <div class="container text-center busArrival"  th:each="entry: ${busRouteDirections}">
         <p  class="font-weight-bold"> Direction <span th:text="${entry.key}"></span></p>
-        <table class="table table-hover table-striped table-bordered col-12 mb-4">
-            <tr class="text-center">
-                <td  class="font-weight-bold">Bus Stop</td>
-                <td class="font-weight-bold">Next Bus</td>
-            </tr>
-            <tr class="text-center" th:each="busRoute: ${entry.value}">
-                <td class="busStop " th:text="${busRoute.busStopName}">> </td>
-                <td class="arrivalTime" th:text="${busRoute.nextBusArrival}"></td>
-            </tr>
-        </table>
+        <div class="row">
+            <div class="col-8 font-weight-bold">Bus Stop</div>
+            <div class="col-4 font-weight-bold">Next Bus</div>
+        </div>
+        <div class="row shadow-sm" th:each="busRoute: ${entry.value}">
+            <div class="col-8">
+                <div class="div font-weight-bold h5 pt-3 busStop" th:text="${busRoute.busStopName}">
+
+                </div>
+                <div class="div small pb-1" th:text="${busRoute.busStopRoad}">
+
+                </div>
+            </div>
+            <div class="col-4 arrivalTime my-auto h5" th:text="${busRoute.nextBusArrival}"></div>
+        </div>
+
+<!--        <table class="table table-hover table-striped table-bordered col-12 mb-4">-->
+<!--            <tr class="text-center">-->
+<!--                <td  class="font-weight-bold">Bus Stop</td>-->
+<!--                <td class="font-weight-bold">Next Bus</td>-->
+<!--            </tr>-->
+<!--            <tr class="text-center" th:each="busRoute: ${entry.value}">-->
+<!--                <td class="busStop " th:text="${busRoute.busStopName}">> </td>-->
+<!--                <td class="arrivalTime" th:text="${busRoute.nextBusArrival}"></td>-->
+<!--            </tr>-->
+<!--        </table>-->
     </div>
 
     <div class="container text-center pb-lg-2 pb-1">
@@ -101,8 +117,8 @@
             console.log("not bus stop");
         }
     }
-    let tables = document.getElementsByClassName("table");
-    Array.from(tables).forEach(table => table.addEventListener('click',searchArrivalDetails));
+    let busArrivals = document.getElementsByClassName("busArrival");
+    Array.from(busArrivals).forEach(arrival => arrival.addEventListener('click',searchArrivalDetails));
 
 
     let arrivalTimes = document.getElementsByClassName("arrivalTime");
@@ -113,9 +129,11 @@
         let time = parseInt(arrivalTime.substring(0,arrivalTime.indexOf(' ')));
         console.log(time)
         if(time <=5){
-            arrivalTimeEl.style.backgroundColor= '#ffabab';
+            arrivalTimeEl.classList.add('text-success');
+            arrivalTimeEl.classList.add('font-weight-bold');
         } else if (time >5 && time<=10){
-            arrivalTimeEl.style.backgroundColor= '#ffffcc';
+            arrivalTimeEl.classList.add('text-primary');
+            arrivalTimeEl.classList.add('font-weight-bold');
         }
     }
 </script>

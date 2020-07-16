@@ -22,4 +22,5 @@ public class BusRouteDto {
     private String sunLastBus;
 
     private String busStopName;
+    private String busStopRoad;
 }
