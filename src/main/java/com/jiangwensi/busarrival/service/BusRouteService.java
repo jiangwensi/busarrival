@@ -15,4 +15,5 @@ public interface BusRouteService {
 
     List<BusRouteDto> findByServiceNo(String serviceNo);
 
+    List<BusRouteDto> findByServiceNoAndMaxStopSequence(String serviceNo, Integer maxStopSequence);
 }

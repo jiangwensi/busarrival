@@ -92,10 +92,25 @@ public class BusRouteServiceImpl implements BusRouteService {
 
     @Override
     public List<BusRouteDto> findByServiceNo(String serviceNo) {
-        log.debug("findByServiceNo serviceNo:{}",serviceNo);
+        log.info("findByServiceNo serviceNo:{}",serviceNo);
         Iterable<BusRoute> resultIterable = busRouteRepository.findByServiceNo(serviceNo);
         List<BusRouteDto> resultDto = new ArrayList<>();
         resultIterable.forEach(e->resultDto.add(busRouteMapper.toBusRouteDto(e)));
         return resultDto;
+    }
+
+    @Override
+    public List<BusRouteDto> findByServiceNoAndMaxStopSequence(String serviceNo, Integer stopSequence) {
+        log.info("findByServiceNo serviceNo:{} stopSequence:{}",serviceNo,stopSequence);
+        if (stopSequence<0) {
+            return findByServiceNo(serviceNo);
+        } else {
+
+            Iterable<BusRoute> resultIterable = busRouteRepository.findByServiceNoAndStopSequenceLessThan(serviceNo,
+                    stopSequence);
+            List<BusRouteDto> resultDto = new ArrayList<>();
+            resultIterable.forEach(e->resultDto.add(busRouteMapper.toBusRouteDto(e)));
+            return resultDto;
+        }
     }
 }

@@ -45,30 +45,22 @@ public class BusServiceArrivalServiceImpl implements BusServiceArrivalService {
     }
 
     @Override
-    public Map<String, List<BusServiceStopArrivalDto>> getBusServiceStopArrivalDtoByServiceNo(String serviceNo){
+    public Map<String, List<BusServiceStopArrivalDto>> getBusServiceStopArrivalDtoByServiceNo
+            (String serviceNo, Integer maxStopSequence) {
         List<BusServiceStopArrivalDto> busServiceStopArrivalDtos = new ArrayList<>();
-        List<BusRouteDto> busRouteDtos = busRouteService.findByServiceNo(serviceNo);
+        List<BusRouteDto> busRouteDtos = new ArrayList<>();
+        busRouteDtos = busRouteService.findByServiceNoAndMaxStopSequence(serviceNo, maxStopSequence);
 
-        for (BusRouteDto busRouteDto:busRouteDtos) {
+        for (BusRouteDto busRouteDto : busRouteDtos) {
             BusServiceStopArrivalDto busServiceStopArrivalDto
                     = searchArrivalByBusServiceAndStop(
                     busRouteDto.getDirection(),
                     busRouteDto.getServiceNo(),
                     busRouteDto.getBusStopCode());
-            if (busServiceStopArrivalDto!=null) {
+            if (busServiceStopArrivalDto != null) {
                 busServiceStopArrivalDtos.add(busServiceStopArrivalDto);
             }
         }
-
-//        Collections.sort(busServiceStopArrivalDtos, new Comparator<BusServiceStopArrivalDto>() {
-//            @Override
-//            public int compare(BusServiceStopArrivalDto o1, BusServiceStopArrivalDto o2) {
-//                if (o1.getDirection().compareTo(o2.getDirection())==0) {
-//                    return o1.getBusStopName().compareTo(o2.getBusStopName());
-//                }
-//                return o1.getDirection().compareTo(o2.getDirection());
-//            }
-//        });
 
         Map<String, List<BusServiceStopArrivalDto>> collect = busServiceStopArrivalDtos.stream().collect(Collectors.groupingBy(e -> e.getDirection(), toList()));
 
@@ -89,7 +81,7 @@ public class BusServiceArrivalServiceImpl implements BusServiceArrivalService {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        if (busArrivalResponse.getServices()==null || busArrivalResponse.getServices().size()==0) {
+        if (busArrivalResponse.getServices() == null || busArrivalResponse.getServices().size() == 0) {
             return null;
         }
         BusArrival busArrival = busArrivalResponse.getServices().get(0);
@@ -103,8 +95,8 @@ public class BusServiceArrivalServiceImpl implements BusServiceArrivalService {
         return result;
     }
 
-    private String translateETA(String eta){
-        if (eta=="") {
+    private String translateETA(String eta) {
+        if (eta == "") {
             return "-";
         }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
@@ -115,7 +107,7 @@ public class BusServiceArrivalServiceImpl implements BusServiceArrivalService {
             e.printStackTrace();
         }
         long seconds = (etaDate.getTime() - new Date().getTime()) / 1000;
-        if (seconds<0) {
+        if (seconds < 0) {
             return "-";
         }
         String min = String.valueOf(seconds / 60);

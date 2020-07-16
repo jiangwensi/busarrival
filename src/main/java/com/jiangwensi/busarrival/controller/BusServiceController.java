@@ -42,7 +42,8 @@ public class BusServiceController {
                 e.getOriginCode(),
                 e.getDestinationCode()));
 
-        Map<String, List<BusServiceStopArrivalDto>> busRouteDirections = busServiceArrivalService.getBusServiceStopArrivalDtoByServiceNo(busNo);
+        Map<String, List<BusServiceStopArrivalDto>> busRouteDirections =
+                busServiceArrivalService.getBusServiceStopArrivalDtoByServiceNo(busNo,-1);
 
         model.addAttribute("busServices",busServiceItemsDtos);
         model.addAttribute("serviceNo",busNo);
