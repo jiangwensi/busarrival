@@ -97,6 +97,7 @@ public class BusServiceArrivalServiceImpl implements BusServiceArrivalService {
         result.setDirection(direction);
         result.setBusServiceNo(serviceNo);
         result.setBusStopName(busStopService.translateBusStopCodeToName(busStopCode));
+        result.setBusStopRoad(busStopService.translateBusStopCodeToRoad(busStopCode));
         result.setNextBusArrival(busArrival.getNextBus() == null ? null :
                 translateETA(busArrival.getNextBus().getEstimatedArrival()));
         return result;

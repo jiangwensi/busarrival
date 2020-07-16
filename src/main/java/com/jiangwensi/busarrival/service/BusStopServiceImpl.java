@@ -77,7 +77,8 @@ public class BusStopServiceImpl implements BusStopService {
         if(busStop==null) {
             return "";
         }
-        return busStop.getDescription() + ", " + busStop.getRoadName();
+//        return busStop.getDescription() + ", " + busStop.getRoadName();
+        return busStop.getDescription();
     }
 
     @Override
@@ -103,5 +104,16 @@ public class BusStopServiceImpl implements BusStopService {
                 (List<BusStop>) busStopRepository.findByDescription(description);
         BusStopDto busStopDto = busStopMapper.toBusStopDto(busStops.get(0));
         return busStopDto;
+    }
+
+
+    @Override
+    public String translateBusStopCodeToRoad(String code) {
+        BusStop busStop = busStopRepository.findByBusStopCode(code).orElse(null);
+        if(busStop==null) {
+            return "";
+        }
+        return busStop.getRoadName();
+//        return busStop.getDescription() + ", " + busStop.getRoadName();
     }
 }

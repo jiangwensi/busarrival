@@ -9,6 +9,7 @@ import lombok.Data;
 public class BusServiceStopArrivalDto {
     private String busServiceNo;
     private String busStopName;
+    private String busStopRoad;
     private String direction;
     private String nextBusArrival;
 }
