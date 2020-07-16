@@ -27,7 +27,7 @@ public class BusRoute {
     @JsonProperty("Direction")
     private String direction;
     @JsonProperty("StopSequence")
-    private String stopSequence;
+    private Integer stopSequence;
     @JsonProperty("BusStopCode")
     private String busStopCode;
     @JsonProperty("Distance")
