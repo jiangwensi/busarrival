@@ -9,6 +9,7 @@ import com.jiangwensi.busarrival.service.BusServiceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,9 +36,15 @@ public class BusServiceController {
     }
 
     @GetMapping("/searchBusService")
-    public String searchBusService(@RequestParam String busNo, Model model) throws NotFoundException {
+    public String searchBusService(@RequestParam String busNo, Model model) {
         log.info("searchBusService serviceNo: {}",busNo);
         List<BusServiceItemDto> busServiceItemsDtos = busServiceService.searchByServiceNo(busNo);
+
+        if (busServiceItemsDtos==null || busServiceItemsDtos.size()==0) {
+            model.addAttribute("busNoError","Unable to find bus ");
+            return "index";
+        }
+
         busServiceItemsDtos.forEach(
                 e->log.info("service no: {}, origin code: {}, destination code: {}",
                 e.getServiceNo(),

@@ -22,9 +22,11 @@
         <div class="row  container-fluid container-sm m-0 mx-sm-auto p-0 px-sm-auto">
             <div class="col col-12 offset-sm-1 col-sm-6 mt-2 mt-sm-0">
                 <input class="form-control form-control-lg mr-sm-2 w-100 input-lg border-primary" type="text" name="busNo" placeholder="Enter Bus No." aria-label="Search">
+                <div class="alert alert-warning py-1 text-left" th:text="${busNoError}" th:if="${busNoError!=null}" ></div>
             </div>
             <div class="col col-12 col-sm-4 mt-2 mt-sm-0">
                 <button class="btn btn-primary btn-lg my-0  w-100" type="submit">Search</button>
+                <div class="alert alert-warning py-1 text-left" th:text="${busStopError}" th:if="${busStopError!=null}" ></div>
             </div>
         </div>
     </form>

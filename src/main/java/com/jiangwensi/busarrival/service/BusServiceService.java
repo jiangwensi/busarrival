@@ -11,5 +11,5 @@ public interface BusServiceService {
 
     void syncBusServices() throws JsonProcessingException;
 
-    List<BusServiceItemDto> searchByServiceNo(String serviceNo) throws NotFoundException;
+    List<BusServiceItemDto> searchByServiceNo(String serviceNo);
 }

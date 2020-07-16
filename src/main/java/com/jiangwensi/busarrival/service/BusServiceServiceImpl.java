@@ -96,12 +96,12 @@ public class BusServiceServiceImpl implements BusServiceService {
     }
 
     @Override
-    public List<BusServiceItemDto> searchByServiceNo(String serviceNo) throws NotFoundException {
+    public List<BusServiceItemDto> searchByServiceNo(String serviceNo){
         List<BusServiceItem> busServices = (List<BusServiceItem>) busServiceRepository.findByServiceNo(serviceNo);
-        if (busServices == null || busServices.size() == 0) {
-            throw new NotFoundException(serviceNo);
-        }
         List<BusServiceItemDto> busServiceItemDtos = new ArrayList<>();
+        if (busServices == null || busServices.size() == 0) {
+           return busServiceItemDtos;
+        }
         busServices.forEach(e -> busServiceItemDtos.add(busServiceItemMapper.toBusServiceItemDto(e)));
         return busServiceItemDtos;
     }
