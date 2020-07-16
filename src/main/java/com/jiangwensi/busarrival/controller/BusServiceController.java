@@ -1,18 +1,20 @@
 package com.jiangwensi.busarrival.controller;
 
-import com.jiangwensi.busarrival.domain.dto.BusRouteDto;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jiangwensi.busarrival.domain.dto.BusServiceItemDto;
 import com.jiangwensi.busarrival.domain.dto.BusServiceStopArrivalDto;
-import com.jiangwensi.busarrival.domain.entity.BusRoute;
-import com.jiangwensi.busarrival.service.BusRouteService;
+import com.jiangwensi.busarrival.exception.NotFoundException;
 import com.jiangwensi.busarrival.service.BusServiceArrivalService;
 import com.jiangwensi.busarrival.service.BusServiceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +35,7 @@ public class BusServiceController {
     }
 
     @GetMapping("/searchBusService")
-    public String searchBusService(@RequestParam String busNo, Model model){
+    public String searchBusService(@RequestParam String busNo, Model model) throws NotFoundException {
         log.info("searchBusService serviceNo: {}",busNo);
         List<BusServiceItemDto> busServiceItemsDtos = busServiceService.searchByServiceNo(busNo);
         busServiceItemsDtos.forEach(
@@ -49,5 +51,17 @@ public class BusServiceController {
         model.addAttribute("busRouteDirections",busRouteDirections);
 
         return "showBusService";
+    }
+
+    @ExceptionHandler({NotFoundException.class, JsonProcessingException.class})
+    public ModelAndView handleBusNotFoundException(HttpServletRequest request, Exception ex){
+        log.error("Requested URL="+request.getRequestURL());
+        log.error("Exception Raised="+ex);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("errorMessage", ex.getMessage());
+
+        modelAndView.setViewName("apperror");
+        return modelAndView;
     }
 }

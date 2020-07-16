@@ -94,6 +94,7 @@ public class BusRouteServiceImpl implements BusRouteService {
     public List<BusRouteDto> findByServiceNo(String serviceNo) {
         log.debug("findByServiceNo serviceNo:{}",serviceNo);
         Iterable<BusRoute> resultIterable = busRouteRepository.findByServiceNo(serviceNo);
+
         List<BusRouteDto> resultDto = new ArrayList<>();
         resultIterable.forEach(e->resultDto.add(busRouteMapper.toBusRouteDto(e)));
         return resultDto;

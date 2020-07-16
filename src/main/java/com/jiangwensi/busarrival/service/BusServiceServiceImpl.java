@@ -2,15 +2,11 @@ package com.jiangwensi.busarrival.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jiangwensi.busarrival.domain.dto.BusArrivalDto;
 import com.jiangwensi.busarrival.domain.dto.BusServiceItemDto;
-import com.jiangwensi.busarrival.domain.dto.BusServiceStopArrivalDto;
-import com.jiangwensi.busarrival.domain.entity.BusArrival;
-import com.jiangwensi.busarrival.domain.entity.BusRoute;
 import com.jiangwensi.busarrival.domain.entity.BusServiceItem;
 import com.jiangwensi.busarrival.domain.mapper.BusServiceItemMapper;
 import com.jiangwensi.busarrival.domain.mapper.BusStopMapper;
-import com.jiangwensi.busarrival.response.BusArrivalResponse;
+import com.jiangwensi.busarrival.exception.NotFoundException;
 import com.jiangwensi.busarrival.response.BusServiceItemResponse;
 import com.jiangwensi.busarrival.repository.BusServiceRepository;
 import com.jiangwensi.busarrival.util.HttpUtils;
@@ -100,8 +96,11 @@ public class BusServiceServiceImpl implements BusServiceService {
     }
 
     @Override
-    public List<BusServiceItemDto> searchByServiceNo(String serviceNo) {
+    public List<BusServiceItemDto> searchByServiceNo(String serviceNo) throws NotFoundException {
         List<BusServiceItem> busServices = (List<BusServiceItem>) busServiceRepository.findByServiceNo(serviceNo);
+        if (busServices == null || busServices.size() == 0) {
+            throw new NotFoundException(serviceNo);
+        }
         List<BusServiceItemDto> busServiceItemDtos = new ArrayList<>();
         busServices.forEach(e -> busServiceItemDtos.add(busServiceItemMapper.toBusServiceItemDto(e)));
         return busServiceItemDtos;

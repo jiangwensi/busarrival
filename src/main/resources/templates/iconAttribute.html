@@ -17,13 +17,24 @@
     <script>
 
     </script>
+</head>
 <body>
 <div class="container mb-5" th:replace="fragments/header::header">
     header
 </div>
-<div class="container text-center mt-5 pt-5">
-    <h4>Something Went Wrong...</h4>
+<div class="container pt-4 text-center">
+    <h4>Icon Attributes</h4>
+
+    <div class="card text-center my-5" th:each="icon:${icons}">
+        <div class="card-img-top my-4">
+            <img width="100" height="100" th:src="@{${icon.imagePath}}" alt="" class="rounded">
+        </div>
+        <div class="card-header">
+            <p th:utext="${icon.attributeText}"></p>
+        </div>
+    </div>
 </div>
+
 <div class="container-fluid footer text-center" th:replace="fragments/footer::footer">
     footer
 </div>
