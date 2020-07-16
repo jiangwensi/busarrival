@@ -22,8 +22,10 @@
     header
 </div>
 <div class="container text-center mt-5 pt-5">
+    <img width="100" height="100" th:src="@{/images/error-512.png}" alt="" class="rounded my-5">
     <h4>Something Went Wrong...</h4>
     <p th:text="${errorMessage}"></p>
+
 </div>
 <div class="container-fluid footer text-center" th:replace="fragments/footer::footer">
     footer
