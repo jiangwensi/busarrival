@@ -151,25 +151,48 @@
         console.log("busStopCode",document.getElementsByClassName("busStopCode").item(0).value)
         let serviceNo = document.getElementById("serviceNo").innerText;
         let busStopCode = document.getElementsByClassName("busStopCode").item(i).value;
-        let request = new XMLHttpRequest();
-        request.open("GET", "/busarrival/searchBusService/arrival/"+serviceNo+"/"+busStopCode);
-        console.log("/busarrival/searchBusService/arrival/"+serviceNo+"/"+busStopCode)
-        request.send();
-        request.onreadystatechange = function(){
-            if(request.readyState==XMLHttpRequest.DONE){
-                let status = request.status;
-                if (status ===0 || status >=200 && status<400) {
-                    let result = request.responseText;
-                    console.log(result)
-                    document.getElementsByClassName("arrivalTime").item(i).innerHTML=result;
-                }
-            }
+        const worker = new Worker('js/testworker.js');
+        let url = "/busarrival/searchBusService/arrival/"+serviceNo+"/"+busStopCode;
+        console.log("url="+url)
+        worker.postMessage([url]);
+        worker.onmessage =event => {
+            console.log("event.data="+event.data)
+            document.getElementsByClassName("arrivalTime").item(i).innerHTML=event.data;
         }
+
+        // let request = new XMLHttpRequest();
+        // request.open("GET", "/busarrival/searchBusService/arrival/"+serviceNo+"/"+busStopCode);
+        // console.log("/busarrival/searchBusService/arrival/"+serviceNo+"/"+busStopCode)
+        // request.send();
+        // request.onreadystatechange = function(){
+        //     if(request.readyState==XMLHttpRequest.DONE){
+        //         let status = request.status;
+        //         if (status ===0 || status >=200 && status<400) {
+        //             let result = request.responseText;
+        //             console.log(result)
+        //             document.getElementsByClassName("arrivalTime").item(i).innerHTML=result;
+        //         }
+        //     }
+        // }
     }
 
     const arrivalTimes1 = document.getElementsByClassName("arrivalTime");
     for (let i = 0; i <arrivalTimes1.length ; i++) {
         searchArrival(i);
+    }
+    // for (var i = 0; i <= 1000000000; i += 1) {
+    //     var j = i;
+    // }
+    // alert("completed");
+    const worker = new Worker('js/testworker.js');
+
+
+    worker.onmessage = function (event) {
+        alert("Completed " + event.data + "iterations" );
+    };
+
+    function sayHello() {
+        alert("Hello sir...." );
     }
 
 </script>
