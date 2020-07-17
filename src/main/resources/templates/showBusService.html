@@ -153,10 +153,20 @@
         let request = new XMLHttpRequest();
         request.open("GET", "/busarrival/searchBusService/arrival/"+serviceNo+"/"+busStopCode);
         request.send();
+        request.onreadystatechange = function(){
+            if(request.readyState==XMLHttpRequest.DONE){
+                let status = request.status;
+                if (status ===0 || status >=200 && status<400) {
+                    let result = request.responseText;
+                    console.log(result)
+                    document.getElementsByClassName("arrivalTime").item(i).innerHTML=result;
+                }
+            }
+        }
     }
 
     const arrivalTimes1 = document.getElementsByClassName("arrivalTime");
-    for (let i = 0; i <1 ; i++) {
+    for (let i = 0; i <arrivalTimes1.length ; i++) {
         searchArrival(i);
     }
 
