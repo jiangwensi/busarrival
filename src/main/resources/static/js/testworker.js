@@ -1,5 +1,6 @@
 onmessage = event => {
     let request = new XMLHttpRequest();
+    console.log("event.data="+event.data)
     request.open("GET", event.data[0]);
     request.send();
     request.onreadystatechange = function(){
