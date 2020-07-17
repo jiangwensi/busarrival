@@ -47,7 +47,8 @@
             </tr>
             <tr class="text-center" th:each="busRoute: ${entry.value}">
                 <td class="pb-1">
-                    <span type="hidden" class="busStopCode" th:text="${busRoute.busStopCode}"></span>
+
+                    <input type="hidden" class="busStopCode" th:value="${busRoute.busStopCode}"/>
                     <div class="div font-weight-bold h5 pt-3 busStop" th:text="${busRoute.busStopName}">
 
                     </div>
@@ -147,9 +148,9 @@
     searchArrival = (i) => {
         console.log("searchArrival")
         console.log("serviceNo:",document.getElementById("serviceNo").innerText)
-        console.log("busStopCode",document.getElementsByClassName("busStopCode").item(0).innerHTML)
+        console.log("busStopCode",document.getElementsByClassName("busStopCode").item(0).value)
         let serviceNo = document.getElementById("serviceNo").innerText;
-        let busStopCode = document.getElementsByClassName("busStopCode").item(i).innerHTML;
+        let busStopCode = document.getElementsByClassName("busStopCode").item(i).value;
         let request = new XMLHttpRequest();
         request.open("GET", "/busarrival/searchBusService/arrival/"+serviceNo+"/"+busStopCode);
         console.log("/busarrival/searchBusService/arrival/"+serviceNo+"/"+busStopCode)
