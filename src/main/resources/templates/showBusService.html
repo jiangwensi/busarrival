@@ -49,10 +49,10 @@
                 <td class="pb-1">
 
                     <input type="hidden" class="busStopCode" th:value="${busRoute.busStopCode}"/>
-                    <div class="div font-weight-bold h5 pt-3 busStop" th:text="${busRoute.busStopName}">
+                    <div class="div font-weight-bold h5 pt-1 busStop" th:text="${busRoute.busStopName}">
 
                     </div>
-                    <div class="div small pb-1 mb" th:text="${busRoute.busStopRoad}">
+                    <div class="div small pb-1 mb" th:text="${busRoute.busStopCode}+'   '+${busRoute.busStopRoad}">
 
                     </div>
                 </td>

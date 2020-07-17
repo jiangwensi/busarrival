@@ -22,14 +22,34 @@
 <div class="container mt-5">
     <div class="row form mx-auto dropdown mt-5 pt-5 text-center">
         <div class="container-fluid py-3 py-sm-2 m-0">
-            <div th:replace="fragments/search::searchServiceByServiceNo">
-                Search Service By Service No.
+            <div class="container-fluid text-center m-0 m-sm-auto p-0 p-sm-auto">
+                <form class="form-inline mr-auto pm-auto" th:action="searchBusService">
+                    <div class="row  container-fluid container-sm m-0 mx-sm-auto p-0 px-sm-auto">
+                        <div class="col col-12 offset-sm-1 col-sm-6 mt-2 mt-sm-0">
+                            <input class="form-control form-control-lg mr-sm-2 w-100 input-lg border-primary" type="text" id="busNoKey" name="busNo" placeholder="Enter Bus No." aria-label="Search">
+                            <div class="alert alert-warning py-1 text-left" th:text="${busNoError}" th:if="${busNoError!=null}" ></div>
+                        </div>
+                        <div class="col col-12 col-sm-4 mt-2 mt-sm-0">
+                            <button class="btn btn-primary btn-lg my-0  w-100"  id="searchBusNo" type="submit" onclick="addEventListener('click',saveBusNoKey())">Search Bus No.</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
         <div class="container-fluid py-3 py-sm-2 m-0">
 
-            <div th:replace="fragments/search::searchBusStop">
-                Search Service By Service No.
+            <div class="container-fluid text-center m-0 m-sm-auto p-0 p-sm-auto">
+                <form class="form-inline mr-auto pm-auto" th:action="searchBusStopByDescriptionContaining">
+                    <div class="row container-fluid container-sm m-0 mx-sm-auto p-0 px-sm-auto">
+                        <div class="col col-12 offset-sm-1 col-sm-6 mt-2 mt-sm-0">
+                            <input class="form-control form-control-lg mr-sm-2 w-100 border-primary" type="text" id="busStopKey" name="searchKey" placeholder="Enter Bus Stop " aria-label="Search"/>
+                            <div class="alert alert-warning py-1 text-left" th:text="${busStopError}" th:if="${busStopError!=null}" ></div>
+                        </div>
+                        <div class="col col-12 col-sm-4 mt-2 mt-sm-0">
+                            <button class="btn btn-primary btn-lg my-0 w-100" id="searchBusStop" type="submit" onclick="addEventListener('click',saveBusStopKey())">Search Bus Stop</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

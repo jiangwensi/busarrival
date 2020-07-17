@@ -32,7 +32,7 @@ public class BusStopController {
     @GetMapping("searchBusStopByDescriptionContaining")
     public String searchBusStopByDescriptionContaining(@RequestParam String searchKey, Model model,RedirectAttributes redirectAttributes) {
         log.info("searchBusStopByDescriptionContaining busStop:{}", searchKey);
-        List<BusStopDto> busStopDtos = busStopService.searchBusStopByDescriptionContaining(searchKey);
+        List<BusStopDto> busStopDtos = busStopService.searchBusStopByDescriptionRoadNameContaining(searchKey);
         if (busStopDtos == null || busStopDtos.size() == 0) {
             model.addAttribute("busStopError","Unable to find bus stop "+searchKey);
             return "index";
@@ -54,4 +54,5 @@ public class BusStopController {
         redirectAttributes.addAttribute("busStopCode", busStopDto.getBusStopCode());
         return "redirect:/showBusArrival";
     }
+
 }

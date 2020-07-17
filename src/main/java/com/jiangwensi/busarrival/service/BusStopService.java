@@ -12,9 +12,11 @@ public interface BusStopService {
 
     String translateBusStopCodeToName(String code);
 
-    List<BusStopDto> searchBusStopByDescriptionContaining(String busStop);
+    List<BusStopDto> searchBusStopByDescriptionRoadNameContaining(String busStop);
 
     BusStopDto searchBusStopByDescription(String description);
 
     String translateBusStopCodeToRoad(String code);
+
+    List<String> listAllBusStopAndRoads();
 }
