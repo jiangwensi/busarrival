@@ -138,10 +138,13 @@
     document.getElementsByClassName('direction-nav-content').item(0).classList.add('show');
 
     searchArrival = (i) => {
+        console.log("searching arrival "+i);
         let serviceNo = document.getElementById("serviceNo").innerText;
         let busStopCode = document.getElementsByClassName("busStopCode").item(i).value;
-        const worker = new Worker('js/testworker.js');
+        const worker = new Worker('js/retrieveArrivalWorker.js');
         let url = "/busarrival/searchBusService/arrival/"+serviceNo+"/"+busStopCode;
+        document.getElementsByClassName("arrivalTime").item(i).innerHTML="<img src='images/spinner.gif'   width='20' height='20'/>";
+        console.log(document.getElementById("serviceNo").innerHTML);
         worker.postMessage([url]);
         worker.onmessage =event => {
             document.getElementsByClassName("arrivalTime").item(i).innerHTML=event.data;
@@ -160,14 +163,16 @@
     retrieveArrivalTimes();
 
     retrieveArrivalTime = event => {
-        const targetElement = event.target;
+        let targetElement = event.target;
         console.log(event.target);
-        console.log(event.target.previousElementSibling);
-        console.log(event.target.previousElementSibling.getElementsByClassName("busStopCode"));
-        if (event.target.classList.contains("arrivalTime")) {
+        if (targetElement.classList.contains("arrivalTime")) {
+            // if (targetElement.type="img") {
+            //     targetElement = targetElement.parentElement;
+            // }
+            targetElement.innerHTML="<img src='images/spinner.gif' width='20' height='20'>";
             let serviceNo = document.getElementById("serviceNo").innerText;
             let busStopCode = event.target.previousElementSibling.getElementsByClassName("busStopCode").item(0).value;
-            const worker = new Worker('js/testworker.js');
+            const worker = new Worker('js/retrieveArrivalWorker.js');
             let url = "/busarrival/searchBusService/arrival/"+serviceNo+"/"+busStopCode;
             console.log("postMessage to "+url);
             worker.postMessage([url]);
