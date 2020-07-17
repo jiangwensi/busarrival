@@ -10,6 +10,7 @@ public class BusServiceStopArrivalDto {
     private String busServiceNo;
     private String busStopName;
     private String busStopRoad;
+    private String busStopCode;
     private String direction;
     private String nextBusArrival;
 }

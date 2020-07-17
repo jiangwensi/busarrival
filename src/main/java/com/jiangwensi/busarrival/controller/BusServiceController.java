@@ -7,15 +7,18 @@ import com.jiangwensi.busarrival.exception.NotFoundException;
 import com.jiangwensi.busarrival.service.BusServiceArrivalService;
 import com.jiangwensi.busarrival.service.BusServiceService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.Map;
 
@@ -51,7 +54,7 @@ public class BusServiceController {
                 e.getOriginCode(),
                 e.getDestinationCode()));
 
-        Map<String, List<BusServiceStopArrivalDto>> busRouteDirections = busServiceArrivalService.getBusServiceStopArrivalDtoByServiceNo(busNo);
+        Map<String, List<BusServiceStopArrivalDto>> busRouteDirections = busServiceArrivalService.getBusServiceStopArrivalDtoWithoutArrivalDetailsByServiceNo(busNo);
 
         model.addAttribute("busServices",busServiceItemsDtos);
         model.addAttribute("serviceNo",busNo);
@@ -59,6 +62,18 @@ public class BusServiceController {
 
         return "showBusService";
     }
+
+    @GetMapping("/searchBusService/arrival/{busNo}/{busStopCode}")
+    public ResponseEntity<String> getArrivalTime(@PathParam("busNo") String busNo,
+                                               @PathParam("busStopCode") String busStopCode){
+        log.info("getArrivalTime busNo:"+busNo+", busStopCode:"+busStopCode);
+        return new ResponseEntity<String>("test", HttpStatus.OK);
+    }
+//@GetMapping("/searchBusServicetest")
+//public ResponseEntity<String> getArrivalTime(){
+////    log.info("getArrivalTime busNo:"+busNo+", busStopCode:"+busStopCode);
+//    return new ResponseEntity<String>("test", HttpStatus.OK);
+//}
 
     @ExceptionHandler({NotFoundException.class, JsonProcessingException.class})
     public ModelAndView handleBusNotFoundException(HttpServletRequest request, Exception ex){

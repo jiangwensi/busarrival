@@ -45,13 +45,13 @@ public class BusServiceArrivalServiceImpl implements BusServiceArrivalService {
     }
 
     @Override
-    public Map<String, List<BusServiceStopArrivalDto>> getBusServiceStopArrivalDtoByServiceNo(String serviceNo){
+    public Map<String, List<BusServiceStopArrivalDto>> getBusServiceStopArrivalDtoWithoutArrivalDetailsByServiceNo(String serviceNo){
         List<BusServiceStopArrivalDto> busServiceStopArrivalDtos = new ArrayList<>();
         List<BusRouteDto> busRouteDtos = busRouteService.findByServiceNo(serviceNo);
 
         for (BusRouteDto busRouteDto:busRouteDtos) {
             BusServiceStopArrivalDto busServiceStopArrivalDto
-                    = searchArrivalByBusServiceAndStop(
+                    = prefillArrivalByBusServiceAndStop(
                     busRouteDto.getDirection(),
                     busRouteDto.getServiceNo(),
                     busRouteDto.getBusStopCode());
@@ -60,19 +60,21 @@ public class BusServiceArrivalServiceImpl implements BusServiceArrivalService {
             }
         }
 
-        Collections.sort(busServiceStopArrivalDtos, new Comparator<BusServiceStopArrivalDto>() {
-            @Override
-            public int compare(BusServiceStopArrivalDto o1, BusServiceStopArrivalDto o2) {
-                if (o1.getDirection().compareTo(o2.getDirection())==0) {
-                    return o1.getBusStopName().compareTo(o2.getBusStopName());
-                }
-                return o1.getDirection().compareTo(o2.getDirection());
-            }
-        });
-
         Map<String, List<BusServiceStopArrivalDto>> collect = busServiceStopArrivalDtos.stream().collect(Collectors.groupingBy(e -> e.getDirection(), toList()));
 
         return collect;
+    }
+
+    private BusServiceStopArrivalDto prefillArrivalByBusServiceAndStop(String direction, String serviceNo,
+                                                                      String busStopCode) {
+
+        BusServiceStopArrivalDto result = new BusServiceStopArrivalDto();
+        result.setDirection(direction);
+        result.setBusServiceNo(serviceNo);
+        result.setBusStopName(busStopService.translateBusStopCodeToName(busStopCode));
+        result.setBusStopRoad(busStopService.translateBusStopCodeToRoad(busStopCode));
+        result.setBusStopCode(busStopCode);
+        return result;
     }
 
     private BusServiceStopArrivalDto searchArrivalByBusServiceAndStop(String direction, String serviceNo,
