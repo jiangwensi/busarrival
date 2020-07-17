@@ -1,9 +1,12 @@
 package com.jiangwensi.busarrival.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+
+import javax.validation.Valid;
 
 /**
  * Created by Jiang Wensi on 17/7/2020
@@ -14,13 +17,19 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
+    @Value("${contact.fromEmail}")
+    private String fromEmail;
+
+    @Value("${contact.toEmail}")
+    private String toEmail;
+
     @Override
-    public boolean emailDeveloper(String fromAddress, String name, String message) {
+    public boolean emailDeveloper(String userEmail, String name, String message) {
 
         SimpleMailMessage msg = new SimpleMailMessage();
         msg.setFrom("jiangwensiapp@gmail.com");
-        msg.setTo("jiangwensi@hotmail.com");
-        msg.setSubject("Message from "+name +" - "+fromAddress);
+        msg.setTo("jiangwensiapp@gmail.com");
+        msg.setSubject("Message from "+name +" - "+userEmail);
 //        msg.setText(message);
         msg.setText("test message");
         try {

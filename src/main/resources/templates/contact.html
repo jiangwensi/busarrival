@@ -24,24 +24,30 @@
 </div>
 <div class="container pt-4 text-center">
     <h4>Contact Developer</h4>
-    <form action="submitContact" method="post" modelAttribute="contactForm">
-        <div class="form-group">
-            <label for="yourEmail">Email</label>
-            <input type="email" class="form-control" id="yourEmail" placeholder="Please enter your email address">
+    <form action="submitContact" method="post"  th:object="${contactForm}">
+        <div class="form-group text-left py-2">
+            <label for="yourEmail" class="font-weight-bold">Email</label>
+            <input type="email" class="form-control" th:field="*{yourEmail}" placeholder="Please enter your email address">
+            <p th:if="${#fields.hasErrors('yourEmail')}" th:errors="*{yourEmail}"></p>
+
         </div>
-        <div class="form-group">
-            <label for="yourName">Name</label>
-            <input type="text" class="form-control" id="yourName" placeholder="Please enter your name">
+        <div class="form-group text-left py-2">
+            <label for="yourName" class="font-weight-bold">Name</label>
+            <input type="text" class="form-control" th:field="*{yourName}" placeholder="Please enter your name">
+            <p th:if="${#fields.hasErrors('yourName')}" th:errors="*{yourName}"></p>
         </div>
-        <div class="form-group">
-            <label for="yourMessage">Message</label>
-            <textarea type="text" class="form-control" id="yourMessage" placeholder="Please leave your message"></textarea>
+        <div class="form-group text-left py-2">
+            <label for="yourMessage" class="font-weight-bold">Message</label>
+            <textarea type="text" class="form-control" th:field="*{yourMessage}" placeholder="Please leave your message"></textarea>
+            <p th:if="${#fields.hasErrors('yourMessage')}" th:errors="*{yourMessage}"></p>
         </div>
         <input type="submit" class="button"></input>
     </form>
+</div >
+<div class="container pt-4 text-center">
     <p class="alert alert-success" th:text="${contactSuccess}" th:if="${contactSuccess!=null}"></p>
     <p class="alert alert-danger"  th:text="${contactFail}" th:if="${contactFail!=null}"></p>
-</div >
+</div>
 
 <div class="container-fluid footer text-center" th:replace="fragments/footer::footer">
     footer

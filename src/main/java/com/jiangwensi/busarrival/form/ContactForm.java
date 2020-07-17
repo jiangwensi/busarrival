@@ -1,4 +1,4 @@
-package com.jiangwensi.busarrival.domain.dto;
+package com.jiangwensi.busarrival.form;
 
 import lombok.Data;
 
