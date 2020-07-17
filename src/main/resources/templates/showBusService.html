@@ -123,23 +123,15 @@
     let tables = document.getElementsByClassName("table");
     Array.from(tables).forEach(table => table.addEventListener('click',searchArrivalDetails));
 
-
-    let arrivalTimes = document.getElementsByClassName("arrivalTime");
-    for (let i = 0; i < arrivalTimes.length; i++) {
-        let arrivalTimeEl = arrivalTimes.item(i);
-        let arrivalTime = arrivalTimeEl.innerHTML;
-        console.log(arrivalTime)
-        let time = parseInt(arrivalTime.substring(0,arrivalTime.indexOf(' ')));
+    function colorETA(time) {
+        time = parseInt(time.substring(0, time.indexOf(' ')));
         console.log(time)
-        if(time <=5){
-            arrivalTimeEl.classList.add('text-success');
-            arrivalTimeEl.classList.add('font-weight-bold');
-        } else if (time >5 && time<=10){
-            arrivalTimeEl.classList.add('text-primary');
-            arrivalTimeEl.classList.add('font-weight-bold');
+        if (time <= 5) {
+            return 'text-success';
+        } else if (time > 5 && time <= 10) {
+            return 'text-primary';
         }
     }
-
 
     document.getElementsByClassName('direction-nav').item(0).classList.add('active');
     document.getElementsByClassName('direction-nav-content').item(0).classList.add('active');
@@ -158,6 +150,8 @@
         worker.onmessage =event => {
             console.log("event.data="+event.data)
             document.getElementsByClassName("arrivalTime").item(i).innerHTML=event.data;
+            document.getElementsByClassName("arrivalTime").item(i).classList.add('font-weight-bold');
+            document.getElementsByClassName("arrivalTime").item(i).classList.add(colorETA(event.data));
         }
 
         // let request = new XMLHttpRequest();
@@ -176,24 +170,15 @@
         // }
     }
 
-    const arrivalTimes1 = document.getElementsByClassName("arrivalTime");
-    for (let i = 0; i <arrivalTimes1.length ; i++) {
-        searchArrival(i);
+    function retriveArrivalTimes() {
+        const arrivalTimes1 = document.getElementsByClassName("arrivalTime");
+        for (let i = 0; i < arrivalTimes1.length; i++) {
+            searchArrival(i);
+        }
+        colorETA();
     }
-    // for (var i = 0; i <= 1000000000; i += 1) {
-    //     var j = i;
-    // }
-    // alert("completed");
-    const worker = new Worker('js/testworker.js');
 
-
-    worker.onmessage = function (event) {
-        alert("Completed " + event.data + "iterations" );
-    };
-
-    function sayHello() {
-        alert("Hello sir...." );
-    }
+    retriveArrivalTimes();
 
 </script>
 </body>
