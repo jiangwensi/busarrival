@@ -152,6 +152,7 @@
         let busStopCode = document.getElementsByClassName("busStopCode").item(i).innerHTML;
         let request = new XMLHttpRequest();
         request.open("GET", "/busarrival/searchBusService/arrival/"+serviceNo+"/"+busStopCode);
+        console.log("/busarrival/searchBusService/arrival/"+serviceNo+"/"+busStopCode)
         request.send();
         request.onreadystatechange = function(){
             if(request.readyState==XMLHttpRequest.DONE){

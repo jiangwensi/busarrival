@@ -10,4 +10,6 @@ import java.util.Map;
  */
 public interface BusServiceArrivalService {
     Map<String, List<BusServiceStopArrivalDto>> getBusServiceStopArrivalDtoWithoutArrivalDetailsByServiceNo(String serviceNo);
+
+    String getBusArrivalTimeByServiceNoAndBusStopCOde(String busNo, String busStopCode);
 }

@@ -11,10 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -64,10 +61,12 @@ public class BusServiceController {
     }
 
     @GetMapping("/searchBusService/arrival/{busNo}/{busStopCode}")
-    public ResponseEntity<String> getArrivalTime(@PathParam("busNo") String busNo,
-                                               @PathParam("busStopCode") String busStopCode){
+    public ResponseEntity<String> getArrivalTime(@PathVariable("busNo") String busNo,
+                                               @PathVariable("busStopCode") String busStopCode){
         log.info("getArrivalTime busNo:"+busNo+", busStopCode:"+busStopCode);
-        return new ResponseEntity<String>("test", HttpStatus.OK);
+        String arrivalTime =
+                busServiceArrivalService.getBusArrivalTimeByServiceNoAndBusStopCOde(busNo,busStopCode);
+        return new ResponseEntity<String>(arrivalTime, HttpStatus.OK);
     }
 //@GetMapping("/searchBusServicetest")
 //public ResponseEntity<String> getArrivalTime(){

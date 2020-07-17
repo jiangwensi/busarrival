@@ -65,6 +65,26 @@ public class BusServiceArrivalServiceImpl implements BusServiceArrivalService {
         return collect;
     }
 
+    @Override
+    public String getBusArrivalTimeByServiceNoAndBusStopCOde(String busNo, String busStopCode) {
+        String requestURL = busArrivalUrl + "?BusStopCode=" + busStopCode + "&ServiceNo=" + busNo;
+        log.info("sending request to " + requestURL);
+        ResponseEntity<String> response = null;
+        BusArrivalResponse busArrivalResponse = null;
+        try {
+            response = new HttpUtils().getResponse(requestURL, apiKey);
+            ObjectMapper mapper = new ObjectMapper();
+            busArrivalResponse = (BusArrivalResponse) mapper.readValue(response.getBody(), BusArrivalResponse.class);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        if (busArrivalResponse.getServices()==null || busArrivalResponse.getServices().size()==0) {
+            return null;
+        }
+        BusArrival busArrival = busArrivalResponse.getServices().get(0);
+        return translateETA(busArrival.getNextBus().getEstimatedArrival());
+    }
+
     private BusServiceStopArrivalDto prefillArrivalByBusServiceAndStop(String direction, String serviceNo,
                                                                       String busStopCode) {
 
