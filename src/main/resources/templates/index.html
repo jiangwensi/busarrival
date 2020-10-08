@@ -52,6 +52,21 @@
                 </form>
             </div>
         </div>
+        <div class="container-fluid py-3 py-sm-2 m-0">
+
+            <div class="container-fluid text-center m-0 m-sm-auto p-0 p-sm-auto">
+                <form class="form-inline mr-auto pm-auto" id="nearbyBusStops" th:action="nearbyBusStops" th:method="get">
+                    <div class="row container-fluid container-sm m-0 mx-sm-auto p-0 px-sm-auto">
+                        <div class="col col-12 offset-sm-7 col-sm-4 mt-2 mt-sm-0">
+                            <button class="btn btn-primary btn-lg my-0 w-100" id="nearbyBusStop" type="button" onclick="nearbyBusStops()">Near By Bus Stops</button>
+                        </div>
+                        <p id="status"></p>
+                    </div>
+                    <input type="hidden" id="latitude" name="latitude">
+                    <input type="hidden" id="longitude" name="longitude">
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 <div class="container-fluid footer text-center" th:replace="fragments/footer::footer">
@@ -68,6 +83,31 @@
     saveBusNoKey = () =>{
         console.log(document.getElementById("busStopKey").value);
         localStorage.setItem("busNoKey",document.getElementById("busNoKey").value)
+    }
+
+    nearbyBusStops = () => {
+        const status = document.getElementById("status");
+        console.log("nearbyBusStops");
+        if(!navigator.geolocation){
+            console.log("Geolocation is not supported by your browser");
+            status.innerText="Geolocation is not supported by your browser";
+        } else {
+            status.innerText="Locating...";
+            navigator.geolocation.getCurrentPosition((position)=> {
+                console.log(position)
+                document.getElementById("latitude").value=position.coords.latitude;
+                console.log("1");
+                document.getElementById("longitude").value=position.coords.longitude;
+                console.log("2");
+                console.log(document.getElementById("latitude").value);
+                console.log("3");
+                console.log(document.getElementById("longitude").value);
+                console.log("4");
+                document.getElementById("nearbyBusStops").submit();
+            },()=>{
+                status.innerText="Unable to retrieve your location"
+            });
+        }
     }
 </script>
 </body>

@@ -35,7 +35,7 @@ public class BusServiceController {
         this.busServiceArrivalService = busServiceArrivalService;
     }
 
-    @GetMapping("/searchBusService")
+    @GetMapping("searchBusService")
     public String searchBusService(@RequestParam String busNo, Model model) {
         log.info("searchBusService serviceNo: {}",busNo);
         List<BusServiceItemDto> busServiceItemsDtos = busServiceService.searchByServiceNo(busNo);

@@ -133,4 +133,33 @@ public class BusStopServiceImpl implements BusStopService {
         });
         return allBusStopAndRoadsList;
     }
+
+    @Override
+    public List<BusStopDto> nearBy(String latitude, String longitude) {
+
+        Double diff = 0.03;
+        List<BusStop> busStops =
+                (List<BusStop>) busStopRepository.nearBy(latitude,longitude,diff);
+
+        Collections.sort(busStops, new Comparator<BusStop>() {
+            @Override
+            public int compare(BusStop o1, BusStop o2) {
+                double distance1 =distance(o1,latitude,longitude);
+                double distance2 =distance(o2,latitude,longitude);
+                return Double.compare(distance1,distance2);
+            }
+
+            private Double distance(BusStop b,String latitude,String longitude){
+                Double latDiff = Double.parseDouble(b.getLatitude())-Double.parseDouble(latitude);
+                Double longDiff = Double.parseDouble(b.getLongitude())-Double.parseDouble(longitude);
+                return Math.sqrt(Math.pow(latDiff,2)+Math.pow(longDiff,2));
+            }
+        });
+        List<BusStopDto> returnValue = new ArrayList<>();
+        for (BusStop busStop : busStops) {
+            BusStopDto dto = busStopMapper.toBusStopDto(busStop);
+            returnValue.add(dto);
+        }
+        return returnValue;
+    }
 }
