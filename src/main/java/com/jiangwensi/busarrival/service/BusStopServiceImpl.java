@@ -137,7 +137,7 @@ public class BusStopServiceImpl implements BusStopService {
     @Override
     public List<BusStopDto> nearBy(String latitude, String longitude) {
 
-        Double diff = 0.03;
+        Double diff = 0.003;
         List<BusStop> busStops =
                 (List<BusStop>) busStopRepository.nearBy(latitude,longitude,diff);
 

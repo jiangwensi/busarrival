@@ -15,6 +15,7 @@
     <script src="../static/js/jquery/jquery-3.5.1.min.js" th:src="@{/js/jquery/jquery-3.5.1.min.js}" defer></script>
     <script src="../static/js/popper/popper.min.js" th:src="@{/js/popper/popper.min.js}" defer></script>
     <script src="../static/js/bootstrap/bootstrap.min.js" th:src="@{/js/bootstrap/bootstrap.min.js}" defer></script>
+
 </head>
 <body>
 <div class="container mb-5" th:replace="fragments/header::header">
@@ -122,13 +123,10 @@
     Array.from(tables).forEach(table => table.addEventListener('click',searchArrivalDetails));
 
     colorETA = (time) => {
-        console.log("time="+time)
         time = parseInt(time.substring(0, time.indexOf(' ')));
         if (time <= 5) {
-            console.log("text-success")
             return 'text-success';
         } else if (time > 5 && time <= 10) {
-            console.log("text-primary")
             return 'text-primary';
         }
     }
@@ -138,13 +136,11 @@
     document.getElementsByClassName('direction-nav-content').item(0).classList.add('show');
 
     searchArrival = (i) => {
-        console.log("searching arrival "+i);
         let serviceNo = document.getElementById("serviceNo").innerText;
         let busStopCode = document.getElementsByClassName("busStopCode").item(i).value;
         const worker = new Worker('js/retrieveArrivalWorker.js');
         let url = "/busarrival/searchBusService/arrival/"+serviceNo+"/"+busStopCode;
         document.getElementsByClassName("arrivalTime").item(i).innerHTML="<img src='images/spinner.gif'   width='20' height='20'/>";
-        console.log(document.getElementById("serviceNo").innerHTML);
         worker.postMessage([url]);
         worker.onmessage =event => {
             document.getElementsByClassName("arrivalTime").item(i).innerHTML=event.data;
@@ -164,7 +160,6 @@
 
     retrieveArrivalTime = event => {
         let targetElement = event.target;
-        console.log(event.target);
         if (targetElement.classList.contains("arrivalTime")) {
             // if (targetElement.type="img") {
             //     targetElement = targetElement.parentElement;
@@ -174,18 +169,15 @@
             let busStopCode = event.target.previousElementSibling.getElementsByClassName("busStopCode").item(0).value;
             const worker = new Worker('js/retrieveArrivalWorker.js');
             let url = "/busarrival/searchBusService/arrival/"+serviceNo+"/"+busStopCode;
-            console.log("postMessage to "+url);
             worker.postMessage([url]);
             worker.onmessage =event => {
                 targetElement.innerText = event.data;
                 targetElement.className += ' font-weight-bold';
                 targetElement.className += ' '+colorETA(event.data);
-                console.log("targetElement.innerText="+targetElement.innerText)
             }
         }
     }
     document.getElementById("arrivalTimeTable").addEventListener("click",retrieveArrivalTime);
-
 
 </script>
 </body>

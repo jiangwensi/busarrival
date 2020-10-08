@@ -68,11 +68,6 @@ public class BusServiceController {
                 busServiceArrivalService.getBusArrivalTimeByServiceNoAndBusStopCOde(busNo,busStopCode);
         return new ResponseEntity<String>(arrivalTime, HttpStatus.OK);
     }
-//@GetMapping("/searchBusServicetest")
-//public ResponseEntity<String> getArrivalTime(){
-////    log.info("getArrivalTime busNo:"+busNo+", busStopCode:"+busStopCode);
-//    return new ResponseEntity<String>("test", HttpStatus.OK);
-//}
 
     @ExceptionHandler({NotFoundException.class, JsonProcessingException.class})
     public ModelAndView handleBusNotFoundException(HttpServletRequest request, Exception ex){

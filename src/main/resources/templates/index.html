@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title th:text="#{app.title}">Bus Arrival App</title>
 
-    <link rel="stylesheet" href="../static/css/bootstrap/bootstrap.min.css" th:href="@{/css/bootstrap/bootstrap.min.css}">
+    <link rel="stylesheet" href="../static/css/bootstrap/bootstrap.min.css"
+          th:href="@{/css/bootstrap/bootstrap.min.css}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
     <link rel="icon" type="image/png" href="../static/images/electric-bus.png" th:href="@{/images/electric-bus.png}"/>
     <link href="../static/css/layout.css" th:href="@{/css/layout.css}" rel="stylesheet">
@@ -26,11 +27,16 @@
                 <form class="form-inline mr-auto pm-auto" th:action="searchBusService">
                     <div class="row  container-fluid container-sm m-0 mx-sm-auto p-0 px-sm-auto">
                         <div class="col col-12 offset-sm-1 col-sm-6 mt-2 mt-sm-0">
-                            <input class="form-control form-control-lg mr-sm-2 w-100 input-lg border-primary" type="text" id="busNoKey" name="busNo" placeholder="Enter Bus No." aria-label="Search">
-                            <div class="alert alert-warning py-1 text-left" th:text="${busNoError}" th:if="${busNoError!=null}" ></div>
+                            <input class="form-control form-control-lg mr-sm-2 w-100 input-lg border-primary"
+                                   type="text" id="busNoKey" name="busNo" placeholder="Enter Bus No."
+                                   aria-label="Search">
+                            <div class="alert alert-warning py-1 text-left" th:text="${busNoError}"
+                                 th:if="${busNoError!=null}"></div>
                         </div>
                         <div class="col col-12 col-sm-4 mt-2 mt-sm-0">
-                            <button class="btn btn-primary btn-lg my-0  w-100"  id="searchBusNo" type="submit" onclick="addEventListener('click',saveBusNoKey())">Search Bus No.</button>
+                            <button class="btn btn-primary btn-lg my-0  w-100" id="searchBusNo" type="submit"
+                                    onclick="addEventListener('click',saveBusNoKey())">Search Bus No.
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -42,11 +48,15 @@
                 <form class="form-inline mr-auto pm-auto" th:action="searchBusStopByDescriptionContaining">
                     <div class="row container-fluid container-sm m-0 mx-sm-auto p-0 px-sm-auto">
                         <div class="col col-12 offset-sm-1 col-sm-6 mt-2 mt-sm-0">
-                            <input class="form-control form-control-lg mr-sm-2 w-100 border-primary" type="text" id="busStopKey" name="searchKey" placeholder="Enter Bus Stop " aria-label="Search"/>
-                            <div class="alert alert-warning py-1 text-left" th:text="${busStopError}" th:if="${busStopError!=null}" ></div>
+                            <input class="form-control form-control-lg mr-sm-2 w-100 border-primary" type="text"
+                                   id="busStopKey" name="searchKey" placeholder="Enter Bus Stop " aria-label="Search"/>
+                            <div class="alert alert-warning py-1 text-left" th:text="${busStopError}"
+                                 th:if="${busStopError!=null}"></div>
                         </div>
                         <div class="col col-12 col-sm-4 mt-2 mt-sm-0">
-                            <button class="btn btn-primary btn-lg my-0 w-100" id="searchBusStop" type="submit" onclick="addEventListener('click',saveBusStopKey())">Search Bus Stop</button>
+                            <button class="btn btn-primary btn-lg my-0 w-100" id="searchBusStop" type="submit"
+                                    onclick="addEventListener('click',saveBusStopKey())">Search Bus Stop
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -55,12 +65,17 @@
         <div class="container-fluid py-3 py-sm-2 m-0">
 
             <div class="container-fluid text-center m-0 m-sm-auto p-0 p-sm-auto">
-                <form class="form-inline mr-auto pm-auto" id="nearbyBusStops" th:action="nearbyBusStops" th:method="get">
+                <form class="form-inline mr-auto pm-auto" id="nearbyBusStops" th:action="nearbyBusStops"
+                      th:method="get">
                     <div class="row container-fluid container-sm m-0 mx-sm-auto p-0 px-sm-auto">
                         <div class="col col-12 offset-sm-7 col-sm-4 mt-2 mt-sm-0">
-                            <button class="btn btn-primary btn-lg my-0 w-100" id="nearbyBusStop" type="button" onclick="nearbyBusStops()">Near By Bus Stops</button>
+                            <button class="btn btn-primary btn-lg my-0 w-100" id="nearbyBusStop" type="button"
+                                    onclick="nearbyBusStops()">Near By Bus Stops
+                            </button>
                         </div>
-                        <p id="status"></p>
+                        <div class="col col-12 offset-sm-7 col-sm-4 mt-2 mt-sm-0">
+                            <p id="status"></p>
+                        </div>
                     </div>
                     <input type="hidden" id="latitude" name="latitude">
                     <input type="hidden" id="longitude" name="longitude">
@@ -74,41 +89,42 @@
 </div>
 <script>
     document.getElementById("busStopKey").value = localStorage.getItem("busStopKey");
-    saveBusStopKey = () =>{
+    saveBusStopKey = () => {
         console.log(document.getElementById("busStopKey").value);
-        localStorage.setItem("busStopKey",document.getElementById("busStopKey").value)
+        localStorage.setItem("busStopKey", document.getElementById("busStopKey").value)
     }
 
     document.getElementById("busNoKey").value = localStorage.getItem("busNoKey");
-    saveBusNoKey = () =>{
+    saveBusNoKey = () => {
         console.log(document.getElementById("busStopKey").value);
-        localStorage.setItem("busNoKey",document.getElementById("busNoKey").value)
+        localStorage.setItem("busNoKey", document.getElementById("busNoKey").value)
     }
 
     nearbyBusStops = () => {
         const status = document.getElementById("status");
         console.log("nearbyBusStops");
-        if(!navigator.geolocation){
+        if (!navigator.geolocation) {
             console.log("Geolocation is not supported by your browser");
-            status.innerText="Geolocation is not supported by your browser";
+            status.innerText = "Geolocation is not supported by your browser";
         } else {
-            status.innerText="Locating...";
-            navigator.geolocation.getCurrentPosition((position)=> {
+            status.innerText = "Locating...";
+            navigator.geolocation.getCurrentPosition((position) => {
                 console.log(position)
-                document.getElementById("latitude").value=position.coords.latitude;
+                document.getElementById("latitude").value = position.coords.latitude;
                 console.log("1");
-                document.getElementById("longitude").value=position.coords.longitude;
+                document.getElementById("longitude").value = position.coords.longitude;
                 console.log("2");
                 console.log(document.getElementById("latitude").value);
                 console.log("3");
                 console.log(document.getElementById("longitude").value);
                 console.log("4");
                 document.getElementById("nearbyBusStops").submit();
-            },()=>{
-                status.innerText="Unable to retrieve your location"
+            }, () => {
+                status.innerText = "Unable to retrieve your location"
             });
         }
     }
+
 </script>
 </body>
 </html>
