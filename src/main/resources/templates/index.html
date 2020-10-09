@@ -109,15 +109,8 @@
         } else {
             status.innerText = "Locating...";
             navigator.geolocation.getCurrentPosition((position) => {
-                console.log(position)
                 document.getElementById("latitude").value = position.coords.latitude;
-                console.log("1");
                 document.getElementById("longitude").value = position.coords.longitude;
-                console.log("2");
-                console.log(document.getElementById("latitude").value);
-                console.log("3");
-                console.log(document.getElementById("longitude").value);
-                console.log("4");
                 document.getElementById("nearbyBusStops").submit();
             }, () => {
                 status.innerText = "Unable to retrieve your location"
