@@ -1,5 +1,6 @@
 package com.jiangwensi.busarrival.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -12,29 +13,31 @@ import javax.validation.Valid;
  * Created by Jiang Wensi on 17/7/2020
  */
 @Service
+@Slf4j
 public class EmailServiceImpl implements EmailService {
 
     @Autowired
     private JavaMailSender javaMailSender;
 
-    @Value("${contact.fromEmail}")
+    @Value("${spring.mail.username}")
     private String fromEmail;
 
-    @Value("${contact.toEmail}")
+    @Value("${spring.mail.username}")
     private String toEmail;
 
     @Override
     public boolean emailDeveloper(String userEmail, String name, String message) {
 
         SimpleMailMessage msg = new SimpleMailMessage();
-        msg.setFrom("jiangwensiapp@gmail.com");
-        msg.setTo("jiangwensiapp@gmail.com");
+        msg.setFrom(fromEmail);
+        msg.setTo(toEmail);
         msg.setSubject("Message from "+name +" - "+userEmail);
-//        msg.setText(message);
-        msg.setText("test message");
+        msg.setText(message);
+//        msg.setText("test message");
         try {
             javaMailSender.send(msg);
         } catch (Exception e){
+            log.error("Failed to send email",e);
             return false;
         }
         return true;

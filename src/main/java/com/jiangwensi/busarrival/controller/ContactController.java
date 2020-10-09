@@ -48,9 +48,9 @@ public class ContactController {
                 contactForm.getYourMessage());
         model.addAttribute("contactForm",new ContactForm());
         if (success) {
-            model.addAttribute("contactSuccess","Your message has been sent successfully");
+            redirectAttributes.addAttribute("contactSuccess","Your message has been sent successfully");
         } else {
-            model.addAttribute("contactFail","Something went wrong, your message is not sent.");
+            redirectAttributes.addAttribute("contactFail","Something went wrong, your message is not sent.");
         }
 
         return "redirect:/contact";
