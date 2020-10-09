@@ -45,8 +45,12 @@
     </form>
 </div >
 <div class="container pt-4 text-center">
-    <p class="alert alert-success" th:text="${contactSuccess}" th:if="${contactSuccess!=null}"></p>
-    <p class="alert alert-danger"  th:text="${contactFail}" th:if="${contactFail!=null}"></p>
+    <div th:if="${contactSuccess}">
+        <p class="alert alert-success" th:text="${contactSuccess}"></p>
+    </div>
+    <div  th:if="${contactFail}">
+    <p class="alert alert-danger"  th:text="${contactFail}"></p>
+    </div>
 </div>
 
 <div class="container-fluid footer text-center" th:replace="fragments/footer::footer">

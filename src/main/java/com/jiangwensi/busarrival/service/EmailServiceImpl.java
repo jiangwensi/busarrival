@@ -29,11 +29,13 @@ public class EmailServiceImpl implements EmailService {
     public boolean emailDeveloper(String userEmail, String name, String message) {
 
         SimpleMailMessage msg = new SimpleMailMessage();
-        msg.setFrom(fromEmail);
+        msg.setFrom(userEmail);
         msg.setTo(toEmail);
+        msg.setCc(userEmail);
+
         msg.setSubject("Message from "+name +" - "+userEmail);
         msg.setText(message);
-//        msg.setText("test message");
+
         try {
             javaMailSender.send(msg);
         } catch (Exception e){
