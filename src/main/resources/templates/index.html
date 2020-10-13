@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title th:text="#{app.title}">Bus Arrival App</title>
+    <link rel="apple-touch-icon" sizes="128x128" th:href="@{/images/electric-bus.png}">
 
     <link rel="stylesheet" href="../static/css/bootstrap/bootstrap.min.css"
           th:href="@{/css/bootstrap/bootstrap.min.css}">
@@ -112,7 +113,8 @@
                 document.getElementById("latitude").value = position.coords.latitude;
                 document.getElementById("longitude").value = position.coords.longitude;
                 document.getElementById("nearbyBusStops").submit();
-            }, () => {
+            }, (error) => {
+                console.log("Unable to retrieve your location. error:"+error.code+"-"+error.message)
                 status.innerText = "Unable to retrieve your location"
             });
         }
