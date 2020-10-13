@@ -10,7 +10,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  */
 @Slf4j
 @Configuration
-//@EnableScheduling
+@EnableScheduling
 //@PropertySource(value = "file:${catalina.home}\\conf\\local.application.properties",ignoreResourceNotFound = false)
 @PropertySource(value = "file:${catalina.home}//conf//local.application.properties",ignoreResourceNotFound = false)
 public class AppConfiguration {

@@ -15,8 +15,11 @@
     <script src="../static/js/jquery/jquery-3.5.1.min.js" th:src="@{/js/jquery/jquery-3.5.1.min.js}" defer></script>
     <script src="../static/js/popper/popper.min.js" th:src="@{/js/popper/popper.min.js}" defer></script>
     <script src="../static/js/bootstrap/bootstrap.min.js" th:src="@{/js/bootstrap/bootstrap.min.js}" defer></script>
+    <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfoxerZH209zKjY7EwkyJACdQ2xoFEdgg&libraries=&v=weekly"
+            defer
+    ></script>
     <script>
-
     </script>
 </head>
 <body>
@@ -27,16 +30,86 @@
     <div class="container text-center  pb-lg-2 pb-1">
         <h5>Searching Bus Stop : <b th:text="' '+${searchKey}"></b></h5>
     </div>
-    <form class="form mt-2" action="showBusArrival" th:each="busStop:${busStops}">
+    <form class="form mt-2" name="busStopForm" action="showBusArrival" th:each="busStop:${busStops}">
         <input type="hidden" name="busStopCode" th:value="${busStop.busStopCode}">
+
+        <input type="hidden" name="latitude" th:value="${busStop.latitude}">
+        <input type="hidden" name="longitude" th:value="${busStop.longitude}">
+        <input type="hidden" name="busStopName" th:value="${busStop.description}+' , '+${busStop.roadName}">
+
         <button type="submit" class="container-fluid btn btn-outline-primary"
                 th:text="${busStop.description}+' , '+${busStop.roadName}">
         </button>
     </form>
+
+    <div id="map" class="container text-center pb-lg-2 pb-1 mt-2" style="height:500px"></div>
 </div>
 </div>
 <div class="container-fluid footer text-center" th:replace="fragments/footer::footer">
     footer
 </div>
+<script>
+    window.addEventListener('load', function () {
+        initMap();
+    })
+
+    let map=null;
+
+    function initMap() {
+
+        let busLats = document.getElementsByName("latitude");
+        let busLongs = document.getElementsByName("longitude");
+        let busStopNames = document.getElementsByName("busStopName");
+        let busStopPositions=[];
+
+        for(let i = 0; i < busLats.length; i ++){
+            busStopPositions.push(new BusStopPosition(busLats[i].value,busLongs[i].value,busStopNames[i].value));
+        }
+
+        if(navigator.geolocation){
+            navigator.geolocation.getCurrentPosition((pos)=> {
+
+                const myPos = {lat: pos.coords.latitude, lng: pos.coords.longitude}
+                console.log(myPos)
+
+                map = new google.maps.Map(document.getElementById("map"), {
+                    center: myPos,
+                    zoom: 17,
+                });
+
+                new google.maps.Marker({
+                    position: myPos,
+                    map,
+                    label:"I'm here!",
+                    draggable:true
+                });
+
+                busStopPositions.forEach((e,i)=>{
+                    console.log(busStopPositions[i].pos,busStopPositions[i].busStopName)
+                    const marker = new google.maps.Marker(
+                        {
+                            position:busStopPositions[i].pos,
+                            map,
+                            title:busStopPositions[i].busStopName,
+                            animation: google.maps.Animation.DROP
+                        }
+                    )
+                    marker.addListener("click",()=> {
+                        document.getElementsByName("busStopForm")[i].submit();
+                    })
+                })
+            },()=>{
+                console.log("unable to get geolocation")
+            })
+        }
+    }
+
+    class BusStopPosition {
+        constructor(latitude,longitude,busStopName){
+            this.pos = {lat:parseFloat(latitude),lng:parseFloat(longitude)};
+            this.busStopName = busStopName;
+        }
+    }
+</script>
 </body>
 </html>

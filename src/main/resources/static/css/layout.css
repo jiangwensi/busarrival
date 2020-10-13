@@ -13,15 +13,8 @@ body {
     bottom: 0;
     width: 100%;
     /* Set the fixed height of the footer here */
-    height: 50px;
-    background-color: rgba(165, 237, 255, 0.11);
-
-}
-@media (min-width: 576px) {
-    .footer{
-        height:40px;
-        line-height: 40px; /* Vertically center the text there */
-    }
+    height: 40px;
+    line-height: 40px;
 }
 
 .table-bordered tr td{

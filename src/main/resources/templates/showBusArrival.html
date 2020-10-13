@@ -68,9 +68,11 @@
         let time = parseInt(arrivalTime.substring(0,arrivalTime.indexOf(' ')));
         console.log(time)
         if(time <=5){
-            arrivalTimeEl.style.backgroundColor= '#ffabab';
+            arrivalTimeEl.classList.add('text-success');
+            arrivalTimeEl.classList.add('font-weight-bold');
         } else if (time >5 && time<=10){
-            arrivalTimeEl.style.backgroundColor= '#ffffcc';
+            arrivalTimeEl.classList.add('text-primary');
+            arrivalTimeEl.classList.add('font-weight-bold');
         }
     }
 </script>

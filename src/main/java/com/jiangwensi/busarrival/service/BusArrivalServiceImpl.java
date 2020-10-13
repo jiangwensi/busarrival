@@ -7,6 +7,7 @@ import com.jiangwensi.busarrival.domain.entity.BusArrival;
 import com.jiangwensi.busarrival.domain.entity.BusRoute;
 import com.jiangwensi.busarrival.domain.mapper.BusArrivalMapper;
 import com.jiangwensi.busarrival.domain.mapper.NextBusMapper;
+import com.jiangwensi.busarrival.exception.NotFoundException;
 import com.jiangwensi.busarrival.response.BusArrivalResponse;
 import com.jiangwensi.busarrival.util.HttpUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -47,6 +48,7 @@ public class BusArrivalServiceImpl implements BusArrivalService {
         log.info("searchBusArrival busStop:{} ",busStopCode);
         List<BusArrivalDto> busArrivalDtos = new ArrayList<>();
         List<BusRoute> busRoutes = busRouteService.findByBusStopCode(busStopCode);
+
         Set<String> busServiceNos = new HashSet<>();
         busRoutes.forEach(e->busServiceNos.add(e.getServiceNo()));
         for (String busServiceNo : busServiceNos) {

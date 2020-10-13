@@ -77,15 +77,15 @@ public class BusStopServiceImpl implements BusStopService {
         if(busStop==null) {
             return "";
         }
-        return busStop.getDescription();
 //        return busStop.getDescription() + ", " + busStop.getRoadName();
+        return busStop.getDescription();
     }
 
     @Override
-    public List<BusStopDto> searchBusStopByDescriptionContaining(String busStop) {
-        log.info("searchBusStop busStop:{}",busStop);
+    public List<BusStopDto> searchBusStopByDescriptionRoadNameContaining(String searchKey) {
+        log.info("searchBusStopByDescriptionRoadNameContaining searchKey:{}",searchKey);
         List<BusStop> busStops =
-                (List<BusStop>) busStopRepository.findByDescriptionIgnoreCaseContaining(busStop);
+                (List<BusStop>) busStopRepository.findByDescriptionRoadNameIgnoreCaseContaining(searchKey);
         List<BusStopDto> busStopDtos = new ArrayList<>();
         busStops.forEach(e->busStopDtos.add(busStopMapper.toBusStopDto(e)));
         Collections.sort(busStopDtos, new Comparator<BusStopDto>() {
@@ -105,7 +105,6 @@ public class BusStopServiceImpl implements BusStopService {
         BusStopDto busStopDto = busStopMapper.toBusStopDto(busStops.get(0));
         return busStopDto;
     }
-
     @Override
     public String translateBusStopCodeToRoad(String code) {
         BusStop busStop = busStopRepository.findByBusStopCode(code).orElse(null);
@@ -114,5 +113,51 @@ public class BusStopServiceImpl implements BusStopService {
         }
         return busStop.getRoadName();
 //        return busStop.getDescription() + ", " + busStop.getRoadName();
+    }
+
+    @Override
+    public List<String> listAllBusStopAndRoads() {
+        Set<String> allBusStopAndRoads = new HashSet<>();
+        List<String> allBusStopAndRoadsList = new ArrayList<>();
+        Iterable<BusStop> allBusStops = busStopRepository.listAllBusStops();
+        allBusStops.forEach(e->allBusStopAndRoads.add(e.getRoadName()));
+        allBusStops.forEach(e->allBusStopAndRoads.add(e.getDescription()));
+        allBusStopAndRoads.forEach(e->allBusStopAndRoadsList.add(e));
+        Collections.sort(allBusStopAndRoadsList, new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return o1.compareTo(o1);
+            }
+        });
+        return allBusStopAndRoadsList;
+    }
+
+    @Override
+    public List<BusStopDto> nearBy(String latitude, String longitude) {
+
+        Double diff = 0.003;
+        List<BusStop> busStops =
+                (List<BusStop>) busStopRepository.nearBy(latitude,longitude,diff);
+
+        Collections.sort(busStops, new Comparator<BusStop>() {
+            @Override
+            public int compare(BusStop o1, BusStop o2) {
+                double distance1 =distance(o1,latitude,longitude);
+                double distance2 =distance(o2,latitude,longitude);
+                return Double.compare(distance1,distance2);
+            }
+
+            private Double distance(BusStop b,String latitude,String longitude){
+                Double latDiff = Double.parseDouble(b.getLatitude())-Double.parseDouble(latitude);
+                Double longDiff = Double.parseDouble(b.getLongitude())-Double.parseDouble(longitude);
+                return Math.sqrt(Math.pow(latDiff,2)+Math.pow(longDiff,2));
+            }
+        });
+        List<BusStopDto> returnValue = new ArrayList<>();
+        for (BusStop busStop : busStops) {
+            BusStopDto dto = busStopMapper.toBusStopDto(busStop);
+            returnValue.add(dto);
+        }
+        return returnValue;
     }
 }
