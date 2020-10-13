@@ -119,8 +119,8 @@
             window.location.href="/busarrival/searchBusStopByDescription?description="+description;
         }
     }
-    let busArrivals = document.getElementsByClassName("busArrival");
-    Array.from(busArrivals).forEach(arrival => arrival.addEventListener('click', searchArrivalDetails));
+    let tables = document.getElementsByClassName("table");
+    Array.from(tables).forEach(table => table.addEventListener('click',searchArrivalDetails));
 
     colorETA = (time) => {
         time = parseInt(time.substring(0, time.indexOf(' ')));

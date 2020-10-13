@@ -2,6 +2,7 @@ package com.jiangwensi.busarrival.controller;
 
 import com.jiangwensi.busarrival.form.ContactForm;
 import com.jiangwensi.busarrival.service.EmailService;
+import com.jiangwensi.busarrival.service.SESService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +22,8 @@ import javax.validation.Valid;
 public class ContactController {
 
     @Autowired
-    private EmailService emailService;
+    private SESService emailService;
+//    private EmailService emailService;
 
 
     @GetMapping("contact")
@@ -44,7 +46,7 @@ public class ContactController {
         log.info(contactForm.getYourName());
         log.info(contactForm.getYourMessage());
 
-        Boolean success = emailService.emailDeveloper(contactForm.getYourEmail(),contactForm.getYourName(),
+        Boolean success = emailService.sendEmail(contactForm.getYourEmail(),contactForm.getYourName(),
                 contactForm.getYourMessage());
         model.addAttribute("contactForm",new ContactForm());
         if (success) {
