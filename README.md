@@ -1,7 +1,8 @@
 This repository contains the source codes of <b>SG Bus App</b> which is deployed in AWS EC2 and accessible from here: https://jiangwensi.com/busarrival/
 
 <b>Technologies</b>:<br/>
-*Programming Languages*: <br/>Java, Html, CSS, Java Script, MySQL<br/><br/>
+*Programming Languages*: <br/>Java, Html, CSS, JavaScript<br/><br/>
+*Database*: <br/>MySQL<br/><br/>
 *Frameworks*: <br/>Spring Boot, Spring MVC, Thymeleaf, Bootstrap<br/><br/>
 *App Server*: <br/>Tomcat<br/><br/>
 *AWS Servers*: <br/>EC2, RDS, Route 53<br/><br/>
