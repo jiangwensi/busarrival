@@ -2,7 +2,7 @@ This repository contains the source codes of <b>SG Bus App</b> which is deployed
 
 <b>Technologies</b>:<br/>
 *Programming Languages*: <br/>Java, Html, CSS, Java Script, MySQL<br/><br/>
-*Frameworks*: <br/>Spring Boot, Spring MVC, Thymeleaf<br/><br/>
+*Frameworks*: <br/>Spring Boot, Spring MVC, Thymeleaf, Bootstrap<br/><br/>
 *App Server*: <br/>Tomcat<br/><br/>
 *AWS Servers*: <br/>EC2, RDS, Route 53<br/><br/>
 
