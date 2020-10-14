@@ -21,8 +21,4 @@ public class Translator {
         return busStopService.translateBusStopCodeToName(originCode);
     }
 
-    @TranslateBusStopRoad
-    public String toBusStopRoad(String originCode) {
-        return busStopService.translateBusStopCodeToRoad(originCode);
-    }
 }
