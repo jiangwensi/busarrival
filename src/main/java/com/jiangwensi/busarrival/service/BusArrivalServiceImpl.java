@@ -3,6 +3,7 @@ package com.jiangwensi.busarrival.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jiangwensi.busarrival.domain.dto.BusArrivalDto;
+import com.jiangwensi.busarrival.domain.dto.BusServiceStopArrivalDto;
 import com.jiangwensi.busarrival.domain.entity.BusArrival;
 import com.jiangwensi.busarrival.domain.entity.BusRoute;
 import com.jiangwensi.busarrival.domain.mapper.BusArrivalMapper;
@@ -87,5 +88,11 @@ public class BusArrivalServiceImpl implements BusArrivalService {
             }
         });
         return busArrivalDtos;
+    }
+
+    @Override
+    public Map<String, List<BusServiceStopArrivalDto>> getBusArrivalsByServiceNo(String serviceNo) {
+
+        return null;
     }
 }

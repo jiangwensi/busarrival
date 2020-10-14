@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.Map;
 
@@ -51,7 +50,7 @@ public class BusServiceController {
                 e.getOriginCode(),
                 e.getDestinationCode()));
 
-        Map<String, List<BusServiceStopArrivalDto>> busRouteDirections = busServiceArrivalService.getBusServiceStopArrivalDtoWithoutArrivalDetailsByServiceNo(busNo);
+        Map<String, List<BusServiceStopArrivalDto>> busRouteDirections = busServiceArrivalService.getBusServiceStopArrivalByServiceNo(busNo);
 
         model.addAttribute("busServices",busServiceItemsDtos);
         model.addAttribute("serviceNo",busNo);

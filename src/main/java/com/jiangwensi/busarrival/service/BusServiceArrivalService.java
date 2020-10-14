@@ -9,7 +9,7 @@ import java.util.Map;
  * Created by Jiang Wensi on 12/7/2020
  */
 public interface BusServiceArrivalService {
-    Map<String, List<BusServiceStopArrivalDto>> getBusServiceStopArrivalDtoWithoutArrivalDetailsByServiceNo(String serviceNo);
+    Map<String, List<BusServiceStopArrivalDto>> getBusServiceStopArrivalByServiceNo(String serviceNo);
 
     String getBusArrivalTimeByServiceNoAndBusStopCOde(String busNo, String busStopCode);
 }

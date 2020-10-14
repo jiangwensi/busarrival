@@ -6,6 +6,7 @@ import com.jiangwensi.busarrival.domain.dto.BusArrivalDto;
 import com.jiangwensi.busarrival.domain.dto.BusRouteDto;
 import com.jiangwensi.busarrival.domain.dto.BusServiceStopArrivalDto;
 import com.jiangwensi.busarrival.domain.entity.BusArrival;
+import com.jiangwensi.busarrival.repository.BusServiceStopArrivalRepository;
 import com.jiangwensi.busarrival.response.BusArrivalResponse;
 import com.jiangwensi.busarrival.util.HttpUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +30,7 @@ public class BusServiceArrivalServiceImpl implements BusServiceArrivalService {
 
     private BusRouteService busRouteService;
     private BusStopService busStopService;
+    private BusServiceStopArrivalRepository busServiceStopArrivalRepository;
 
     @Value("${api.account.key}")
     private String apiKey;
@@ -39,31 +41,43 @@ public class BusServiceArrivalServiceImpl implements BusServiceArrivalService {
     @Value("${api.url.busarrival}")
     private String busArrivalUrl;
 
-    public BusServiceArrivalServiceImpl(BusRouteService busRouteService, BusStopService busStopService) {
+    public BusServiceArrivalServiceImpl(BusRouteService busRouteService, BusStopService busStopService, BusServiceStopArrivalRepository busServiceStopArrivalRepository) {
         this.busRouteService = busRouteService;
         this.busStopService = busStopService;
+        this.busServiceStopArrivalRepository = busServiceStopArrivalRepository;
     }
 
     @Override
-    public Map<String, List<BusServiceStopArrivalDto>> getBusServiceStopArrivalDtoWithoutArrivalDetailsByServiceNo(String serviceNo){
-        List<BusServiceStopArrivalDto> busServiceStopArrivalDtos = new ArrayList<>();
-        List<BusRouteDto> busRouteDtos = busRouteService.findByServiceNo(serviceNo);
-
-        for (BusRouteDto busRouteDto:busRouteDtos) {
-            BusServiceStopArrivalDto busServiceStopArrivalDto
-                    = prefillArrivalByBusServiceAndStop(
-                    busRouteDto.getDirection(),
-                    busRouteDto.getServiceNo(),
-                    busRouteDto.getBusStopCode());
-            if (busServiceStopArrivalDto!=null) {
-                busServiceStopArrivalDtos.add(busServiceStopArrivalDto);
-            }
-        }
+    public Map<String, List<BusServiceStopArrivalDto>> getBusServiceStopArrivalByServiceNo(String serviceNo){
+        List<BusServiceStopArrivalDto> busServiceStopArrivalDtos =
+                busServiceStopArrivalRepository.findBusServiceStopArrivalDto(serviceNo);
 
         Map<String, List<BusServiceStopArrivalDto>> collect = busServiceStopArrivalDtos.stream().collect(Collectors.groupingBy(e -> e.getDirection(), toList()));
 
         return collect;
     }
+
+
+//    @Override
+//    public Map<String, List<BusServiceStopArrivalDto>> getBusServiceStopArrivalDtoWithoutArrivalDetailsByServiceNo(String serviceNo){
+//        List<BusServiceStopArrivalDto> busServiceStopArrivalDtos = new ArrayList<>();
+//        List<BusRouteDto> busRouteDtos = busRouteService.findByServiceNo(serviceNo);
+//
+//        for (BusRouteDto busRouteDto:busRouteDtos) {
+//            BusServiceStopArrivalDto busServiceStopArrivalDto
+//                    = prefillArrivalByBusServiceAndStop(
+//                    busRouteDto.getDirection(),
+//                    busRouteDto.getServiceNo(),
+//                    busRouteDto.getBusStopCode());
+//            if (busServiceStopArrivalDto!=null) {
+//                busServiceStopArrivalDtos.add(busServiceStopArrivalDto);
+//            }
+//        }
+//
+//        Map<String, List<BusServiceStopArrivalDto>> collect = busServiceStopArrivalDtos.stream().collect(Collectors.groupingBy(e -> e.getDirection(), toList()));
+//
+//        return collect;
+//    }
 
     @Override
     public String getBusArrivalTimeByServiceNoAndBusStopCOde(String busNo, String busStopCode) {
