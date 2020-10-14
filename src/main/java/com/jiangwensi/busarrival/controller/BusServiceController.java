@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jiangwensi.busarrival.domain.dto.BusServiceItemDto;
 import com.jiangwensi.busarrival.domain.dto.BusServiceStopArrivalDto;
 import com.jiangwensi.busarrival.exception.NotFoundException;
-import com.jiangwensi.busarrival.service.BusServiceArrivalService;
+import com.jiangwensi.busarrival.service.BusArrivalService;
 import com.jiangwensi.busarrival.service.BusServiceService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -27,11 +27,11 @@ public class BusServiceController {
 
     private BusServiceService busServiceService;
 
-    private BusServiceArrivalService busServiceArrivalService;
+    private BusArrivalService busArrivalService;
 
-    public BusServiceController(BusServiceService busServiceService, BusServiceArrivalService busServiceArrivalService) {
+    public BusServiceController(BusServiceService busServiceService, BusArrivalService busArrivalService) {
         this.busServiceService = busServiceService;
-        this.busServiceArrivalService = busServiceArrivalService;
+        this.busArrivalService = busArrivalService;
     }
 
     @GetMapping("searchBusService")
@@ -50,7 +50,7 @@ public class BusServiceController {
                 e.getOriginCode(),
                 e.getDestinationCode()));
 
-        Map<String, List<BusServiceStopArrivalDto>> busRouteDirections = busServiceArrivalService.getBusServiceStopArrivalByServiceNo(busNo);
+        Map<String, List<BusServiceStopArrivalDto>> busRouteDirections = busArrivalService.getBusServiceStopArrivalByServiceNo(busNo);
 
         model.addAttribute("busServices",busServiceItemsDtos);
         model.addAttribute("serviceNo",busNo);
@@ -64,7 +64,7 @@ public class BusServiceController {
                                                @PathVariable("busStopCode") String busStopCode){
         log.info("getArrivalTime busNo:"+busNo+", busStopCode:"+busStopCode);
         String arrivalTime =
-                busServiceArrivalService.getBusArrivalTimeByServiceNoAndBusStopCOde(busNo,busStopCode);
+                busArrivalService.getBusArrivalTimeByServiceNoAndBusStopCOde(busNo,busStopCode);
         return new ResponseEntity<String>(arrivalTime, HttpStatus.OK);
     }
 

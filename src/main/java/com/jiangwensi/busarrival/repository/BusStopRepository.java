@@ -29,4 +29,10 @@ public interface BusStopRepository extends CrudRepository<BusStop,Long> {
     @Query(value = "select * from bus_stop  where latitude > :lat - :diff and latitude < :lat + :diff and " +
             "longitude>:lon-:diff and longitude < :lon + :diff",nativeQuery = true)
     Iterable<BusStop> nearBy(@Param("lat") String latitude, @Param("lon") String longitude, @Param("diff") Double diff);
+
+    @Query(value = "select distinct bsi.service_no from bus_service_item bsi " +
+            "join bus_route br on bsi.service_no = br.service_no " +
+            "join bus_stop bs on br.bus_stop_code= bs.bus_stop_code and br.bus_stop_code=:busStopCode order by bsi" +
+            ".service_no", nativeQuery = true)
+    List<String> findServiceByBusStopCode(@Param("busStopCode") String busStopCode);
 }

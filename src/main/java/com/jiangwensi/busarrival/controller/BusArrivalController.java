@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Jiang Wensi on 11/7/2020
@@ -27,12 +28,17 @@ public class BusArrivalController {
         this.busStopService = busStopService;
     }
 
+
     @GetMapping("/showBusArrival")
     public String getBusArrival(@RequestParam String busStopCode, Model model) throws JsonProcessingException {
         log.info("getBusArrival busStopCode:{}",busStopCode);
-        List<BusArrivalDto> busArrivalDtos = busArrivalService.searchBusArrival(busStopCode);
-        model.addAttribute("busStop", busStopService.translateBusStopCodeToName(busStopCode));
-        model.addAttribute("busArrivals",busArrivalDtos);
+        Map<String,List<BusArrivalDto>> busArrivalDtos = busArrivalService.searchBusArrivalForBusStop(busStopCode);
+
+        assert busArrivalDtos.size()==1;
+
+        Map.Entry<String,List<BusArrivalDto>> entry = busArrivalDtos.entrySet().iterator().next();
+        model.addAttribute("busStop", entry.getKey());
+        model.addAttribute("busArrivals",entry.getValue());
         return "showBusArrival";
     }
 }

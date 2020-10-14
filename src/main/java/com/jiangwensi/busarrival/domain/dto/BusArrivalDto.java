@@ -9,8 +9,18 @@ import lombok.Data;
 public class BusArrivalDto {
 
     private String serviceNo;
+    private String busStopName;
     private String operator;
     private NextBusDto nextBus;
     private NextBusDto nextBus2;
     private NextBusDto nextBus3;
+
+    public BusArrivalDto() {
+    }
+
+    public BusArrivalDto(String serviceNo, String busStopName, String operator) {
+        this.serviceNo = serviceNo;
+        this.busStopName = busStopName;
+        this.operator = operator;
+    }
 }

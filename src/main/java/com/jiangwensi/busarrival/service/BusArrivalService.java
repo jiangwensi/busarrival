@@ -13,7 +13,8 @@ import java.util.Map;
  */
 public interface BusArrivalService {
 
-    List<BusArrivalDto> searchBusArrival(String busStop) throws JsonProcessingException;
+    Map<String, List<BusArrivalDto>> searchBusArrivalForBusStop(String busStopCode) throws JsonProcessingException;
+    Map<String, List<BusServiceStopArrivalDto>> getBusServiceStopArrivalByServiceNo(String serviceNo);
 
-    Map<String, List<BusServiceStopArrivalDto>> getBusArrivalsByServiceNo(String serviceNo);
+    String getBusArrivalTimeByServiceNoAndBusStopCOde(String busNo, String busStopCode);
 }

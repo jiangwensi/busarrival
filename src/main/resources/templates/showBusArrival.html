@@ -35,9 +35,9 @@
         </tr>
         <tr class="tr  text-center" th:each="busArrival:${busArrivals}">
             <td class="font-weight-bold busService" th:text="${busArrival.serviceNo}"></td>
-            <td class="arrivalTime" th:text="${busArrival.nextBus.estimatedArrival}"></td>
-            <td class="arrivalTime"  th:text="${busArrival.nextBus2.estimatedArrival}"></td>
-            <td class="arrivalTime"  th:text="${busArrival.nextBus3.estimatedArrival}"></td>
+            <td class="arrivalTime" th:text="${busArrival.nextBus?.estimatedArrival}"></td>
+            <td class="arrivalTime"  th:text="${busArrival.nextBus2?.estimatedArrival}"></td>
+            <td class="arrivalTime"  th:text="${busArrival.nextBus3?.estimatedArrival}"></td>
         </tr>
     </table>
 
