@@ -78,12 +78,6 @@ public class BusStopServiceImpl implements BusStopService {
                 (List<BusStop>) busStopRepository.findByDescriptionRoadNameIgnoreCaseContaining(searchKey);
         List<BusStopDto> busStopDtos = new ArrayList<>();
         busStops.forEach(e->busStopDtos.add(busStopMapper.toBusStopDto(e)));
-        Collections.sort(busStopDtos, new Comparator<BusStopDto>() {
-            @Override
-            public int compare(BusStopDto o1, BusStopDto o2) {
-                return o1.getDescription().compareTo(o2.getDescription());
-            }
-        });
         return busStopDtos;
     }
 
@@ -102,23 +96,6 @@ public class BusStopServiceImpl implements BusStopService {
             return "";
         }
         return busStop.getRoadName();
-    }
-
-    @Override
-    public List<String> listAllBusStopAndRoads() {
-        Set<String> allBusStopAndRoads = new HashSet<>();
-        List<String> allBusStopAndRoadsList = new ArrayList<>();
-        Iterable<BusStop> allBusStops = busStopRepository.listAllBusStops();
-        allBusStops.forEach(e->allBusStopAndRoads.add(e.getRoadName()));
-        allBusStops.forEach(e->allBusStopAndRoads.add(e.getDescription()));
-        allBusStopAndRoads.forEach(e->allBusStopAndRoadsList.add(e));
-        Collections.sort(allBusStopAndRoadsList, new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                return o1.compareTo(o1);
-            }
-        });
-        return allBusStopAndRoadsList;
     }
 
     @Override

@@ -21,10 +21,6 @@ import java.util.Date;
 @Mapper(uses = Translator.class, componentModel = "spring")
 public interface NextBusMapper {
 
-    NextBusMapper INSTANCE = Mappers.getMapper(NextBusMapper.class);
-
-    NextBus toNextBus(NextBusDto busStopDto);
-
     @Mappings({
             @Mapping(source = "originCode", target = "originName", qualifiedBy = {TranslatorType.class, TranslateBusStopCode.class}),
             @Mapping(source = "destinationCode", target = "destinationName", qualifiedBy = {TranslatorType.class, TranslateBusStopCode.class}),

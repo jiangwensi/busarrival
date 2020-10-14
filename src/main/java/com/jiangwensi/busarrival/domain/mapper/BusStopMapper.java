@@ -7,9 +7,5 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface BusStopMapper {
-
-    BusStopMapper INSTANCE = Mappers.getMapper(BusStopMapper.class);
-
-    BusStop toBusStopItem(BusStopDto busStopDto);
     BusStopDto toBusStopDto(BusStop busStop);
 }

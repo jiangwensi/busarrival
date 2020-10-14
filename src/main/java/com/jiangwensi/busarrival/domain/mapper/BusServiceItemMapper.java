@@ -13,10 +13,6 @@ import org.mapstruct.factory.Mappers;
 @Mapper(uses = Translator.class, componentModel = "spring")
 public interface BusServiceItemMapper {
 
-    BusServiceItemMapper INSTANCE = Mappers.getMapper(BusServiceItemMapper.class);
-
-    BusServiceItem toBusServiceItem(BusServiceItemDto busServiceItemDto);
-
     @Mappings({
             @Mapping(source = "originCode", target = "originName",
                     qualifiedBy =

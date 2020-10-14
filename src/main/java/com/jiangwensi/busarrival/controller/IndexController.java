@@ -24,8 +24,6 @@ public class IndexController {
     public ModelAndView index(Model model){
         log.info("index()");
         ModelAndView mv = new ModelAndView("index");
-        List<String> allBusStopsAndRoads = busStopService.listAllBusStopAndRoads();
-        mv.addObject("busStopList",allBusStopsAndRoads);
         return mv;
     }
 }

@@ -2,14 +2,11 @@ package com.jiangwensi.busarrival.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jiangwensi.busarrival.domain.dto.BusRouteDto;
 import com.jiangwensi.busarrival.domain.entity.BusRoute;
-import com.jiangwensi.busarrival.domain.mapper.BusRouteMapper;
 import com.jiangwensi.busarrival.response.BusRouteResponse;
 import com.jiangwensi.busarrival.repository.BusRouteRepository;
 import com.jiangwensi.busarrival.util.HttpUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -29,9 +26,6 @@ public class BusRouteServiceImpl implements BusRouteService {
 
     @Value("${api.url.busroutes}")
     private String url;
-
-    @Autowired
-    private BusRouteMapper busRouteMapper;
 
     private BusRouteRepository busRouteRepository;
 

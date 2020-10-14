@@ -17,8 +17,5 @@ public interface BusStopService {
 
     String translateBusStopCodeToRoad(String code);
 
-    List<String> listAllBusStopAndRoads();
-
-
     List<BusStopDto> nearBy(String latitude, String longitude);
 }

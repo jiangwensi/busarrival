@@ -17,7 +17,7 @@ public interface BusStopRepository extends CrudRepository<BusStop,Long> {
 
     @Query("select b from BusStop b where " +
             "lower(b.description) like lower(concat('%',:searchKey,'%')) or " +
-            "lower(b.roadName) like lower(concat('%',:searchKey,'%'))")
+            "lower(b.roadName) like lower(concat('%',:searchKey,'%')) order by b.description")
     Iterable<BusStop> findByDescriptionRoadNameIgnoreCaseContaining(@Param("searchKey")String searchKey);
 
     Iterable<BusStop> findByDescription(String description);
