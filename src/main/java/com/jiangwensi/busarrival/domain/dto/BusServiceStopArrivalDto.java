@@ -1,9 +1,6 @@
 package com.jiangwensi.busarrival.domain.dto;
 
 import lombok.Data;
-import org.springframework.stereotype.Component;
-
-import javax.persistence.Entity;
 
 /**
  * Created by Jiang Wensi on 12/7/2020

@@ -40,15 +40,6 @@ public class BusRouteServiceImpl implements BusRouteService {
     }
 
     @Override
-    public List<BusRouteDto> listAllBusRoutes() throws JsonProcessingException {
-        log.info("listAllBusRoutes() start");
-        List<BusRoute> busRoutes = (List<BusRoute>) busRouteRepository.findAll();
-        List<BusRouteDto> dtos = new ArrayList<>();
-        busRoutes.forEach(e->dtos.add(BusRouteMapper.INSTANCE.toBusRouteDto(e)));
-        return dtos;
-    }
-
-    @Override
     public List<BusRoute> syncBusRoutes() throws JsonProcessingException {
         log.info("syncBusRoutes()");
         int size = 500;
@@ -70,48 +61,5 @@ public class BusRouteServiceImpl implements BusRouteService {
         busRouteRepository.deleteAll();
         busRouteRepository.saveAll(busRoutes);
         return busRoutes;
-    }
-
-    @Override
-    public List<BusRoute> findByBusStopCode(String busStopCode) {
-        Iterable<BusRoute> resultIterable = busRouteRepository.findByBusStopCode(busStopCode);
-        List<BusRoute> result = new ArrayList<>();
-        resultIterable.forEach(result::add);
-        return result;
-    }
-
-//    @Override
-//    public Map<String, List<BusRouteDto>> findByServiceNo(String serviceNo) {
-//        log.debug("findByServiceNo serviceNo:{}",serviceNo);
-//        Iterable<BusRoute> resultIterable = busRouteRepository.findByServiceNo(serviceNo);
-//        List<BusRouteDto> resultDto = new ArrayList<>();
-//        resultIterable.forEach(e-> resultDto.add(busRouteMapper.toBusRouteDto(e)));
-//        Map<String, List<BusRouteDto>> collect = resultDto.stream().collect(Collectors.groupingBy(e -> e.getDirection(), toList()));
-//        return collect;
-//    }
-
-    @Override
-    public List<BusRouteDto> findByServiceNo(String serviceNo) {
-        log.info("findByServiceNo serviceNo:{}",serviceNo);
-        Iterable<BusRoute> resultIterable = busRouteRepository.findByServiceNo(serviceNo);
-
-        List<BusRouteDto> resultDto = new ArrayList<>();
-        resultIterable.forEach(e->resultDto.add(busRouteMapper.toBusRouteDto(e)));
-        return resultDto;
-    }
-
-    @Override
-    public List<BusRouteDto> findByServiceNoAndMaxStopSequence(String serviceNo, Integer stopSequence) {
-        log.info("findByServiceNo serviceNo:{} stopSequence:{}",serviceNo,stopSequence);
-        if (stopSequence<0) {
-            return findByServiceNo(serviceNo);
-        } else {
-
-            Iterable<BusRoute> resultIterable = busRouteRepository.findByServiceNoAndStopSequenceLessThan(serviceNo,
-                    stopSequence);
-            List<BusRouteDto> resultDto = new ArrayList<>();
-            resultIterable.forEach(e->resultDto.add(busRouteMapper.toBusRouteDto(e)));
-            return resultDto;
-        }
     }
 }

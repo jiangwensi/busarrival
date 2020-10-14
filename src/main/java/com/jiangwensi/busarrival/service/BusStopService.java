@@ -6,7 +6,6 @@ import com.jiangwensi.busarrival.domain.dto.BusStopDto;
 import java.util.List;
 
 public interface BusStopService {
-    List<BusStopDto> listAllBusStops() throws JsonProcessingException;
 
     void syncBusStops() throws JsonProcessingException;
 

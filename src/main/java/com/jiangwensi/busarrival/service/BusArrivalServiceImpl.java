@@ -31,13 +31,7 @@ import static java.util.stream.Collectors.toList;
 @Slf4j
 public class BusArrivalServiceImpl implements BusArrivalService {
 
-    private BusRouteService busRouteService;
-    private BusStopService busStopService;
     private BusServiceStopArrivalRepository busServiceStopArrivalRepository;
-    private BusStopRepository busStopRepository;
-
-    @Autowired
-    private BusArrivalMapper busArrivalMapper;
 
     @Autowired
     private NextBusMapper nextBusMapper;
@@ -55,19 +49,13 @@ public class BusArrivalServiceImpl implements BusArrivalService {
     @Value("${api.url.busarrival}")
     private String busArrivalUrl;
 
-    public BusArrivalServiceImpl(BusRouteService busRouteService, BusStopService busStopService, BusServiceStopArrivalRepository busServiceStopArrivalRepository, BusStopRepository busStopRepository) {
-        this.busRouteService = busRouteService;
-        this.busStopService = busStopService;
+    public BusArrivalServiceImpl(BusServiceStopArrivalRepository busServiceStopArrivalRepository) {
         this.busServiceStopArrivalRepository = busServiceStopArrivalRepository;
-        this.busStopRepository = busStopRepository;
     }
-
 
     @Override
     public Map<String, List<BusArrivalDto>> searchBusArrivalForBusStop(String busStopCode) throws JsonProcessingException {
-//        List<String> busServiceNos = busStopRepository.findServiceByBusStopCode(busStopCode);
         List<BusArrivalDto> busArrivalDtos = busServiceStopArrivalRepository.searchBusArrival(busStopCode);
-//        List<BusArrivalDto> busArrivalDtos = new LinkedList<>();
 
         for (BusArrivalDto busArrivalDto : busArrivalDtos) {
             String requestURL = url+"?BusStopCode="+busStopCode+"&ServiceNo="+busArrivalDto.getServiceNo();
@@ -79,12 +67,9 @@ public class BusArrivalServiceImpl implements BusArrivalService {
             BusArrivalResponse busArrivalResponse = (BusArrivalResponse) mapper.readValue(response.getBody(),
                     BusArrivalResponse.class);
             for (BusArrival service : busArrivalResponse.getServices()) {
-//                BusArrivalDto busArrivalDto = busArrivalMapper.toBusArrivalDto(service);
-
                 busArrivalDto.setNextBus(nextBusMapper.toNextBusDto(service.getNextBus()));
                 busArrivalDto.setNextBus2(nextBusMapper.toNextBusDto(service.getNextBus2()));
                 busArrivalDto.setNextBus3(nextBusMapper.toNextBusDto(service.getNextBus3()));
-//                busArrivalDtos.add(busArrivalDto);
             }
         }
         log.info("retrieved {} busarrivals", busArrivalDtos.size());
@@ -124,46 +109,6 @@ public class BusArrivalServiceImpl implements BusArrivalService {
         return translateETA(busArrival.getNextBus().getEstimatedArrival());
     }
 
-    private BusServiceStopArrivalDto prefillArrivalByBusServiceAndStop(String direction, String serviceNo,
-                                                                       String busStopCode) {
-
-        BusServiceStopArrivalDto result = new BusServiceStopArrivalDto();
-        result.setDirection(direction);
-        result.setBusServiceNo(serviceNo);
-        result.setBusStopName(busStopService.translateBusStopCodeToName(busStopCode));
-        result.setBusStopRoad(busStopService.translateBusStopCodeToRoad(busStopCode));
-        result.setBusStopCode(busStopCode);
-        return result;
-    }
-
-    private BusServiceStopArrivalDto searchArrivalByBusServiceAndStop(String direction, String serviceNo,
-                                                                      String busStopCode) {
-        List<BusArrivalDto> busArrivalDtos = new ArrayList<>();
-        String requestURL = busArrivalUrl + "?BusStopCode=" + busStopCode + "&ServiceNo=" + serviceNo;
-        log.info("sending request to " + requestURL);
-        ResponseEntity<String> response = null;
-        BusArrivalResponse busArrivalResponse = null;
-        try {
-            response = new HttpUtils().getResponse(requestURL, apiKey);
-            ObjectMapper mapper = new ObjectMapper();
-            busArrivalResponse = (BusArrivalResponse) mapper.readValue(response.getBody(), BusArrivalResponse.class);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        if (busArrivalResponse.getServices()==null || busArrivalResponse.getServices().size()==0) {
-            return null;
-        }
-        BusArrival busArrival = busArrivalResponse.getServices().get(0);
-        BusServiceStopArrivalDto result = new BusServiceStopArrivalDto();
-        result.setDirection(direction);
-        result.setBusServiceNo(serviceNo);
-        result.setBusStopName(busStopService.translateBusStopCodeToName(busStopCode));
-        result.setBusStopRoad(busStopService.translateBusStopCodeToRoad(busStopCode));
-        result.setNextBusArrival(busArrival.getNextBus() == null ? null :
-                translateETA(busArrival.getNextBus().getEstimatedArrival()));
-        return result;
-    }
-
     private String translateETA(String eta){
         if (eta=="") {
             return "-";
@@ -180,7 +125,6 @@ public class BusArrivalServiceImpl implements BusArrivalService {
             return "-";
         }
         String min = String.valueOf(seconds / 60);
-//        String sec = String.valueOf(seconds % 60);
         return min + " min";
     }
 }

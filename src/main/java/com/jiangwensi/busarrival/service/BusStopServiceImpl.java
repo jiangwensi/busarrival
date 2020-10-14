@@ -39,15 +39,6 @@ public class BusStopServiceImpl implements BusStopService {
     }
 
     @Override
-    public List<BusStopDto> listAllBusStops() throws JsonProcessingException {
-        log.info("listAllBusStops start");
-        List<BusStop> busStops = (List<BusStop>) busStopRepository.findAll();
-        List<BusStopDto> dtos = new ArrayList<>();
-        busStops.forEach(e->dtos.add(BusStopMapper.INSTANCE.toBusStopDto(e)));
-        return dtos;
-    }
-
-    @Override
     public void syncBusStops() throws JsonProcessingException {
         log.info("syncBusStops()");
         int size = 500;
@@ -77,7 +68,6 @@ public class BusStopServiceImpl implements BusStopService {
         if(busStop==null) {
             return "";
         }
-//        return busStop.getDescription() + ", " + busStop.getRoadName();
         return busStop.getDescription();
     }
 
@@ -112,7 +102,6 @@ public class BusStopServiceImpl implements BusStopService {
             return "";
         }
         return busStop.getRoadName();
-//        return busStop.getDescription() + ", " + busStop.getRoadName();
     }
 
     @Override

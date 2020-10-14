@@ -5,8 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jiangwensi.busarrival.domain.dto.BusServiceItemDto;
 import com.jiangwensi.busarrival.domain.entity.BusServiceItem;
 import com.jiangwensi.busarrival.domain.mapper.BusServiceItemMapper;
-import com.jiangwensi.busarrival.domain.mapper.BusStopMapper;
-import com.jiangwensi.busarrival.exception.NotFoundException;
 import com.jiangwensi.busarrival.response.BusServiceItemResponse;
 import com.jiangwensi.busarrival.repository.BusServiceRepository;
 import com.jiangwensi.busarrival.util.HttpUtils;
@@ -19,7 +17,6 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Created by Jiang Wensi on 8/7/2020
@@ -40,22 +37,8 @@ public class BusServiceServiceImpl implements BusServiceService {
     @Autowired
     private BusServiceItemMapper busServiceItemMapper;
 
-    @Autowired
-    private BusStopMapper busStopMapper;
-
     public BusServiceServiceImpl(BusServiceRepository busServiceRepository) {
         this.busServiceRepository = busServiceRepository;
-    }
-
-    @Override
-    public List<BusServiceItemDto> listAllBusServices() throws JsonProcessingException {
-        log.info("listAllBusServices() start");
-        List<BusServiceItem> busServiceItems = (List<BusServiceItem>) busServiceRepository.findAll();
-        List<BusServiceItemDto> dtos = new ArrayList<>();
-        Set<String> uniqueBusServiceNo = new HashSet<>();
-        Stream<BusServiceItem> uniqueBusServices = busServiceItems.stream().filter(e -> uniqueBusServiceNo.add(e.getServiceNo()));
-        uniqueBusServices.forEach(e -> dtos.add(busServiceItemMapper.toBusServiceItemDto(e)));
-        return dtos;
     }
 
     @Override

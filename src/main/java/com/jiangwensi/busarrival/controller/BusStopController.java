@@ -5,7 +5,6 @@ import com.jiangwensi.busarrival.service.BusStopService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -23,11 +22,6 @@ public class BusStopController {
 
     public BusStopController(BusStopService busStopService) {
         this.busStopService = busStopService;
-    }
-
-    public String listServicesAtBusStop(@RequestParam String busStop, Model model) {
-        log.info("listServicesAtBusStop busStop:{}", busStop);
-        return "showBusStop";
     }
 
     @GetMapping("searchBusStopByDescriptionContaining")
@@ -53,7 +47,6 @@ public class BusStopController {
     public String showNearByBusStops( Model model, @RequestParam(required = false) String latitude,
                                       @RequestParam(required = false) String longitude,
                                       RedirectAttributes redirectAttributes) {
-//        modelMap = new ModelMap();
         List<BusStopDto> busStopDtos = busStopService.nearBy(latitude,longitude);
         if (busStopDtos == null || busStopDtos.size() == 0) {
             model.addAttribute("busStopError","Unable to find nearby bus stops");
@@ -79,6 +72,4 @@ public class BusStopController {
         redirectAttributes.addAttribute("busStopCode", busStopDto.getBusStopCode());
         return "redirect:/showBusArrival";
     }
-
-
 }
