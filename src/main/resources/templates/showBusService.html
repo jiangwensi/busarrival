@@ -116,7 +116,7 @@
     searchArrivalDetails = (event) => {
         if (event.target.classList.contains("busStop")) {
             let description = event.target.innerText;
-            window.location.href="/busarrival/searchBusStopByDescription?description="+description;
+            window.location.href="/busarrival/searchBusStopByDescription?description="+encodeURIComponent(description);
         }
     }
     let tables = document.getElementsByClassName("table");
