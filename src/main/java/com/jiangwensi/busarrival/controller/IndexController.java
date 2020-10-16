@@ -20,10 +20,10 @@ public class IndexController {
     @Autowired
     private BusStopService busStopService;
 
-    @GetMapping({"","/","/index"})
+    @GetMapping({"/","/index"})
     public ModelAndView index(Model model){
         log.info("index()");
-        ModelAndView mv = new ModelAndView("index");
+        ModelAndView mv = new ModelAndView("index.html");
         return mv;
     }
 }

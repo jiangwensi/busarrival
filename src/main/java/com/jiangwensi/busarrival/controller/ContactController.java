@@ -23,7 +23,7 @@ public class ContactController {
     private SESService emailService;
 
 
-    @GetMapping("contact")
+    @GetMapping("/contact")
     public String showContactForm(Model model){
         model.addAttribute("contactForm",new ContactForm());
         return "contact";
@@ -36,6 +36,7 @@ public class ContactController {
 
         log.info("submitContact()");
         if (bindingResult.hasErrors()) {
+            model.addAttribute("contactForm",contactForm);
             return "contact";
         }
 
