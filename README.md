@@ -12,7 +12,12 @@ This repository contains the source codes of <b>SG Bus App</b> which is deployed
 https://www.mytransport.sg/content/mytransport/home/dataMall/dynamic-data.html
 <br/><br/>
 
-<b>App Presentation</b>:<br/>
-Use Cases, Architecture, and UI
+<b>UI</b>:<br/>
+https://1drv.ms/u/s!Ajr6t8lf42dOgTEWdfsu1-7zswWK
 <br/>
-<a href="https://1drv.ms/p/s!Ajr6t8lf42dOgVmxPIyM2y19wZgL?e=K3DD3W">Click Here</a>
+<b>Use Cases</b>:<br/>
+https://1drv.ms/u/s!Ajr6t8lf42dOgVueH-5hKJzFjD85?e=AmyLEd
+<br/>
+<b>Architecture</b>:<br/>
+https://1drv.ms/u/s!Ajr6t8lf42dOgVwDpSykn1lKz2Kz?e=pZb4gS
+<br/>
