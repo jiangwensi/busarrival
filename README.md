@@ -1,6 +1,4 @@
-This repository contains the source codes of <b>SG Bus App</b> which is deployed in AWS EC2 and accessible from the below:
-<br/>
-http://54.179.228.67:8080/busarrival/
+This repository contains the source codes of <b>SG Bus App</b> which is deployed in AWS EC2 and accessible from https://jiangwensi.com/busarrival/
 
 <b>Technologies</b>:<br/>
 *Programming Languages*: <br/>Java, Html, CSS, JavaScript<br/><br/>
