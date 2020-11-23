@@ -1,4 +1,7 @@
-This repository contains the source codes of <b>SG Bus App</b> which is deployed in AWS EC2 and accessible from here: https://jiangwensi.com/busarrival/
+This repository contains the source codes of <b>SG Bus App</b> which is deployed in AWS EC2 and accessible from the below:<br/> 
+https://jiangwensi.com/busarrival/
+<br/>
+http://54.179.228.67:8080/busarrival/
 
 <b>Technologies</b>:<br/>
 *Programming Languages*: <br/>Java, Html, CSS, JavaScript<br/><br/>
@@ -12,5 +15,12 @@ This repository contains the source codes of <b>SG Bus App</b> which is deployed
 https://www.mytransport.sg/content/mytransport/home/dataMall/dynamic-data.html
 <br/><br/>
 
-<b>App Screenshots</b>:<br/> <a href="https://1drv.ms/u/s!AiOaATNP2QLSg2GfzIz9KcCOLqwP?e=TALBbq">Mobile App</a>
-<br/> <a href="https://1drv.ms/b/s!Ajr6t8lf42dOgTbxph8msUuod-8g?e=W9NidF">Web App</a>
+<b>UI</b>:<br/>
+https://1drv.ms/u/s!Ajr6t8lf42dOgTEWdfsu1-7zswWK
+<br/>
+<b>Use Cases</b>:<br/>
+https://1drv.ms/u/s!Ajr6t8lf42dOgVueH-5hKJzFjD85?e=AmyLEd
+<br/>
+<b>Architecture</b>:<br/>
+https://1drv.ms/u/s!Ajr6t8lf42dOgVwDpSykn1lKz2Kz?e=pZb4gS
+<br/>
