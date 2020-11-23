@@ -23,6 +23,6 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 @Configuration
 @EnableScheduling
 //@PropertySource(value = "file:${catalina.home}\\conf\\local.application.properties",ignoreResourceNotFound = false)
-@PropertySource(value = "file:${catalina.home}//conf//local.application.properties",ignoreResourceNotFound = false)
+//@PropertySource(value = "file:${catalina.home}//conf//local.application.properties",ignoreResourceNotFound = false)
 public class AppConfiguration {
 }
